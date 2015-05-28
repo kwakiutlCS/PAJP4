@@ -1,4 +1,4 @@
-package projecto4.grupo1.albertoricardo.ejb;
+package projecto4.grupo1.albertoricardo;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

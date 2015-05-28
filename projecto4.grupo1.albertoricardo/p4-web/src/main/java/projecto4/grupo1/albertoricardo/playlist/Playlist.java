@@ -8,7 +8,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
-import projecto4.grupo1.albertoricardo.ejb.PlaylistEJBLocal;
+import projecto4.grupo1.albertoricardo.PlaylistEJBLocal;
 
 
 

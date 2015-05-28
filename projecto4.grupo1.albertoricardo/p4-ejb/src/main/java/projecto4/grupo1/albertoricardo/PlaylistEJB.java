@@ -1,4 +1,4 @@
-package projecto4.grupo1.albertoricardo.ejb;
+package projecto4.grupo1.albertoricardo;
 
 import java.util.Date;
 import java.util.List;
