@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta charset="utf-8" />
+	<h:outputScript library="js" name="jquery-2.1.4.min.js" />
+	<h:outputScript library="js" name="bootstrap.js" />
+	<h:outputScript library="js" name="npm.js" />
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputStylesheet library="css" name="loginStyle.css" />
+	<title>Playlist</title>
+</h:head>
+<h:body>
+	<ui:composition>
+		<h:panelGroup layout="block" class="navbar navbar-inverse navbar-static-top">
+			<h:panelGroup layout="block" styleClass="container">
+				<h:form>
+					<p:menuButton value="#{userLogged.getName()}">
+						<p:menuitem value="Perfil"
+							url="/Authorized/profile.xhtml?faces-redirect=true"
+							icon="ui-icon-disk"/>
+						<p:menuitem value="Início"
+							url="/Authorized/entry.xhtml"
+							icon="ui-icon-arrowrefresh-1-w" />
+						<p:separator />
+						<p:menuitem value="Logout" action="#{userLogged.doLogout()}"
+							icon="ui-icon-extlink"/>
+					</p:menuButton>
+				</h:form>
+			</h:panelGroup>
+		</h:panelGroup>
+	</ui:composition>
+</h:body>
+</html>
