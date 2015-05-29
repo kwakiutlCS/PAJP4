@@ -16,6 +16,17 @@
 <h:body>
 	<ui:composition template="../Authorized/Layout/layout.xhtml">
 		<ui:define name="conteudo">
+			<h:form id="form">
+				<p:dataList value="#{listMusic.musics}" var="music" type="unordered"
+					itemType="none" paginator="true" rows="10" styleClass="paginated">
+					<f:facet name="header">Musicas</f:facet>
+					<h:outputText
+						value="#{music.title}, #{music.artist}, #{music.album}, #{music.dateRecord}"
+						style="display:inline-block" />
+					<h:commandButton action="#{playMusic.play(music.pathFile)}" />
+					<h:commandButton action="#{playMusic.stop()}" />
+				</p:dataList>
+			</h:form>
 		</ui:define>
 	</ui:composition>
 </h:body>
