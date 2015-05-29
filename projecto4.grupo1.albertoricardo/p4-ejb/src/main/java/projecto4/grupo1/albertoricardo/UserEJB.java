@@ -68,4 +68,12 @@ public class UserEJB implements UserEJBLocal {
 		return name;
 	}
 
+	@Override
+	public UserEntity getUserEntity(String username) {
+		Query q = em.createQuery("select u from UserEntity u where u.email like :e");
+		q.setParameter("e", username);
+		return (UserEntity) q.getSingleResult();
+		
+	}
+
 }
