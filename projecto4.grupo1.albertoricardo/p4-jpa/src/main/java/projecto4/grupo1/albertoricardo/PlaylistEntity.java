@@ -11,36 +11,30 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table (name="playlists")
 public class PlaylistEntity{
-	
+
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(nullable=false,unique=true)
 	private int id;
 	@Column(nullable=false,unique=true)
 	private String name;
+	@Temporal(TemporalType.DATE)
 	@Column(nullable=false,unique=false)
 	private Date insertDate;
-	public Date getInsertDate() {
-		return insertDate;
-	}
-
-	public void setInsertDate(Date insertDate) {
-		this.insertDate = insertDate;
-	}
-
-
 	@ManyToMany
 	List<MusicEntity>musics;
 	@ManyToOne
 	private UserEntity userOwner;
-	
-	
+
+
 	public PlaylistEntity() {
-	
+
 	}
 
 	public PlaylistEntity(int id, String name, List<MusicEntity> musics) {
@@ -78,13 +72,27 @@ public class PlaylistEntity{
 	public void setListMusic(List<MusicEntity> musics) {
 		this.musics = musics;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+	public Date getInsertDate() {
+		return insertDate;
+	}
+
+	public void setInsertDate(Date insertDate) {
+		this.insertDate = insertDate;
+	}
+
+	public UserEntity getUserOwner() {
+		return userOwner;
+	}
+
+	public void setUserOwner(UserEntity userOwner) {
+		this.userOwner = userOwner;
+	}
+
+	public void setMusics(List<MusicEntity> musics) {
+		this.musics = musics;
+	}
+
+
 }
-	

@@ -9,6 +9,8 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import projecto4.grupo1.albertoricardo.UserEntity;
+
 @Named
 @SessionScoped
 public class UserLogged implements Serializable {
@@ -20,6 +22,7 @@ public class UserLogged implements Serializable {
 	private int id;
 	private String email;
 	private String name;
+	private UserEntity user;
 
 	public UserLogged() {
 		super();
@@ -56,6 +59,14 @@ public class UserLogged implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public UserEntity getUser() {
+		return user;
+	}
+
+	public void setUser(UserEntity user) {
+		this.user = user;
 	}
 
 

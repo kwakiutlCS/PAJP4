@@ -42,6 +42,7 @@ public class UserLogin implements Serializable {
 	public String doLogin() {
 		String destiny = "";
 		if (userejb.verifyLogin(this.email, this.password)) {
+			userlog.setUser(userejb.getUserEntity(email));
 			setFacesContext();
 			userlog.setEmail(originalMail);
 			try {

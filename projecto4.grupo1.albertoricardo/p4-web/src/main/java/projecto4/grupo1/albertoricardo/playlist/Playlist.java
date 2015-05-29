@@ -6,9 +6,11 @@ import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import projecto4.grupo1.albertoricardo.PlaylistEJBLocal;
+import projecto4.grupo1.albertoricardo.user.UserLogged;
 
 
 
@@ -23,10 +25,13 @@ public class Playlist implements Serializable {
 
 	@EJB
 	private PlaylistEJBLocal playlistejb;
+	@Inject
+	private UserLogged userlogged;
 	
 	private String name;
 	private Date insertDate;
 	private int id;
+	
 	
 	public Playlist(){
 		
@@ -41,12 +46,12 @@ public class Playlist implements Serializable {
 	public String insertPlaylist(){
 		Calendar now = Calendar.getInstance();
 		insertDate = now.getTime();
-		playlistejb.addPlaylist(name, insertDate);
+		playlistejb.addPlaylist(name, insertDate, userlogged.getUser()); 
 		
 		return "createPlaylist";
 		
 	}
-	
+	 
 	public PlaylistEJBLocal getPlaylistejb() {
 		return playlistejb;
 	}

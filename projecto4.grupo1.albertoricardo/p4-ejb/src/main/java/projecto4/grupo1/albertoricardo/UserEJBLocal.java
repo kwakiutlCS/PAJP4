@@ -1,5 +1,6 @@
 package projecto4.grupo1.albertoricardo;
 
+
 import javax.ejb.Local;
 
 @Local
@@ -12,5 +13,9 @@ public interface UserEJBLocal {
 	int getUserID(String username);
 
 	String getName(String username);
+	
+	UserEntity getUserEntity(String username);
+	
+	
 
 }
