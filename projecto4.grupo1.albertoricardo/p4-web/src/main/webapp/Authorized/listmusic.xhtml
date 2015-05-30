@@ -17,15 +17,26 @@
 	<ui:composition template="../Authorized/Layout/layout.xhtml">
 		<ui:define name="conteudo">
 			<h:form id="form">
-				<p:dataList value="#{listMusic.musics}" var="music" type="unordered"
-					itemType="none" paginator="true" rows="10" styleClass="paginated">
-					<f:facet name="header">Musicas</f:facet>
-					<h:outputText
-						value="#{music.title}, #{music.artist}, #{music.album}, #{music.dateRecord}"
-						style="display:inline-block" />
-					<h:commandButton action="#{playMusic.play(music.pathFile)}" />
-					<h:commandButton action="#{playMusic.stop()}" />
-				</p:dataList>
+				<p:dataTable value="#{listMusic.musics}" var="music"
+					type="unordered" itemType="none" paginator="true" rows="10"
+					styleClass="paginated">
+					<p:column headerText="Título" sortBy="#{music.title}">
+						<h:outputText value="#{music.title}" />
+					</p:column>
+					<p:column headerText="Artista" sortBy="#{music.artist}">
+						<h:outputText value="#{music.artist}" />
+					</p:column>
+					<p:column headerText="Álbum" sortBy="#{music.album}">
+						<h:outputText value="#{music.album}" />
+					</p:column>
+					<p:column headerText="Data de Lançamento" sortBy="#{music.dateRecord}">
+						<h:outputText value="#{music.dateRecord}" />
+					</p:column>
+					<p:column headerText="Ouvir">
+						<h:commandButton action="#{playMusic.play(music.pathFile)}" />
+						<h:commandButton action="#{playMusic.stop()}" />
+					</p:column>
+				</p:dataTable>
 			</h:form>
 		</ui:define>
 	</ui:composition>

@@ -1,28 +1,27 @@
 package projecto4.grupo1.albertoricardo.music;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
 
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
+import org.primefaces.event.RowEditEvent;
 
 import projecto4.grupo1.albertoricardo.MusicUploadEJBLocal;
-import projecto4.grupo1.albertoricardo.date.DateChooser;
+import projecto4.grupo1.albertoricardo.user.UserLogged;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.Date;
 
 @Named
-@SessionScoped
+@RequestScoped
 public class MusicUploader implements Serializable {
 
 
@@ -36,9 +35,14 @@ public class MusicUploader implements Serializable {
 	private String album;
 	private Date dateReleased;
 	private String path;
+	private String result = "";
 
 	@EJB
 	private MusicUploadEJBLocal mu;
+	
+	@Inject
+	private UserLogged ulog;
+	
 
 	private Part file;
 
@@ -63,6 +67,7 @@ public class MusicUploader implements Serializable {
 			}  
 			outputStream.close();  
 			inputStream.close();
+			result = "Ficheiro enviado.";
 		} else {
 			folder.mkdir();
 			FileOutputStream outputStream = new FileOutputStream(new File(folder,fileName));
@@ -78,10 +83,12 @@ public class MusicUploader implements Serializable {
 			}  
 			outputStream.close();  
 			inputStream.close();
+			result = "Ficheiro enviado";
 		}
 		String finalPath = folder.getAbsolutePath() + "/" + fileName;
-		mu.uploadMusicDB(title, artist, album, dateReleased, finalPath);
+		mu.uploadMusicDB(title, artist, album, dateReleased, finalPath, ulog.getUser());
 	}
+
 
 	private static String getFilename(Part part) {  
 		for (String cd : part.getHeader("content-disposition").split(";")) {  
@@ -90,7 +97,7 @@ public class MusicUploader implements Serializable {
 				return filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1); // MSIE fix.  
 			}  
 		}  
-		return null;  
+		return "";  
 	}
 
 
@@ -152,6 +159,14 @@ public class MusicUploader implements Serializable {
 	public void setFile(Part file) {
 		System.out.println();
 		this.file = file;
+	}
+
+	public String getResult() {
+		return result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
 	}
 
 }

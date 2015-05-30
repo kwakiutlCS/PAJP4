@@ -105,6 +105,14 @@ public class MusicEntity {
 		this.dateRecord = dateRecord;
 	}
 
+	public UserEntity getUserOwner() {
+		return userOwner;
+	}
+
+	public void setUserOwner(UserEntity userOwner) {
+		this.userOwner = userOwner;
+	}
+
 	
  
 	

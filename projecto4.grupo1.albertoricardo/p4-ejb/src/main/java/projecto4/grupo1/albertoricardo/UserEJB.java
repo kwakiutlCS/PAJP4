@@ -48,6 +48,39 @@ public class UserEJB implements UserEJBLocal {
 		UserEntity u = new UserEntity(username, ePassword, name);
 		em.persist(u);
 	}
+	
+	@Override
+	public boolean changeUser(int id, String newName, String newPassword) {
+		boolean success = false;
+		try {
+			Query q = em.createQuery("UPDATE UserEntity u SET u.name = :n, u.password = :p WHERE id = :id")
+					.setParameter("n", newName)
+					.setParameter("p", newPassword)
+					.setParameter("id", id);
+			int up = q.executeUpdate();
+			if (up == 1) success = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return success;
+		
+	}
+	
+	@Override
+	public boolean deleteUser(int id) {
+		boolean success = false;
+		try {
+			Query q = em.createQuery("DELETE FROM UserEntity u WHERE u.id = :id")
+					.setParameter("id", id);
+			int up = q.executeUpdate();
+			if (up == 1) success = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return success;
+	}
 
 	@Override
 	public int getUserID(String username) {

@@ -3,10 +3,9 @@ package projecto4.grupo1.albertoricardo;
 import java.util.Date;
 
 import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import projecto4.grupo1.albertoricardo.MusicEntity;
 
@@ -18,6 +17,8 @@ public class MusicUploadEJB implements MusicUploadEJBLocal {
 	
     @PersistenceContext(name="Playlist")
     private EntityManager em;
+    
+
 
  
 //    The method merge creates or updates an entity,  
@@ -27,7 +28,7 @@ public class MusicUploadEJB implements MusicUploadEJBLocal {
     
   
 	@Override
-	public void uploadMusicDB(String title, String artist, String album, Date dateReleased, String path) {
+	public void uploadMusicDB(String title, String artist, String album, Date dateReleased, String path, UserEntity ue) {
 		System.out.println("Entrou no EJB");
 		MusicEntity me = new MusicEntity();
 		me.setTitle(title);
@@ -35,6 +36,7 @@ public class MusicUploadEJB implements MusicUploadEJBLocal {
 		me.setAlbum(album);
 		me.setDateRecord(dateReleased);
 		me.setPathFile(path);
+		me.setUserOwner(ue);
 		
 		em.persist(me);
 		System.out.println("Fez persist!");

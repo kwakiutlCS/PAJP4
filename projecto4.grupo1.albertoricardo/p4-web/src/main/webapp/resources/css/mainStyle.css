@@ -1,22 +1,87 @@
 .btn-file {
-  position: relative;
-  overflow: hidden;
+	position: relative;
+	overflow: hidden;
 }
+
 .btn-file input[type=file] {
-  position: absolute;
-  top: 0;
-  right: 0;
-  min-width: 100%;
-  min-height: 100%;
-  font-size: 100px;
-  text-align: right;
-  filter: alpha(opacity=0);
-  opacity: 0;
-  background: red;
-  cursor: inherit;
-  display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	min-width: 100%;
+	min-height: 100%;
+	font-size: 100px;
+	text-align: right;
+	filter: alpha(opacity = 0);
+	opacity: 0;
+	background: red;
+	cursor: inherit;
+	display: block;
 }
+
 input[readonly] {
-  background-color: white !important;
-  cursor: text !important;
+	background-color: white !important;
+	cursor: text !important;
+}
+
+.btn-dlt {
+	background-color: firebrick;
+	color: #282828;
+	border-color: #5e0005;
+}
+
+@media (min-width: 768px) {
+  .navbar-navz {
+    width: 100%;
+    text-align: center;
+  }
+  .navbar-navz > li {
+    float: none;
+    display: inline-block;
+  }
+  .navbar-navz > li.navbar-right {
+    float: right !important;
+  }
+}
+
+.center-email {
+	text-align:right;
+}
+
+.formnavbar {
+	margin-top:10px;
+}
+
+.reqfield {
+	color: firebrick;
+	font-weight: 800;
+}
+
+.showfilepath {
+  height: auto;
+  padding: 10px 16px;
+  font-size: 12px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+}
+
+.datebtn {
+	width: 100%;
+	text-align: center;
+}
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
 }

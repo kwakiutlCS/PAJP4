@@ -1,6 +1,7 @@
 package projecto4.grupo1.albertoricardo;
 
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -13,5 +14,10 @@ import projecto4.grupo1.albertoricardo.MusicEntity;
 public interface MusicListEJBLocal {
 
 	List<MusicEntity> listMusics();
+
+	List<MusicEntity> listOwnMusics(UserEntity user);
+
+	boolean update(String newTitle, String newArtist, String newAlbum,
+			Date newDate, int id);
 	
 }

@@ -21,9 +21,9 @@
 					<h3 class="form-signin-heading">Bem-vind@! Faz login!</h3>
 					<hr class="colorgraph" />
 					<br />
-					E-mail: <h:inputText styleClass="form-control"
+					E-mail: <span class="reqfield">*</span> <h:inputText styleClass="form-control"
 						value="#{userLogin.email}" required="true" />
-					Password: <h:inputSecret styleClass="form-control"
+					Password: <span class="reqfield">*</span> <h:inputSecret styleClass="form-control"
 						value="#{userLogin.password}" required="true" />
 					<h:commandButton action="#{userLogin.doLogin}" value="Entrar"
 						styleClass="btn btn-lg btn-primary btn-block" />
@@ -38,16 +38,16 @@
 					<h3 class="form-signin-heading">Bem-vind@! Faz o teu registo!</h3>
 					<hr class="colorgraph" />
 					<br />
-				Nome: <h:inputText styleClass="form-control"
-						value="#{userRegister.name}" />
-				E-mail: <h:inputText styleClass="form-control"
-						value="#{userRegister.email}" />
-				Conf. E-mail: <h:inputText styleClass="form-control"
-						value="#{userRegister.emailConfirm}" />
-				Password: <h:inputSecret id="password" styleClass="form-control"
-						value="#{userRegister.password}" />
-				Conf. Password: <h:inputSecret id="confirmPassword"
-						styleClass="form-control" value="#{userRegister.passwordConfirm}" />
+				Nome: <span class="reqfield">*</span> <h:inputText styleClass="form-control"
+						value="#{userRegister.name}" required="true"/>
+				E-mail: <span class="reqfield">*</span> <h:inputText styleClass="form-control"
+						value="#{userRegister.email}" required="true"/>
+				Conf. E-mail: <span class="reqfield">*</span> <h:inputText styleClass="form-control"
+						value="#{userRegister.emailConfirm}" required="true"/>
+				Password: <span class="reqfield">*</span> <h:inputSecret id="password" styleClass="form-control"
+						value="#{userRegister.password}" required="true"/>
+				Conf. Password: <span class="reqfield">*</span> <h:inputSecret id="confirmPassword"
+						styleClass="form-control" value="#{userRegister.passwordConfirm}" required="true"/>
 					<h:commandButton action="#{userRegister.addNewUser()}"
 						value="Registar" styleClass="btn btn-lg btn-primary btn-block">
 					</h:commandButton>

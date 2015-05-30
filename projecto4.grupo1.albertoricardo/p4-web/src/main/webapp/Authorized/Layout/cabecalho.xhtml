@@ -17,28 +17,38 @@
 </h:head>
 <h:body>
 	<ui:composition>
-		<h:panelGroup layout="block"
-			class="navbar navbar-inverse navbar-static-top">
-			<h:panelGroup layout="block" styleClass="container">
-				<h:form>
-					<p:menuButton value="#{userLogged.getName()}">
-						<p:menuitem value="Perfil"
-							url="/Authorized/profile.xhtml?faces-redirect=true"
-							icon="ui-icon-disk" />
-						<p:menuitem value="Início" url="/Authorized/entry.xhtml"
-							icon="ui-icon-arrowrefresh-1-w" />
-						<p:separator />
-						<p:menuitem value="Inserir Musica" url="/Authorized/upmusic.xhtml"
-							icon="ui-icon-arrowrefresh-1-w" />
-						<p:menuitem value="Listar Musicas" url="/Authorized/listmusic.xhtml"
-							icon="ui-icon-arrowrefresh-1-w" />
-						<p:separator />
-						<p:menuitem value="Logout" action="#{userLogged.doLogout()}"
-							icon="ui-icon-extlink" />
-					</p:menuButton>
-				</h:form>
-			</h:panelGroup>
-		</h:panelGroup>
+		<nav class="navbar navbar-inverse" role="navigation">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-navz">
+					<li class="center-email"><h:form prependId="false"
+							class="formnavbar">
+							<p:menuButton value="#{userLogged.getName()}">
+								<p:menuitem value="Perfil"
+									url="/Authorized/profile.xhtml?faces-redirect=true"
+									icon="ui-icon-disk" />
+								<p:menuitem value="Início" url="/Authorized/entry.xhtml"
+									icon="ui-icon-arrowrefresh-1-w" />
+								<p:separator />
+								<p:menuitem value="Inserir Musica"
+									url="/Authorized/uploadmusic.xhtml" icon="ui-icon-arrowrefresh-1-w" />
+								<p:menuitem value="As Minhas Musicas"
+									url="/Authorized/ownmusic.xhtml"
+									icon="ui-icon-arrowrefresh-1-w" />
+								<p:separator />
+								<p:menuitem value="Logout" action="#{userLogged.doLogout()}"
+									icon="ui-icon-extlink" />
+							</p:menuButton>
+						</h:form></li>
+				</ul>
+			</div>
+		</nav>
 	</ui:composition>
 </h:body>
 </html>
