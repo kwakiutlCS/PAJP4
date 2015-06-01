@@ -9,11 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-<<<<<<< .merge_file_a06212
-=======
 
 import projecto4.grupo1.albertoricardo.PlaylistEntity;
->>>>>>> .merge_file_a07828
 
 
 
@@ -49,15 +46,9 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 		pl.setInsertDate(insertDate);
 		pl.setUserOwner(userlogged);
 		em.persist(pl);
-	}    
-
+	} 
+	
 	@SuppressWarnings("unchecked")
-<<<<<<< .merge_file_a06212
-	public List<PlaylistEntity> getPlaylists() {        
-		return em.createQuery("From Playlists").getResultList();
-	}
-
-=======
 	@Override
 	public List<PlaylistEntity> getPlaylists() { 
 		List<PlaylistEntity> pe = new ArrayList<>();
@@ -83,8 +74,6 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 		}
 		return pe;
 	}
-	
->>>>>>> .merge_file_a07828
 	@Override
 	public boolean findName(String name){
 		boolean found=false;
