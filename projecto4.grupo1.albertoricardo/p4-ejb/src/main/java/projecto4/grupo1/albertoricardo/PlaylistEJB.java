@@ -5,9 +5,9 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-
-import projecto4.grupo1.albertoricardo.PlaylistEntity;
+import javax.persistence.Query;
 
 
 
@@ -36,25 +36,33 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 	public PlaylistEntity find(Object id) {
 		return em.find(projecto4.grupo1.albertoricardo.PlaylistEntity.class, id);
 	}
-	
-	@Override
-	public void addPlaylist(String name, Date insertDate) {
+
+	public void addPlaylist(String name, Date insertDate, UserEntity userlogged) {
 		PlaylistEntity pl = new PlaylistEntity();
 		pl.setName(name);
-		pl.setInsertDate(insertDate);;
+		pl.setInsertDate(insertDate);
+		pl.setUserOwner(userlogged);
 		em.persist(pl);
 	}    
 
-	@Override
+	@SuppressWarnings("unchecked")
 	public List<PlaylistEntity> getPlaylists() {        
 		return em.createQuery("From Playlists").getResultList();
 	}
-	@Override
-	public void addPlaylist(String name, Date insertDate, UserEntity userlogged) {
-		// TODO Auto-generated method stub
-		
-	}
 
+	@Override
+	public boolean findName(String name){
+		boolean found=false;
+		try {
+			Query q = em.createQuery("select u from PlaylistEntity u where u.name like :e")
+					.setParameter("e", name);
+			if(q.getSingleResult()!=null)
+			  found=true;
+		} catch (NoResultException nre) {
+			found = false;
+		}
+		return found;
+	}
 
 
 }

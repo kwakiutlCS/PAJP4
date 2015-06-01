@@ -2,7 +2,6 @@ package projecto4.grupo1.albertoricardo;
 
 
 import java.util.Date;
-import java.util.List;
 
 import javax.ejb.Local;
 
@@ -17,8 +16,7 @@ public interface PlaylistEJBLocal {
     void remove(PlaylistEntity playlist);
     PlaylistEntity find(Object id);
     void addPlaylist(String name, Date insertDate, UserEntity userlogged);
-    List<PlaylistEntity> getPlaylists();
-	void addPlaylist(String name, Date insertDate);
+    boolean findName(String name);
     
     
 }

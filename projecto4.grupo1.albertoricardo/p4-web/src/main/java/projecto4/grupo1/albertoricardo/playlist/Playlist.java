@@ -9,6 +9,9 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import projecto4.grupo1.albertoricardo.PlaylistEJBLocal;
 import projecto4.grupo1.albertoricardo.user.UserLogged;
 
@@ -22,11 +25,14 @@ public class Playlist implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private static final Logger log = LoggerFactory.getLogger(Playlist.class);
 
 	@EJB
 	private PlaylistEJBLocal playlistejb;
 	@Inject
 	private UserLogged userlogged;
+	
 	
 	private String name;
 	private Date insertDate;
@@ -44,13 +50,16 @@ public class Playlist implements Serializable {
 	
 	
 	public String insertPlaylist(){
+		if(playlistejb.findName(name)==false){
 		Calendar now = Calendar.getInstance();
 		insertDate = now.getTime();
 		playlistejb.addPlaylist(name, insertDate, userlogged.getUser()); 
+		}
 		
 		return "createPlaylist";
 		
 	}
+
 	 
 	public PlaylistEJBLocal getPlaylistejb() {
 		return playlistejb;
