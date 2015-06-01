@@ -29,18 +29,19 @@
 				<ul class="nav navbar-navz">
 					<li class="center-email"><h:form prependId="false"
 							class="formnavbar">
-							<p:menuButton value="#{userLogged.getName()}">
+							<p:menuButton value="#{userLogged.user.name}">
 								<p:menuitem value="Perfil"
 									url="/Authorized/profile.xhtml?faces-redirect=true"
-									icon="ui-icon-disk" />
+									icon="fa-user" />
 								<p:menuitem value="Início" url="/Authorized/entry.xhtml"
-									icon="ui-icon-arrowrefresh-1-w" />
+									icon="fa-home" />
 								<p:separator />
 								<p:menuitem value="Inserir Musica"
-									url="/Authorized/uploadmusic.xhtml" icon="ui-icon-arrowrefresh-1-w" />
+									url="/Authorized/uploadmusic.xhtml" icon="fa-upload" />
 								<p:menuitem value="As Minhas Musicas"
-									url="/Authorized/ownmusic.xhtml"
-									icon="ui-icon-arrowrefresh-1-w" />
+									url="/Authorized/ownmusic.xhtml" icon="fa-music" />
+								<p:menuitem value="As Minhas Playlists"
+									url="/Authorized/ownplaylists.xhtml" icon="fa-list" />
 								<p:separator />
 								<p:menuitem value="Logout" action="#{userLogged.doLogout()}"
 									icon="ui-icon-extlink" />

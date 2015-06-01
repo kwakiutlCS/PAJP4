@@ -16,62 +16,67 @@
 <h:body>
 	<ui:composition template="../Authorized/Layout/layout.xhtml">
 		<ui:define name="conteudo">
-			<h:form id="form">
-				<p:growl id="msgs" showDetail="true" />
-				<p:dataTable value="#{listMusic.getOwnMusic()}" var="music"
-					type="unordered" itemType="none" paginator="true" rows="10"
-					styleClass="paginated" editable="true">
-					<p:ajax event="rowEdit" listener="#{listMusic.onRowEdit}"
-						update=":form:msgs" />
-					<p:ajax event="rowEditCancel"
-						listener="#{listMusic.onRowCancel}" update=":form:msgs" />
-					<p:column headerText="Título" sortBy="#{music.title}">
-						<p:cellEditor>
-							<f:facet name="output">
-								<h:outputText value="#{music.title}" />
-							</f:facet>
-							<f:facet name="input">
-								<p:inputText value="#{music.title}" />
-							</f:facet>
-						</p:cellEditor>
-					</p:column>
-					<p:column headerText="Artista" sortBy="#{music.artist}">
-						<p:cellEditor>
-							<f:facet name="output">
-								<h:outputText value="#{music.artist}" />
-							</f:facet>
-							<f:facet name="input">
-								<p:inputText value="#{music.artist}" />
-							</f:facet>
-						</p:cellEditor>
-					</p:column>
-					<p:column headerText="Álbum" sortBy="#{music.album}">
-						<p:cellEditor>
-							<f:facet name="output">
-								<h:outputText value="#{music.album}" />
-							</f:facet>
-							<f:facet name="input">
-								<p:inputText value="#{music.album}" />
-							</f:facet>
-						</p:cellEditor>
-					</p:column>
-					<p:column headerText="Data de Lançamento"
-						sortBy="#{music.dateRecord}">
-						<p:cellEditor>
-							<f:facet name="output">
-								<h:outputText value="#{music.dateRecord}" />
-							</f:facet>
-							<f:facet name="input">
-								<p:calendar id="date" value="#{music.dateRecord}"
-									readonlyInput="true" />
-							</f:facet>
-						</p:cellEditor>
-					</p:column>
-					<p:column headerText="Editar" style="width:50px">
-						<p:rowEditor />
-					</p:column>
-				</p:dataTable>
-			</h:form>
+			<h:panelGroup layout="block" styleClass="container">
+				<h:panelGroup id="wrapper" layout="block" styleClass="wrapper">
+					<h:form id="form">
+						<p:growl id="msgs" showDetail="true" />
+						<p:dataTable value="#{listMusic.getOwnMusic()}" var="music"
+							type="unordered" itemType="none" paginator="true" rows="10"
+							styleClass="paginated" editable="true"
+							emptyMessage="Nenhuma música encontrada.">
+							<p:ajax event="rowEdit" listener="#{listMusic.onRowEdit}"
+								update=":form:msgs" />
+							<p:ajax event="rowEditCancel" listener="#{listMusic.onRowCancel}"
+								update=":form:msgs" />
+							<p:column headerText="Título" sortBy="#{music.title}">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{music.title}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{music.title}" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Artista" sortBy="#{music.artist}">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{music.artist}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{music.artist}" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Álbum" sortBy="#{music.album}">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{music.album}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{music.album}" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data de Lançamento"
+								sortBy="#{music.dateRecord}">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{music.dateRecord}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar id="date" value="#{music.dateRecord}"
+											readonlyInput="true" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Editar" style="width:50px">
+								<p:rowEditor />
+							</p:column>
+						</p:dataTable>
+					</h:form>
+				</h:panelGroup>
+			</h:panelGroup>
 		</ui:define>
 	</ui:composition>
 </h:body>

@@ -6,10 +6,15 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta charset="utf-8" />
-	<h:outputScript library="js" name="jquery-2.1.4.min.js" />
+	<h:outputScript library="primefaces" name="jquery/jquery.js" />
 	<h:outputScript library="js" name="bootstrap.js" />
+	<h:outputScript library="js" name="metro.js" />
 	<h:outputScript library="js" name="npm.js" />
+	<h:outputScript library="js" name="inputFilePath.js" />
+	<h:outputStylesheet library="css" name="mainStyle.css" />
 	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputStylesheet library="css" name="metro.css" />	
+	<h:outputStylesheet library="css" name="metro-icons.css" />
 	<h:outputStylesheet library="css" name="loginStyle.css" />
 	<title>Playlist</title>
 </h:head>
@@ -33,7 +38,7 @@
 								value="#{musicUploader.album}" required="true" />	
 				Data: <span class="reqfield">*</span>
 							<p:calendar id="date" styleClass="form-control datebtn"
-								value="#{musicUploader.dateReleased}" required="true" readonlyInput="true"/>
+								value="#{musicUploader.dateReleased}"/>
 							<h:inputFile id="file"
 								styleClass="btn btn-lg btn-primary btn-primary btn-block btn-file file"
 								value="#{musicUploader.file}" />

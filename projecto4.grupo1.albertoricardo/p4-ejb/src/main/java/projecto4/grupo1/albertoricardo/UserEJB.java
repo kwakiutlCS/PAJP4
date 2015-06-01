@@ -1,5 +1,6 @@
 package projecto4.grupo1.albertoricardo;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -15,6 +16,9 @@ import projecto4.grupo1.albertoricardo.security.PasswordEncryptor;
 public class UserEJB implements UserEJBLocal {
 	@PersistenceContext(name="Playlist")
 	EntityManager em;
+	
+	@EJB
+	private UserCRUD crud;
 
 	/**
 	 * Default constructor. 
@@ -46,19 +50,15 @@ public class UserEJB implements UserEJBLocal {
 		PasswordEncryptor pe = new PasswordEncryptor();
 		String ePassword = pe.encrypt(password);
 		UserEntity u = new UserEntity(username, ePassword, name);
-		em.persist(u);
+		crud.create(u);
 	}
 	
 	@Override
-	public boolean changeUser(int id, String newName, String newPassword) {
+	public boolean changeUser(UserEntity user) {
 		boolean success = false;
 		try {
-			Query q = em.createQuery("UPDATE UserEntity u SET u.name = :n, u.password = :p WHERE id = :id")
-					.setParameter("n", newName)
-					.setParameter("p", newPassword)
-					.setParameter("id", id);
-			int up = q.executeUpdate();
-			if (up == 1) success = true;
+			crud.update(user);
+			success = true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -68,13 +68,11 @@ public class UserEJB implements UserEJBLocal {
 	}
 	
 	@Override
-	public boolean deleteUser(int id) {
+	public boolean deleteUser(UserEntity user) {
 		boolean success = false;
 		try {
-			Query q = em.createQuery("DELETE FROM UserEntity u WHERE u.id = :id")
-					.setParameter("id", id);
-			int up = q.executeUpdate();
-			if (up == 1) success = true;
+			crud.remove(user);
+			success = true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

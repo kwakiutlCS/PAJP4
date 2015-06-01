@@ -8,9 +8,11 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import projecto4.grupo1.albertoricardo.UserEJBLocal;
 
@@ -22,6 +24,8 @@ public class UserLogin implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private static final Logger log = LoggerFactory.getLogger(UserLogin.class);
 
 	@EJB
 	private UserEJBLocal userejb;
@@ -35,22 +39,15 @@ public class UserLogin implements Serializable {
 
 	private int id;
 	private String email;
-	private String originalMail;
 	private String password;
 	private String result = "";
 
 	public String doLogin() {
+		log.debug("Entrou no login!");
 		String destiny = "";
 		if (userejb.verifyLogin(this.email, this.password)) {
 			userlog.setUser(userejb.getUserEntity(email));
 			setFacesContext();
-			userlog.setEmail(originalMail);
-			try {
-				userlog.setName(userejb.getName(email));
-				userlog.setId(userejb.getUserID(email));
-			} catch (NoResultException nre) {
-				// Sem resultados
-			}
 			destiny="/Authorized/entry.xhtml?faces-redirect=true";
 			result = "Login válido";
 		} else { 

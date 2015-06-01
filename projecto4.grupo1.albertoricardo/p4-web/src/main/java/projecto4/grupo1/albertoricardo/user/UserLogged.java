@@ -4,11 +4,13 @@ import java.io.Serializable;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import projecto4.grupo1.albertoricardo.UserEJBLocal;
 import projecto4.grupo1.albertoricardo.UserEntity;
 import projecto4.grupo1.albertoricardo.security.PasswordEncryptor;
@@ -25,9 +27,6 @@ public class UserLogged implements Serializable {
 	@EJB
 	private UserEJBLocal userejb;
 	
-	private int id;
-	private String email;
-	private String name;
 	private UserEntity user;
 	private String newName;
 	private String newPassword;
@@ -49,12 +48,20 @@ public class UserLogged implements Serializable {
 	public boolean changeSettings() {
 		boolean success = false;
 		try {
-			success = userejb.changeUser(id, newName, newPassword);
+			if (newName != null && newName != user.getName()) user.setName(newName);
+			if (newPassword != null && newPassword != user.getPassword()) user.setPassword(newPassword);
+			success = userejb.changeUser(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if (success) result = "Alterações efectuadas com successo.";
-		else result = "Erro nas alterações.";
+		if (success) {
+			FacesMessage msg = new FacesMessage("Estado","Alterações efectuadas com sucesso.");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+		else {
+			FacesMessage msg = new FacesMessage("Estado","Erro nas alterações.");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
 		return success;
 	}
 	
@@ -62,9 +69,9 @@ public class UserLogged implements Serializable {
 		String statement = "";
 		boolean success = false;
 		try {
-			success = userejb.deleteUser(id);
+			success = userejb.deleteUser(user);
 		} catch (Exception e) {
-			
+			e.printStackTrace();
 		}
 		
 		if (success) {
@@ -85,30 +92,6 @@ public class UserLogged implements Serializable {
 		session.removeAttribute("logged");
 		session.invalidate();
 		return "/login.xhtml?faces-redirect=true";
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public UserEntity getUser() {

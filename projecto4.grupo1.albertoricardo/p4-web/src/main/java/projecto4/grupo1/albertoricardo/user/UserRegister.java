@@ -7,6 +7,9 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import projecto4.grupo1.albertoricardo.UserEJBLocal;
 
 @Named
@@ -18,6 +21,8 @@ public class UserRegister implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private static Logger log = LoggerFactory.getLogger(UserRegister.class);
+	
 	@EJB
 	private UserEJBLocal userejb;
 	
@@ -42,6 +47,7 @@ public class UserRegister implements Serializable {
 		String destiny = "login";
 		if (passwordConfirm.equals(password) && emailConfirm.equals(email)) {
 			try {
+				log.info("Novo utilizador registado: "+name+" ("+email+")");
 				userejb.registerUser(email, password, name);
 				result = "Utilizador '"+emailConfirm+"' criado com sucesso!";
 				lc.toggle();
