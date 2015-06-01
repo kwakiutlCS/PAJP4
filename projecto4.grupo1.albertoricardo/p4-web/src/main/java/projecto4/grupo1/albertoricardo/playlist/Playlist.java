@@ -3,6 +3,7 @@ package projecto4.grupo1.albertoricardo.playlist;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -13,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import projecto4.grupo1.albertoricardo.PlaylistEJBLocal;
+import projecto4.grupo1.albertoricardo.PlaylistEntity;
 import projecto4.grupo1.albertoricardo.user.UserLogged;
 
 
@@ -27,6 +29,7 @@ public class Playlist implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private static final Logger log = LoggerFactory.getLogger(Playlist.class);
+	
 
 	@EJB
 	private PlaylistEJBLocal playlistejb;
@@ -49,12 +52,29 @@ public class Playlist implements Serializable {
 	}
 	
 	
+	
+	
+	
+	public boolean verifyPlaylistName(){
+		boolean found=false;
+		List<PlaylistEntity> pl = playlistejb.getOwnPlaylists(userlogged.getUser().getId());
+		for(PlaylistEntity p: pl)
+		 if(p.getName().equalsIgnoreCase(name))
+			 found=true;
+		
+		return found;
+	}
+			 
+		
 	public String insertPlaylist(){
-		if(playlistejb.findName(name)==false){
+		if(verifyPlaylistName()==false){
 		Calendar now = Calendar.getInstance();
 		insertDate = now.getTime();
-		playlistejb.addPlaylist(name, insertDate, userlogged.getUser()); 
+		playlistejb.addPlaylist(name, insertDate, userlogged.getUser());
+		log.info("inseriu");
 		}
+		else 
+			log.info("nome duplicado");
 		
 		return "createPlaylist";
 		
