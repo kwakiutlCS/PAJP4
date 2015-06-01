@@ -16,9 +16,9 @@ public interface UserEJBLocal {
 	
 	UserEntity getUserEntity(String username);
 
-	boolean changeUser(int id, String newName, String newPassword);
+	boolean changeUser(UserEntity user);
 
-	boolean deleteUser(int id);
+	boolean deleteUser(UserEntity user);
 	
 	
 

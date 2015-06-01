@@ -19,6 +19,7 @@ public interface PlaylistEJBLocal {
     void addPlaylist(String name, Date insertDate, UserEntity userlogged);
     List<PlaylistEntity> getPlaylists();
 	void addPlaylist(String name, Date insertDate);
+	List<PlaylistEntity> getOwnPlaylists(int id);
     
     
 }

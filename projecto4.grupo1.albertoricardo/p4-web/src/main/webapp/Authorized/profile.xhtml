@@ -20,13 +20,15 @@
 			<h:panelGroup layout="block" styleClass="container">
 				<h:panelGroup layout="block" styleClass="wrapper">
 					<h:form styleClass="form-signin">
+						<p:growl id="msgs" showDetail="true" autoUpdate="true" />
 						<h:panelGroup id="changeProfile">
 							<hr class="colorgraph" />
 							<h:inputText styleClass="form-control"
 								value="#{userLogged.showEmail()}" disabled="true" />
 				Nome: <span class="reqfield">*</span>
 							<h:inputText id="newname" styleClass="form-control"
-								value="#{userLogged.newName}" required="true" />
+								value="#{userLogged.newName}" required="true"
+								label="#{userLogged.user.name}" />
 				Password: <span class="reqfield">*</span>
 							<h:inputSecret id="newpassword" styleClass="form-control"
 								value="#{userLogged.newPassword}" required="true" />
@@ -34,12 +36,13 @@
 								value="Guardar" styleClass="btn btn-lg btn-primary btn-block">
 								<f:ajax execute="newname newpassword" render="@form" />
 							</h:commandButton>
-							<h:commandButton onclick="return confirm('Tem a certeza?')"
-								action="#{userLogged.deleteAcc()}" value="Apagar conta"
-								styleClass="btn btn-lg btn-dlt btn-block" />
-							<hr class="colorgraph" />
-							<h:outputText value="#{userLogged.result}" />
 						</h:panelGroup>
+					</h:form>
+					<h:form styleClass="form-signin">
+						<h:commandButton onclick="return confirm('Tem a certeza?')"
+							action="#{userLogged.deleteAcc()}" value="Apagar conta"
+							styleClass="btn btn-lg btn-dlt btn-block" />
+						<h:outputText value="#{userLogged.result}" />
 					</h:form>
 				</h:panelGroup>
 			</h:panelGroup>

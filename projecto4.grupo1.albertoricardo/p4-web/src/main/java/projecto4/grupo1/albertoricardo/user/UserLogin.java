@@ -8,7 +8,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -35,7 +34,6 @@ public class UserLogin implements Serializable {
 
 	private int id;
 	private String email;
-	private String originalMail;
 	private String password;
 	private String result = "";
 
@@ -44,13 +42,6 @@ public class UserLogin implements Serializable {
 		if (userejb.verifyLogin(this.email, this.password)) {
 			userlog.setUser(userejb.getUserEntity(email));
 			setFacesContext();
-			userlog.setEmail(originalMail);
-			try {
-				userlog.setName(userejb.getName(email));
-				userlog.setId(userejb.getUserID(email));
-			} catch (NoResultException nre) {
-				// Sem resultados
-			}
 			destiny="/Authorized/entry.xhtml?faces-redirect=true";
 			result = "Login válido";
 		} else { 

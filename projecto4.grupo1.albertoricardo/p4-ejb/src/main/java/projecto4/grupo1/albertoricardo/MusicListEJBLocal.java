@@ -17,7 +17,6 @@ public interface MusicListEJBLocal {
 
 	List<MusicEntity> listOwnMusics(UserEntity user);
 
-	boolean update(String newTitle, String newArtist, String newAlbum,
-			Date newDate, int id);
+	boolean update(MusicEntity music);
 	
 }

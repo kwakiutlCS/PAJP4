@@ -1,11 +1,13 @@
 package projecto4.grupo1.albertoricardo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import projecto4.grupo1.albertoricardo.PlaylistEntity;
 
@@ -34,7 +36,7 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 	}
 	@Override
 	public PlaylistEntity find(Object id) {
-		return em.find(projecto4.grupo1.albertoricardo.PlaylistEntity.class, id);
+		return em.find(PlaylistEntity.class, id);
 	}
 	
 	@Override
@@ -45,10 +47,33 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 		em.persist(pl);
 	}    
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<PlaylistEntity> getPlaylists() {        
-		return em.createQuery("From Playlists").getResultList();
+	public List<PlaylistEntity> getPlaylists() { 
+		List<PlaylistEntity> pe = new ArrayList<>();
+		try {
+			Query q = em.createQuery("SELECT p FROM PlaylistEntity p");
+			pe = (ArrayList<PlaylistEntity>) q.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return pe;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PlaylistEntity> getOwnPlaylists(int id) { 
+		List<PlaylistEntity> pe = new ArrayList<>();
+		try {
+			Query q = em.createQuery("SELECT p FROM PlaylistEntity p WHERE p.userOwner.id = :id")
+					.setParameter("id", id);
+			pe = (ArrayList<PlaylistEntity>) q.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return pe;
+	}
+	
 	@Override
 	public void addPlaylist(String name, Date insertDate, UserEntity userlogged) {
 		// TODO Auto-generated method stub

@@ -16,28 +16,62 @@
 <h:body>
 	<ui:composition template="../Authorized/Layout/layout.xhtml">
 		<ui:define name="conteudo">
-			<h:form id="form">
-				<p:dataTable value="#{listMusic.musics}" var="music"
-					type="unordered" itemType="none" paginator="true" rows="10"
-					styleClass="paginated">
-					<p:column headerText="Título" sortBy="#{music.title}">
-						<h:outputText value="#{music.title}" />
-					</p:column>
-					<p:column headerText="Artista" sortBy="#{music.artist}">
-						<h:outputText value="#{music.artist}" />
-					</p:column>
-					<p:column headerText="Álbum" sortBy="#{music.album}">
-						<h:outputText value="#{music.album}" />
-					</p:column>
-					<p:column headerText="Data de Lançamento" sortBy="#{music.dateRecord}">
-						<h:outputText value="#{music.dateRecord}" />
-					</p:column>
-					<p:column headerText="Ouvir">
-						<h:commandButton action="#{playMusic.play(music.pathFile)}" />
-						<h:commandButton action="#{playMusic.stop()}" />
-					</p:column>
-				</p:dataTable>
-			</h:form>
+			<h:panelGroup layout="block" styleClass="container">
+				<h:panelGroup id="wrapper" layout="block" styleClass="wrapper">
+					<h:form id="form">
+						<p:growl id="msgs" showDetail="true" autoUpdate="true"/>
+						<p:dataTable value="#{listMusic.musics}" var="music"
+							type="unordered" itemType="none" paginator="true" rows="10"
+							styleClass="paginated" widgetVar="listaMusicas"
+							emptyMessage="Nenhuma música encontrada"
+							filteredValue="#{listMusic.filteredMusics}" scrollable="true"
+							scrollWidth="100%">
+							<f:facet name="header">
+								<p:outputPanel>
+									<p:inputText id="globalFilter"
+										onkeyup="PF('listaMusicas').filter()" style="width:150px"
+										placeholder="Pesquisar ..." />
+								</p:outputPanel>
+							</f:facet>
+							<p:column headerText="Título" sortBy="#{music.title}"
+								filterBy="#{music.artist}" filterMatchMode="contains">
+								<h:outputText value="#{music.title}" />
+							</p:column>
+							<p:column headerText="Artista" sortBy="#{music.artist}"
+								filterBy="#{music.artist}" filterMatchMode="contains">
+								<h:outputText value="#{music.artist}" />
+							</p:column>
+							<p:column headerText="Álbum" sortBy="#{music.album}"
+								filterBy="#{music.album}" filterMatchMode="contains">
+								<h:outputText value="#{music.album}" />
+							</p:column>
+							<p:column headerText="Data de Lançamento"
+								sortBy="#{music.dateRecord}" filterBy="#{music.dateRecord}"
+								filterMatchMode="contains">
+								<h:outputText value="#{music.dateRecord}" />
+							</p:column>
+							<p:column headerText="Ouvir">
+								<h:commandButton action="#{playMusic.play(music.pathFile)}" />
+								<h:commandButton action="#{playMusic.stop()}" />
+							</p:column>
+							<p:column headerText="Adicionar a Playlist">
+								<p:commandButton onclick="PF('addDialog').show();" value="Adicionar"/>
+								<p:dialog header="Playlist" widgetVar="addDialog">
+									<h:panelGrid columns="2" cellpadding="5">
+										<p:outputLabel for="plist" value="Playlist: " />
+										<p:selectOneMenu id="plist"
+											value="#{listPlaylist.selectedPlaylist}" converter="entityConverter"> <!-- Converter é usado para o item seleccionado é um objecto. Se fosse uma string não era preciso -->
+											<f:selectItem itemLabel="Seleccione:" itemValue="" />
+											<f:selectItems value="#{listPlaylist.playlists}" var="playlist" itemLabel="#{playlist.name}"/>
+										</p:selectOneMenu>
+										<p:commandButton action="#{listPlaylist.addToSelectedPlaylist(music)}" oncomplete="PF('addDialog').hide();" value="Enviar" icon="ui-icon-check"/>
+									</h:panelGrid>
+								</p:dialog>
+							</p:column>
+						</p:dataTable>
+					</h:form>
+				</h:panelGroup>
+			</h:panelGroup>
 		</ui:define>
 	</ui:composition>
 </h:body>

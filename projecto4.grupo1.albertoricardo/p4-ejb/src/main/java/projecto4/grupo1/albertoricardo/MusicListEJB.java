@@ -1,9 +1,9 @@
 package projecto4.grupo1.albertoricardo;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,6 +20,8 @@ public class MusicListEJB implements MusicListEJBLocal {
 	@PersistenceContext(name="Playlist")
 	private EntityManager em;
 
+	@EJB
+	private MusicEJBLocal crud;
 
 	//    The method merge creates or updates an entity,  
 	//    we cannot remove not-attached entities 
@@ -51,15 +53,15 @@ public class MusicListEJB implements MusicListEJBLocal {
 	}
 	
 	@Override
-	public boolean update(String newTitle, String newArtist, String newAlbum, Date newDate, int id) {
+	public boolean update(MusicEntity music) {
 		boolean success = false;
-		Query q = em.createQuery("UPDATE MusicEntity m SET m.title = :t, m.artist = :a, m.album = :al, m.dateRecord = :d WHERE m.id = :id")
-				.setParameter("t", newTitle)
-				.setParameter("a", newArtist)
-				.setParameter("al", newAlbum)
-				.setParameter("d", newDate)
-				.setParameter("id", id);
-		if (q.executeUpdate() == 1) success = true;
+		try {
+			crud.update(music);
+			success = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return success;
 	}
 }

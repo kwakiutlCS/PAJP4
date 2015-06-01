@@ -16,6 +16,46 @@
 <h:body>
 	<ui:composition template="../Authorized/Layout/layout.xhtml">
 		<ui:define name="conteudo">
+			<h:panelGroup layout="block" styleClass="container">
+				<h:panelGroup id="wrapper" layout="block" styleClass="wrapper">
+					<h:panelGroup layout="block" styleClass="grid">
+						<h:panelGroup layout="block" styleClass="row">
+							<h:panelGroup layout="block" styleClass="cell">
+								<h:panelGroup layout="block" styleClass="bg-lighterBlue">
+									<h:form>
+										<h:commandButton action="listmusic.xhtml?faces-redirect=true"
+											value="Músicas disponíveis" styleClass="button primary">
+											<f:ajax render="@form" />
+										</h:commandButton>
+									</h:form>
+								</h:panelGroup>
+							</h:panelGroup>
+						</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="row cells2">
+							<h:panelGroup layout="block" styleClass="cell">
+								<h:panelGroup layout="block" styleClass="bg-yellow">
+									<h:form id="profileForm">
+										<h:commandButton action="profile.xhtml?faces-redirect=true"
+											value="Perfil" styleClass="command-button icon mif-profile">
+											<f:ajax render="profileForm" />
+										</h:commandButton>
+									</h:form>
+								</h:panelGroup>
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="cell">
+								<h:panelGroup layout="block" styleClass="bg-mauve">
+									<h:form>
+										<h:commandButton action="ownmusic.xhtml?faces-redirect=true"
+											value="Minha Música" styleClass="shortcut-button icon mif-music">
+											<f:ajax render="@form" />
+										</h:commandButton>
+									</h:form>
+								</h:panelGroup>
+							</h:panelGroup>
+						</h:panelGroup>
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:panelGroup>
 		</ui:define>
 	</ui:composition>
 </h:body>
