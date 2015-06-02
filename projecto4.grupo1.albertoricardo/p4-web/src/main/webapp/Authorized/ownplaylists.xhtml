@@ -1,9 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
+
+
 <h:head>
 	<meta charset="utf-8" />
 	<h:outputScript library="js" name="jquery-2.1.4.min.js" />
@@ -18,29 +20,36 @@
 		<ui:define name="conteudo">
 			<h:panelGroup layout="block" styleClass="container">
 				<h:panelGroup id="wrapper" layout="block" styleClass="wrapper">
-					<ui:repeat var="p" value="#{listPlaylist.playlists}">
-						<h:form>
-							<p:commandButton onclick="PF('addDialog').show();"
-								value="#{p.name}" />
-							<p:dialog header="Playlist" widgetVar="addDialog" width="30%">
-								<p:dataTable id="listplistmusics" value="#{p.getMusics()}"
-									var="music" paginator="true" rows="10"
-									styleClass="paginated text-center" widgetVar="listarmusicas"
-									emptyMessage="Nenhuma música encontrada" scrollable="true"
-									scrollWidth="100%">
-									<p:column headerText="Título" sortBy="#{music.title}">
-										<h:outputText value="#{music.title}" styleClass="text-center" />
-									</p:column>
-									<p:column headerText="Remover da Playlist">
-										<p:commandButton value="Remover" action="#{listPlaylist.removeMusicFromPlaylist(p,music)}"/>
-									</p:column>
-								</p:dataTable>
-							</p:dialog>
-						</h:form>
-					</ui:repeat>
+
+					<h1>As minhas Playlists</h1>
+					<h:form>
+						<p:dataTable value="#{listPlaylist.playlists}" var="pl" border="1"
+							cellspacing="0" cellpadding="2" paginator="true"
+							paginatorPosition="bottom" rows="4">
+							<p:column headerText="Data" sortBy="#{playlist.insertDate}">
+								<h:outputText value="#{playlist.insertDate}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Nome" sortBy="#{playlist.name}">
+								<h:outputText value="#{playlist.name}" />
+								</p:column>
+								<p:column>
+								<p:button icon="ui-icon-pencil" title="Editar"
+									outcome="createPlaylist.xhtml">
+									<f:param name="id" value="#{playlist.id}" />
+								</p:button>
+								<p:commandButton icon="ui-icon-trash" title="Excluir"
+									process="@this" update="@form">
+								</p:commandButton>
+							</p:column>
+
+						</p:dataTable>
+					</h:form>
 				</h:panelGroup>
 			</h:panelGroup>
 		</ui:define>
 	</ui:composition>
+
 </h:body>
 </html>

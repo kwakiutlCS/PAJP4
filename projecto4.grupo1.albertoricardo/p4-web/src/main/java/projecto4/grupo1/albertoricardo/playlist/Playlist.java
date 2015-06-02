@@ -3,6 +3,7 @@ package projecto4.grupo1.albertoricardo.playlist;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -12,7 +13,8 @@ import javax.inject.Named;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import projecto4.grupo1.albertoricardo.PlaylistEJBLocal;
+import projecto4.grupo1.albertoricardo.PlaylistEJB;
+import projecto4.grupo1.albertoricardo.PlaylistEntity;
 import projecto4.grupo1.albertoricardo.user.UserLogged;
 
 
@@ -27,9 +29,10 @@ public class Playlist implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private static final Logger log = LoggerFactory.getLogger(Playlist.class);
+	
 
 	@EJB
-	private PlaylistEJBLocal playlistejb;
+	private PlaylistEJB playlistejb;
 	@Inject
 	private UserLogged userlogged;
 	
@@ -48,16 +51,46 @@ public class Playlist implements Serializable {
 		this.insertDate=insertDate;
 	}
 	
-	
+	public boolean verifyPlaylistName(){
+		boolean found=false;
+		List<PlaylistEntity> pl = playlistejb.getOwnPlaylists(userlogged.getUser().getId());
+		log.info("lista do utilizador ", userlogged, " ok");
+		for(PlaylistEntity p: pl)
+		 if(p.getName().equalsIgnoreCase(name)){
+			 found=true;
+				log.info("nome de PL já existente");
+		 }
+		return found;
+	}
+			 
+		
 	public String insertPlaylist(){
-		if(playlistejb.findName(name)==false){
+		if(verifyPlaylistName()==false){
 		Calendar now = Calendar.getInstance();
 		insertDate = now.getTime();
-		playlistejb.addPlaylist(name, insertDate, userlogged.getUser()); 
+		playlistejb.addPlaylist(name, insertDate, userlogged.getUser());
+		log.info("inseriu");
 		}
+		else 
+			log.info("nome duplicado");
 		
 		return "createPlaylist";
 		
+	}
+
+	public String updateNamePlaylist(){
+		
+		playlistejb.updateName(id, name);
+		
+		return "update name Playlist";		
+	}
+	 
+	public PlaylistEJB getPlaylistejb() {
+		return playlistejb;
+	}
+
+	public void setPlaylistejb(PlaylistEJB playlistejb) {
+		this.playlistejb = playlistejb;
 	}
 
 
