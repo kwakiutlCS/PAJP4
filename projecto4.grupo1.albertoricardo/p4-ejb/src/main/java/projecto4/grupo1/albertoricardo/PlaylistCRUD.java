@@ -1,8 +1,10 @@
 package projecto4.grupo1.albertoricardo;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+@Stateless
 public class PlaylistCRUD {
 
 	@PersistenceContext(name="Playlist")

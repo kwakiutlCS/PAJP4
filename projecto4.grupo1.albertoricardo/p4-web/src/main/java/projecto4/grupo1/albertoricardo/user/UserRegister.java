@@ -30,7 +30,6 @@ public class UserRegister implements Serializable {
 	private LoginChoose lc;
 
 	private String email;
-	private String emailConfirm;
 	private String password;
 	private String passwordConfirm;
 	private String name;
@@ -44,31 +43,10 @@ public class UserRegister implements Serializable {
 
 
 	public String addNewUser() {
-		String destiny = "login";
-		if (passwordConfirm.equals(password) && emailConfirm.equals(email)) {
-			try {
-				log.info("Novo utilizador registado: "+name+" ("+email+")");
-				userejb.registerUser(email, password, name);
-				result = "Utilizador '"+emailConfirm+"' criado com sucesso!";
-				lc.toggle();
-				destiny="login.xhtml?faces-redirect=true";
-			} catch(Exception e) {
-				e.printStackTrace();
-				result = "'"+emailConfirm+"' já existe, escolhe um e-mail diferente.";
-				destiny="";
-			}
-		} else if (passwordConfirm.equals(password) && !emailConfirm.equals(email)) {
-			result = "E-mails não correspondem.";
-			destiny="";
-		} else if (!passwordConfirm.equals(password) && emailConfirm.equals(email)) {
-			result = "Passwords não correspondem.";
-			destiny="";
-		} else {
-			result = "E-mails & Password não correspondem.";
-			destiny="";
-		}
-
-		return destiny;
+		userejb.registerUser(email, password, name);
+		log.info("Novo utilizador registado: "+name+" ("+email+")");
+		lc.toggle();
+		return "login.xhtml?faces-redirect=true";
 	}
 
 
@@ -111,18 +89,6 @@ public class UserRegister implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-
-
-	public String getEmailConfirm() {
-		return emailConfirm;
-	}
-
-
-
-	public void setEmailConfirm(String emailConfirm) {
-		this.emailConfirm = emailConfirm;
 	}
 
 

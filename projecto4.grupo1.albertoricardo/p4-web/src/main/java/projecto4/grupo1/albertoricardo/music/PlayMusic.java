@@ -30,14 +30,16 @@ public class PlayMusic implements Serializable {
 			player.play();
 		}
 		catch (Exception e) {
-
+			e.printStackTrace();
 			System.out.println(e);
 		}
 
 	}
 
 	public void stop() {
-		player.close();
+		if (player != null) {
+			player.close();
+		}
 	}
 
 }

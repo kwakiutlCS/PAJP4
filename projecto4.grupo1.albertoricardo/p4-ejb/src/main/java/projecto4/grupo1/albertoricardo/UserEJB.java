@@ -2,6 +2,7 @@ package projecto4.grupo1.albertoricardo;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.faces.application.FacesMessage;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -16,7 +17,7 @@ import projecto4.grupo1.albertoricardo.security.PasswordEncryptor;
 public class UserEJB implements UserEJBLocal {
 	@PersistenceContext(name="Playlist")
 	EntityManager em;
-	
+
 	@EJB
 	private UserCRUD crud;
 
@@ -26,25 +27,25 @@ public class UserEJB implements UserEJBLocal {
 	public UserEJB() {
 
 	}
-	
+
 	@Override
 	public boolean verifyLogin(String email, String password) {
 		boolean verified;
 		Query q = em.createQuery("select u from UserEntity u where u.email like :e")
-		.setParameter("e", email);
+				.setParameter("e", email);
 		try {
 			UserEntity usr = (UserEntity) q.getSingleResult();
 			PasswordEncryptor pe = new PasswordEncryptor();
 			if (pe.check(password, usr.getPassword())) verified = true;
 			else verified = false;
 		} catch (NoResultException nre) {
-			nre.printStackTrace();
 			verified = false;
+			nre.printStackTrace();
 		}
 
 		return verified;
 	}
-	
+
 	@Override
 	public void registerUser(String username, String password, String name) {
 		PasswordEncryptor pe = new PasswordEncryptor();
@@ -52,7 +53,7 @@ public class UserEJB implements UserEJBLocal {
 		UserEntity u = new UserEntity(username, ePassword, name);
 		crud.create(u);
 	}
-	
+
 	@Override
 	public boolean changeUser(UserEntity user) {
 		boolean success = false;
@@ -62,11 +63,11 @@ public class UserEJB implements UserEJBLocal {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return success;
-		
+
 	}
-	
+
 	@Override
 	public boolean deleteUser(UserEntity user) {
 		boolean success = false;
@@ -76,7 +77,7 @@ public class UserEJB implements UserEJBLocal {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return success;
 	}
 
@@ -89,22 +90,35 @@ public class UserEJB implements UserEJBLocal {
 		id = u.getId();
 		return id;
 	}
-	
+
 	@Override
 	public String getName(String username) {
-		Query q = em.createQuery("select u from UserEntity u where u.email like :e");
-		q.setParameter("e", username);
-		UserEntity u = (UserEntity) q.getSingleResult();
-		String name = u.getName();
+		String name = null;
+		try {
+			Query q = em.createQuery("select u from UserEntity u where u.email like :e");
+			q.setParameter("e", username);
+			UserEntity u = (UserEntity) q.getSingleResult();
+			name = u.getName();
+		} catch(Exception e) {
+			FacesMessage msg = new FacesMessage("Login", 
+					"Utilizador inexistente.");
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+		}
 		return name;
 	}
 
 	@Override
 	public UserEntity getUserEntity(String username) {
-		Query q = em.createQuery("select u from UserEntity u where u.email like :e");
-		q.setParameter("e", username);
-		return (UserEntity) q.getSingleResult();
-		
+		UserEntity u = null;
+		try {
+			Query q = em.createQuery("select u from UserEntity u where u.email like :e");
+			q.setParameter("e", username);
+			u = (UserEntity) q.getSingleResult();
+		} catch(NoResultException nre) {
+			nre.printStackTrace();
+		}
+		return u;
+
 	}
 
 }

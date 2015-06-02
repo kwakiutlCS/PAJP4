@@ -20,21 +20,19 @@
 		<ui:define name="conteudo">
 			<h:panelGroup layout="block" styleClass="container">
 				<h:panelGroup id="wrapper" layout="block" styleClass="wrapper">
-
-					<h1>As minhas Playlists</h1>
 					<h:form>
-						<p:dataTable value="#{listPlaylist.playlists}" var="pl" border="1"
-							cellspacing="0" cellpadding="2" paginator="true"
-							paginatorPosition="bottom" rows="4">
-							<p:column headerText="Data" sortBy="#{playlist.insertDate}">
-								<h:outputText value="#{playlist.insertDate}">
-								<f:convertDateTime pattern="dd/MM/yyyy" />
-								</h:outputText>
+						<p:dataTable value="#{listPlaylist.playlists}" var="pl" paginator="true"
+							paginatorPosition="bottom" rows="4"
+							styleClass="paginated text-center" emptyMessage="Nenhuma playlist encontrada.">
+							<f:facet name="header">As minhas Playlists</f:facet>
+							<p:column headerText="Data" sortBy="#{pl.insertDate}">
+								<h:outputText value="#{playlist.insertDate}" />
 							</p:column>
-							<p:column headerText="Nome" sortBy="#{playlist.name}">
-								<h:outputText value="#{playlist.name}" />
-								</p:column>
-								<p:column>
+							<p:column headerText="Nome" sortBy="#{pl.name}">
+								<p:commandLink value="#{pl.name}"
+									onclick="PF('addDialog').show();" />
+							</p:column>
+							<p:column>
 								<p:button icon="ui-icon-pencil" title="Editar"
 									outcome="createPlaylist.xhtml">
 									<f:param name="id" value="#{playlist.id}" />
@@ -43,6 +41,22 @@
 									process="@this" update="@form">
 								</p:commandButton>
 							</p:column>
+
+							<p:dialog header="Musicas da Playlist" widgetVar="addDialog" width="30%">
+								<p:dataTable id="listplistmusics" value="#{pl.getMusics()}"
+									var="m" paginator="true" rows="10"
+									styleClass="paginated text-center" widgetVar="listarmusicas"
+									emptyMessage="Nenhuma música encontrada." scrollable="true"
+									scrollWidth="100%">
+									<p:column headerText="Título" sortBy="#{m.title}">
+										<h:outputText value="#{m.title}" styleClass="text-center" />
+									</p:column>
+									<p:column headerText="Remover da Playlist">
+										<p:commandButton value="Remover"
+											action="#{listPlaylist.removeMusicFromPlaylist(p,m)}" />
+									</p:column>
+								</p:dataTable>
+							</p:dialog>
 
 						</p:dataTable>
 					</h:form>

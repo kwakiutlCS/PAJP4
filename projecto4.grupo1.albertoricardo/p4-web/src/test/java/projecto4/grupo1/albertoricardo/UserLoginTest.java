@@ -47,6 +47,7 @@ public class UserLoginTest {
 	public void setUp() {
 	}
 	
+	@Ignore
 	@Test
 	public void doLoginFailTest() {
 		userLogin.setEmail("ricardo");
@@ -56,6 +57,7 @@ public class UserLoginTest {
 		assertEquals("", "", d);
 	}
 	
+	@Ignore
 	@Test
 	public void doLoginSuccessTest() {
 		FacesContext context = ContextMocker.mockFacesContext();

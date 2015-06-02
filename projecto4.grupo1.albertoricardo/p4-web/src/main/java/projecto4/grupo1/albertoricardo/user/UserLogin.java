@@ -43,19 +43,10 @@ public class UserLogin implements Serializable {
 	private String result = "";
 
 	public String doLogin() {
-		log.info("Acesso ao login");
-		String destiny = "";
-		if (userejb.verifyLogin(this.email, this.password)) {
-			userlog.setUser(userejb.getUserEntity(email));
-			setFacesContext();
-			destiny="/Authorized/entry.xhtml?faces-redirect=true";
-			log.info("Utilizador "+email+" iniciou sessão.");
-			result = "Login válido";
-		} else { 
-			result = "Login inválido!";
-			destiny = "";
-		}
-		return destiny;
+		userlog.setUser(userejb.getUserEntity(email));
+		setFacesContext();
+		log.info("Utilizador "+email+" iniciou sessão.");
+		return "/Authorized/entry.xhtml?faces-redirect=true";
 	}
 
 	public void setFacesContext() {

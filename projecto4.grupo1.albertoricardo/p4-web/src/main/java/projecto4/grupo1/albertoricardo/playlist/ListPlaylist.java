@@ -67,7 +67,10 @@ public class ListPlaylist implements Serializable {
 		}
 		if (!duplicate) {
 			try {
+				int s1 = selectedPlaylist.getMusics().size();
 				selectedPlaylist.getMusics().add(music);
+				int s2 = selectedPlaylist.getMusics().size();
+				System.out.println("DIFERENÇA: "+(s2-s1));
 				plistejb.update(selectedPlaylist);
 				FacesMessage msg = new FacesMessage("Música "+music.getTitle()+" adicionada com successo à playlist seleccionada.");
 				FacesContext.getCurrentInstance().addMessage(null, msg);

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -19,8 +20,9 @@ public class PlaylistEJB {
 
 	@PersistenceContext(name="Playlist")
 	private EntityManager em;
-
-	private PlaylistCRUD pl_crud= new PlaylistCRUD();
+	
+	@EJB
+	private PlaylistCRUD pl_crud;
 
 
 	public void addPlaylist(String name, Date insertDate, UserEntity userlogged) {
