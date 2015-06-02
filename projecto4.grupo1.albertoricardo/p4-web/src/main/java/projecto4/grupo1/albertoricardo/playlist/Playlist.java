@@ -60,16 +60,6 @@ public class Playlist implements Serializable {
 		
 	}
 
-	 
-	public PlaylistEJBLocal getPlaylistejb() {
-		return playlistejb;
-	}
-
-
-	public void setPlaylistejb(PlaylistEJBLocal playlistejb) {
-		this.playlistejb = playlistejb;
-	}
-
 
 	public int getId() {
 		return id;

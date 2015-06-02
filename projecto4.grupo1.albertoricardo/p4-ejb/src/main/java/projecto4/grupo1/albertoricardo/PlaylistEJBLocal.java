@@ -20,6 +20,7 @@ public interface PlaylistEJBLocal {
     boolean findName(String name);
     List<PlaylistEntity> getPlaylists();
 	List<PlaylistEntity> getOwnPlaylists(int id);
+	boolean removeMusic(PlaylistEntity playlist, MusicEntity m);
     
     
 }

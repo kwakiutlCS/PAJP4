@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta charset="utf-8" />
+	<h:outputScript library="js" name="jquery-2.1.4.min.js" />
+	<h:outputScript library="js" name="bootstrap.js" />
+	<h:outputScript library="js" name="npm.js" />
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputStylesheet library="css" name="loginStyle.css" />
+	<title>Playlist</title>
+</h:head>
+<h:body>
+	<ui:composition template="../Authorized/Layout/layout.xhtml">
+		<ui:define name="conteudo">
+			<h:panelGroup layout="block" styleClass="container">
+				<h:panelGroup id="wrapper" layout="block" styleClass="wrapper">
+					<ui:repeat var="p" value="#{listPlaylist.playlists}">
+						<h:form>
+							<p:commandButton onclick="PF('addDialog').show();"
+								value="#{p.name}" />
+							<p:dialog header="Playlist" widgetVar="addDialog" width="30%">
+								<p:dataTable id="listplistmusics" value="#{p.getMusics()}"
+									var="music" paginator="true" rows="10"
+									styleClass="paginated text-center" widgetVar="listarmusicas"
+									emptyMessage="Nenhuma música encontrada" scrollable="true"
+									scrollWidth="100%">
+									<p:column headerText="Título" sortBy="#{music.title}">
+										<h:outputText value="#{music.title}" styleClass="text-center" />
+									</p:column>
+									<p:column headerText="Remover da Playlist">
+										<p:commandButton value="Remover" action="#{listPlaylist.removeMusicFromPlaylist(p,music)}"/>
+									</p:column>
+								</p:dataTable>
+							</p:dialog>
+						</h:form>
+					</ui:repeat>
+				</h:panelGroup>
+			</h:panelGroup>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

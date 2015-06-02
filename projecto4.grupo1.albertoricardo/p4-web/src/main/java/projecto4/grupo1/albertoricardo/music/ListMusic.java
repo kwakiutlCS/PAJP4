@@ -55,7 +55,7 @@ public class ListMusic implements Serializable {
 			try {
 				ownMusics = mlejb.listOwnMusics(userlog.getUser());
 			} catch (Exception e) {
-
+				e.printStackTrace();
 			}
 		}
 

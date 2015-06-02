@@ -78,6 +78,9 @@ public class ListPlaylist implements Serializable {
 			}
 		}
 	}
+	
+	public void removeMusicFromPlaylist(PlaylistEntity playlist, MusicEntity music) {
+	}
 
 	public void setPlaylists(List<PlaylistEntity> playlists) {
 		this.playlists = playlists;

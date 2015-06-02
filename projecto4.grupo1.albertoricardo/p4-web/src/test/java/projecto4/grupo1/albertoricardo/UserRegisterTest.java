@@ -2,13 +2,13 @@ package projecto4.grupo1.albertoricardo;
 
 import junit.framework.TestCase;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import projecto4.grupo1.albertoricardo.user.LoginChoose;
 import projecto4.grupo1.albertoricardo.user.UserRegister;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -16,10 +16,11 @@ public class UserRegisterTest extends TestCase {
 	
 	@Mock
 	UserEJBLocal userejb;
+	@Mock
+	LoginChoose lc;
 	@InjectMocks
 	UserRegister uRegister;
 	
-	@Ignore
 	@Test
 	public void addNewUserSuccessTest() {
 		uRegister.setEmail("username@mail.com");
@@ -32,9 +33,8 @@ public class UserRegisterTest extends TestCase {
 		
 	}
 	
-	@Ignore
 	@Test
-	public void addNewUserFailTest() {
+	public void addNewUserFailEmailTest() {
 		uRegister.setEmail("username@mail.com");
 		uRegister.setEmailConfirm("anotherUsername@mail.com");
 		uRegister.setPassword("123");
@@ -43,6 +43,32 @@ public class UserRegisterTest extends TestCase {
 		uRegister.addNewUser();
 		String d = uRegister.getResult();
 		assertEquals("E-mails não correspondem.", d);
+		
+	}
+	
+	@Test
+	public void addNewUserFailPasswordTest() {
+		uRegister.setEmail("username@mail.com");
+		uRegister.setEmailConfirm("username@mail.com");
+		uRegister.setPassword("123");
+		uRegister.setPasswordConfirm("456");
+		uRegister.setName("Username Created");
+		uRegister.addNewUser();
+		String d = uRegister.getResult();
+		assertEquals("Passwords não correspondem.", d);
+		
+	}
+	
+	@Test
+	public void addNewUserFailTest() {
+		uRegister.setEmail("username@mail.com");
+		uRegister.setEmailConfirm("anotherUsername@mail.com");
+		uRegister.setPassword("123");
+		uRegister.setPasswordConfirm("456");
+		uRegister.setName("Username Created");
+		uRegister.addNewUser();
+		String d = uRegister.getResult();
+		assertEquals("E-mails & Password não correspondem.", d);
 		
 	}
 

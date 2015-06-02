@@ -53,6 +53,7 @@ public class UserRegister implements Serializable {
 				lc.toggle();
 				destiny="login.xhtml?faces-redirect=true";
 			} catch(Exception e) {
+				e.printStackTrace();
 				result = "'"+emailConfirm+"' já existe, escolhe um e-mail diferente.";
 				destiny="";
 			}

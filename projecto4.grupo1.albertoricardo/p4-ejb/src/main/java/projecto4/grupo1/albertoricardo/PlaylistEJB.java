@@ -87,6 +87,12 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 		}
 		return found;
 	}
+	
+	@Override
+	public boolean removeMusic(PlaylistEntity playlist, MusicEntity m) {
+		boolean removed = false;
+		return removed;
+	}
 
 
 }

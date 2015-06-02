@@ -11,6 +11,9 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import projecto4.grupo1.albertoricardo.UserEJBLocal;
 import projecto4.grupo1.albertoricardo.UserEntity;
 import projecto4.grupo1.albertoricardo.security.PasswordEncryptor;
@@ -31,6 +34,8 @@ public class UserLogged implements Serializable {
 	private String newName;
 	private String newPassword;
 	private String result = "";
+	
+	private static Logger log = LoggerFactory.getLogger(UserLogged.class);
 
 	public UserLogged() {
 		super();
@@ -42,6 +47,7 @@ public class UserLogged implements Serializable {
 		HttpServletRequest req = (HttpServletRequest) ext.getRequest();
 		HttpSession session = req.getSession();
 		session.invalidate();
+		log.info("Utilizador "+user.getEmail()+" encerrou a sessão.");
 		return "/login.xhtml?faces-redirect=true";
 	}
 	
@@ -51,6 +57,7 @@ public class UserLogged implements Serializable {
 			if (newName != null && newName != user.getName()) user.setName(newName);
 			if (newPassword != null && newPassword != user.getPassword()) user.setPassword(newPassword);
 			success = userejb.changeUser(user);
+			log.info("Utilizador "+user.getEmail()+" alterou os seus dados.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -76,6 +83,7 @@ public class UserLogged implements Serializable {
 		
 		if (success) {
 			statement = invalidateSession();
+			log.warn("Utilizador "+user.getEmail()+" encerrou a sua conta.");
 		} else {
 			statement = "Erro ao eliminar a conta.";
 		}
