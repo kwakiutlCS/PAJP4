@@ -1,9 +1,11 @@
 package projecto4.grupo1.albertoricardo;
 
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -11,44 +13,26 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 
-
-
-
+@Local
 @Stateless
-public class PlaylistEJB implements PlaylistEJBLocal {
+public class PlaylistEJB {
 
 	@PersistenceContext(name="Playlist")
 	private EntityManager em;
 
+	private PlaylistCRUD pl_crud= new PlaylistCRUD();
 
-	@Override
-	public PlaylistEntity create(PlaylistEntity playlist) {
-		return em.merge(playlist);
-	}
-	@Override
-	public PlaylistEntity update(PlaylistEntity playlist) {
-		return em.merge(playlist);
-	}
-	@Override
-	public void remove(PlaylistEntity playlist) {
-		em.remove(em.merge(playlist));
-
-	}
-	@Override
-	public PlaylistEntity find(Object id) {
-		return em.find(PlaylistEntity.class, id);
-	}
 
 	public void addPlaylist(String name, Date insertDate, UserEntity userlogged) {
 		PlaylistEntity pl = new PlaylistEntity();
 		pl.setName(name);
 		pl.setInsertDate(insertDate);
 		pl.setUserOwner(userlogged);
-		em.persist(pl);
+		em.persist(pl);;
 	}    
 
 
-	@Override
+	@SuppressWarnings("unchecked")
 	public List<PlaylistEntity> getPlaylists() { 
 		List<PlaylistEntity> pe = new ArrayList<>();
 		try {
@@ -59,9 +43,8 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 		}
 		return pe;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<PlaylistEntity> getOwnPlaylists(int id) { 
 		List<PlaylistEntity> pe = new ArrayList<>();
 		try {
@@ -73,22 +56,30 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 		}
 		return pe;
 	}
-	
 
-	@Override
+
 	public boolean findName(String name){
 		boolean found=false;
 		try {
 			Query q = em.createQuery("select u from PlaylistEntity u where u.name like :e")
 					.setParameter("e", name);
 			if(q.getSingleResult()!=null)
-			  found=true;
+				found=true;
 		} catch (NoResultException nre) {
 			found = false;
 		}
 		return found;
 	}
 
+	public void updateName(int id, String name){
+		
+		pl_crud.find(id).setName(name);
+		
+	}
+	
+	public void update(PlaylistEntity playlist) {
 
+		pl_crud.update(playlist);
+	}
 
 }

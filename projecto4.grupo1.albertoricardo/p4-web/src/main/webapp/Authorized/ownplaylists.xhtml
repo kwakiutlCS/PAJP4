@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<meta charset="utf-8" />
+	<h:outputScript library="js" name="jquery-2.1.4.min.js" />
+	<h:outputScript library="js" name="bootstrap.js" />
+	<h:outputScript library="js" name="npm.js" />
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputStylesheet library="css" name="loginStyle.css" />
+	<title>Playlist</title>
+</h:head>
+<h:body>
+	<ui:composition template="../Authorized/Layout/layout.xhtml">
+		<ui:define name="conteudo">
+			<h:panelGroup layout="block" styleClass="container">
+				<h:panelGroup id="wrapper" layout="block" styleClass="wrapper">
+
+					<h1>As minhas Playlists</h1>
+					<h:form>
+						<p:dataTable value="#{listPlaylist.playlists}" var="pl" border="1"
+							cellspacing="0" cellpadding="2" paginator="true"
+							paginatorPosition="bottom" rows="4">
+							<p:column headerText="Data" sortBy="#{playlist.insertDate}">
+								<h:outputText value="#{playlist.insertDate}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Nome" sortBy="#{playlist.name}">
+								<h:outputText value="#{playlist.name}" />
+								</p:column>
+								<p:column>
+								<p:button icon="ui-icon-pencil" title="Editar"
+									outcome="createPlaylist.xhtml">
+									<f:param name="id" value="#{playlist.id}" />
+								</p:button>
+								<p:commandButton icon="ui-icon-trash" title="Excluir"
+									process="@this" update="@form">
+								</p:commandButton>
+							</p:column>
+
+						</p:dataTable>
+					</h:form>
+				</h:panelGroup>
+			</h:panelGroup>
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+</html>

@@ -1,5 +1,8 @@
 package projecto4.grupo1.albertoricardo.playlist;
 
+import java.io.Serializable;
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -8,13 +11,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import projecto4.grupo1.albertoricardo.MusicEntity;
-import projecto4.grupo1.albertoricardo.PlaylistEJBLocal;
-import projecto4.grupo1.albertoricardo.UserEntity;
-
-import java.io.Serializable;
-import java.util.List;
-
+import projecto4.grupo1.albertoricardo.PlaylistEJB;
 import projecto4.grupo1.albertoricardo.PlaylistEntity;
+import projecto4.grupo1.albertoricardo.UserEntity;
 import projecto4.grupo1.albertoricardo.user.UserLogged;
 
 @Named
@@ -27,7 +26,7 @@ public class ListPlaylist implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@EJB
-	private PlaylistEJBLocal plistejb;
+	private PlaylistEJB plistejb;
 
 	@Inject
 	private UserLogged userlog;

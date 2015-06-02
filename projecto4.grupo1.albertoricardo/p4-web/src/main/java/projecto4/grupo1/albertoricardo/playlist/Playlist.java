@@ -13,7 +13,7 @@ import javax.inject.Named;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import projecto4.grupo1.albertoricardo.PlaylistEJBLocal;
+import projecto4.grupo1.albertoricardo.PlaylistEJB;
 import projecto4.grupo1.albertoricardo.PlaylistEntity;
 import projecto4.grupo1.albertoricardo.user.UserLogged;
 
@@ -32,7 +32,7 @@ public class Playlist implements Serializable {
 	
 
 	@EJB
-	private PlaylistEJBLocal playlistejb;
+	private PlaylistEJB playlistejb;
 	@Inject
 	private UserLogged userlogged;
 	
@@ -51,17 +51,15 @@ public class Playlist implements Serializable {
 		this.insertDate=insertDate;
 	}
 	
-	
-	
-	
-	
 	public boolean verifyPlaylistName(){
 		boolean found=false;
 		List<PlaylistEntity> pl = playlistejb.getOwnPlaylists(userlogged.getUser().getId());
+		log.info("lista do utilizador ", userlogged, " ok");
 		for(PlaylistEntity p: pl)
-		 if(p.getName().equalsIgnoreCase(name))
+		 if(p.getName().equalsIgnoreCase(name)){
 			 found=true;
-		
+				log.info("nome de PL já existente");
+		 }
 		return found;
 	}
 			 
@@ -80,13 +78,18 @@ public class Playlist implements Serializable {
 		
 	}
 
+	public String updateNamePlaylist(){
+		
+		playlistejb.updateName(id, name);
+		
+		return "update name Playlist";		
+	}
 	 
-	public PlaylistEJBLocal getPlaylistejb() {
+	public PlaylistEJB getPlaylistejb() {
 		return playlistejb;
 	}
 
-
-	public void setPlaylistejb(PlaylistEJBLocal playlistejb) {
+	public void setPlaylistejb(PlaylistEJB playlistejb) {
 		this.playlistejb = playlistejb;
 	}
 
