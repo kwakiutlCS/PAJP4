@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -71,6 +73,22 @@ public class PlaylistEJB {
 			found = false;
 		}
 		return found;
+	}
+	
+	public boolean removePlaylistsOfUser(UserEntity u) {
+		boolean success = false;
+		try {
+		int complete = em.createQuery("DELETE FROM PlaylistEntity p where p.userOwner.id = :i")
+				.setParameter("i", u.getId())
+				.executeUpdate();
+		if (complete > 0) success = true;
+		} catch(Exception e) {
+			FacesMessage msg = new FacesMessage("Erro",e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+		
+		return success;
+		
 	}
 
 	public void updateName(int id, String name){

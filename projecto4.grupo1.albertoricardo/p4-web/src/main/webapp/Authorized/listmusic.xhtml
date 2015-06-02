@@ -20,50 +20,57 @@
 				<h:panelGroup id="wrapper" layout="block" styleClass="wrapper">
 					<h:form id="form" prependId="false">
 						<p:growl id="msgs" showDetail="true" autoUpdate="true" />
-						<p:dataTable id="listallmusics" value="#{listMusic.musics}" var="music"
-							paginator="true" rows="10"
+						<p:dataTable id="listallmusics" value="#{listMusic.musics}"
+							var="music" paginator="true" rows="10"
 							styleClass="paginated text-center" widgetVar="listarmusicas"
 							emptyMessage="Nenhuma música encontrada"
 							filteredValue="#{listMusic.filteredMusics}" scrollable="true"
 							scrollWidth="100%">
 							<f:facet name="header">
-								<p:outputPanel  styleClass="text-left">
+								<p:outputPanel styleClass="text-left">
 									<p:inputText id="globalFilter"
 										onkeyup="PF('listarmusicas').filter()" style="width:150px"
-										placeholder="Pesquisar ..." styleClass="text-left"/>
+										placeholder="Pesquisar ..." styleClass="text-left" />
 								</p:outputPanel>
 							</f:facet>
-							<p:column headerText="Título" sortBy="#{music.title}" filterBy="#{music.title}" filterStyle="display: none;
+							<p:column headerText="Título" sortBy="#{music.title}"
+								filterBy="#{music.title}"
+								filterStyle="display: none;
 	visibility: hidden;">
-								<h:outputText value="#{music.title}" styleClass="text-center"/>
+								<h:outputText value="#{music.title}" styleClass="text-center" />
 							</p:column>
-							<p:column headerText="Artista" sortBy="#{music.artist}" filterBy="#{music.artist}" filterStyle="hidefilter">
+							<p:column headerText="Artista" sortBy="#{music.artist}"
+								filterBy="#{music.artist}" filterStyle="hidefilter">
 								<h:outputText value="#{music.artist}" />
 							</p:column>
-							<p:column headerText="Álbum" sortBy="#{music.album}" filterBy="#{music.album}" filterStyle="hidefilter">
+							<p:column headerText="Álbum" sortBy="#{music.album}"
+								filterBy="#{music.album}" filterStyle="hidefilter">
 								<h:outputText value="#{music.album}" />
 							</p:column>
 							<p:column headerText="Data de Lançamento"
-								sortBy="#{music.dateRecord}" filterBy="#{music.dateRecord}" filterStyle="hidefilter">
-								<h:outputText value="#{music.dateRecord}" />
+								sortBy="#{music.dateRecord}" filterBy="#{music.dateRecord}"
+								filterStyle="hidefilter">
+								<h:outputText value="#{music.dateRecord}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
 							</p:column>
 							<p:column headerText="Ouvir">
-								<h:commandButton action="#{playMusic.play(music.pathFile)}" />
-								<h:commandButton action="#{playMusic.stop()}" />
+								<p:commandButton icon="ui-icon-play" action="#{playMusic.play(music.pathFile)}" />
+								<p:commandButton icon="ui-icon-stop" action="#{playMusic.stop()}" />
 							</p:column>
 							<p:column headerText="Adicionar a Playlist">
 								<p:commandButton onclick="PF('addDialog').show();"
-									value="Adicionar" />
+									icon="ui-icon-circle-plus" />
 								<p:dialog header="Playlist" widgetVar="addDialog" width="30%">
-									<h:panelGrid columns="1" cellpadding="5" styleClass="text-center">
+									<h:panelGrid columns="1" cellpadding="5"
+										styleClass="text-center">
 										<p:selectOneMenu id="plist"
 											value="#{listPlaylist.selectedPlaylist}"
 											converter="entityConverter" var="pl" style="width:80%">
 											<!-- Converter é usado para o item seleccionado é um objecto. Se fosse uma string não era preciso -->
 											<f:selectItem itemLabel="Seleccione:" itemValue="" />
-											<f:selectItems value="#{listPlaylist.playlists}"
-												var="plst" itemLabel="#{plst.name}"
-												itemValue="#{plst}" />
+											<f:selectItems value="#{listPlaylist.playlists}" var="plst"
+												itemLabel="#{plst.name}" itemValue="#{plst}" />
 											<p:column>
 												#{pl.name}
 											</p:column>

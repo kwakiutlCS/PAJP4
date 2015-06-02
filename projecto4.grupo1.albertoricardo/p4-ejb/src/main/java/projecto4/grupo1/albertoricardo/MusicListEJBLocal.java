@@ -18,5 +18,7 @@ public interface MusicListEJBLocal {
 	List<MusicEntity> listOwnMusics(UserEntity user);
 
 	boolean update(MusicEntity music);
+
+	boolean removerUserOwnership(UserEntity user);
 	
 }

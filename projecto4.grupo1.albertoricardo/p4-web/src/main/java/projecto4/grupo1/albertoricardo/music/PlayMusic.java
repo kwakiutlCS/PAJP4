@@ -37,9 +37,7 @@ public class PlayMusic implements Serializable {
 	}
 
 	public void stop() {
-		if (player != null) {
-			player.close();
-		}
+		player.close();
 	}
 
 }

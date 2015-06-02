@@ -20,6 +20,8 @@ public class UserEJB implements UserEJBLocal {
 
 	@EJB
 	private UserCRUD crud;
+	@EJB
+	private MusicListEJBLocal mlistejb;
 
 	/**
 	 * Default constructor. 
@@ -72,8 +74,10 @@ public class UserEJB implements UserEJBLocal {
 	public boolean deleteUser(UserEntity user) {
 		boolean success = false;
 		try {
+			mlistejb.removerUserOwnership(user);
 			crud.remove(user);
 			success = true;
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

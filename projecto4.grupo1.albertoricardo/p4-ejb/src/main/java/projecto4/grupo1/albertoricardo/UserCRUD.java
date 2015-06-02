@@ -1,6 +1,8 @@
 package projecto4.grupo1.albertoricardo;
 
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -19,6 +21,7 @@ public class UserCRUD {
 		return em.merge(user);
 	}
 	
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void remove(UserEntity user) {
 		em.remove(em.merge(user));
 

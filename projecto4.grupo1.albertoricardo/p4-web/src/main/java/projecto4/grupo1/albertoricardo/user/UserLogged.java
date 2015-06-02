@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import projecto4.grupo1.albertoricardo.MusicListEJB;
 import projecto4.grupo1.albertoricardo.UserEJBLocal;
 import projecto4.grupo1.albertoricardo.UserEntity;
 import projecto4.grupo1.albertoricardo.security.PasswordEncryptor;
@@ -84,6 +85,8 @@ public class UserLogged implements Serializable {
 		if (success) {
 			statement = invalidateSession();
 			log.warn("Utilizador "+user.getEmail()+" encerrou a sua conta.");
+			FacesMessage msg = new FacesMessage("Utilizador","Conta removida com sucesso.");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} else {
 			statement = "Erro ao eliminar a conta.";
 		}

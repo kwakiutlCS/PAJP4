@@ -2,6 +2,7 @@ package projecto4.grupo1.albertoricardo;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +24,7 @@ public class UserEntity {
 	private String name;
 	@OneToMany(mappedBy="userOwner")
 	private List<MusicEntity> uploadedMusics;
-	@OneToMany(mappedBy="userOwner")
+	@OneToMany(cascade =CascadeType.REMOVE,mappedBy="userOwner")
 	private List<PlaylistEntity> userPlaylists;
 
 	public UserEntity() {

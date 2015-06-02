@@ -5,9 +5,14 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import projecto4.grupo1.albertoricardo.MusicEntity;
 
@@ -28,7 +33,9 @@ public class MusicListEJB implements MusicListEJBLocal {
 	//    - we have to find them first. 
 	//    This is the "Seek And Destroy" pattern 
 
-
+	private static Logger log = LoggerFactory.getLogger(MusicListEJB.class);
+	
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<MusicEntity> listMusics() {
@@ -63,5 +70,23 @@ public class MusicListEJB implements MusicListEJBLocal {
 		}
 		
 		return success;
+	}
+	
+	@Override
+	public boolean removerUserOwnership(UserEntity user) {
+		boolean success = false;
+		try {
+			int complete = em.createQuery("UPDATE MusicEntity m SET m.userOwner.id = NULL where m.userOwner.id = :i")
+					.setParameter("i", user.getId())
+					.executeUpdate();
+			if (complete > 0) success = true;
+		} catch (Exception e) {
+			log.error("Erro ao remover proprietário da música");
+			FacesMessage msg = new FacesMessage("Erro",e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+		
+		return success;
+		
 	}
 }

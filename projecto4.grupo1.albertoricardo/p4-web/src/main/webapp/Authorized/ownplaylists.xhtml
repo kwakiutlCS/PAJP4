@@ -27,7 +27,9 @@
 							styleClass="paginated text-center" emptyMessage="Nenhuma playlist encontrada.">
 							<f:facet name="header">As minhas Playlists</f:facet>
 							<p:column headerText="Data" sortBy="#{pl.insertDate}">
-								<h:outputText value="#{playlist.insertDate}" />
+								<h:outputText value="#{pl.insertDate}" >
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
 							</p:column>
 							<p:column headerText="Nome" sortBy="#{pl.name}">
 								<p:commandLink value="#{pl.name}"

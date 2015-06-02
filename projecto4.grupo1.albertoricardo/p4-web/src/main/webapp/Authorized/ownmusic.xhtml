@@ -22,8 +22,8 @@
 						<p:growl id="msgs" showDetail="true" />
 						<p:dataTable value="#{listMusic.getOwnMusic()}" var="music"
 							type="unordered" itemType="none" paginator="true" rows="10"
-							styleClass="paginated" editable="true"
-							emptyMessage="Nenhuma música encontrada.">
+							styleClass="paginated text-center" editable="true"
+							emptyMessage="Nenhuma música encontrada." scrollable="true">
 							<p:ajax event="rowEdit" listener="#{listMusic.onRowEdit}"
 								update=":form:msgs" />
 							<p:ajax event="rowEditCancel" listener="#{listMusic.onRowCancel}"
@@ -62,7 +62,9 @@
 								sortBy="#{music.dateRecord}">
 								<p:cellEditor>
 									<f:facet name="output">
-										<h:outputText value="#{music.dateRecord}" />
+										<h:outputText value="#{music.dateRecord}">
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+										</h:outputText>
 									</f:facet>
 									<f:facet name="input">
 										<p:calendar id="date" value="#{music.dateRecord}"
