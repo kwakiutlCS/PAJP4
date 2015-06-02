@@ -26,13 +26,16 @@
 						<p:dataTable value="#{listPlaylist.playlists}" var="pl" border="1"
 							cellspacing="0" cellpadding="2" paginator="true"
 							paginatorPosition="bottom" rows="4">
-							<p:column headerText="Data" sortBy="#{playlist.insertDate}">
-								<h:outputText value="#{playlist.insertDate}">
-								<f:convertDateTime pattern="dd/MM/yyyy" />
+							<p:column headerText="Data" sortBy="#{pl.insertDate}">
+								<h:outputText value="#{pl.insertDate}">
+						<!--  	<f:convertDateTime pattern="dd/MM/yyyy" />-->	
 								</h:outputText>
 							</p:column>
-							<p:column headerText="Nome" sortBy="#{playlist.name}">
-								<h:outputText value="#{playlist.name}" />
+							<p:column headerText="Nome" sortBy="#{pl.name}">
+								<h:outputText value="#{pl.name}" />
+								</p:column>
+							<p:column headerText="Tamanho" sortBy="#{pl.name}">
+								<h:outputText value="#{pl.name}" />
 								</p:column>
 								<p:column>
 								<p:button icon="ui-icon-pencil" title="Editar"

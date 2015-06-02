@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
 
 
 
@@ -20,7 +22,9 @@ public class PlaylistEJB {
 	@PersistenceContext(name="Playlist")
 	private EntityManager em;
 
-	private PlaylistCRUD pl_crud= new PlaylistCRUD();
+	@EJB
+	private PlaylistCRUD pl_crud;
+
 
 
 	public void addPlaylist(String name, Date insertDate, UserEntity userlogged) {
@@ -28,7 +32,7 @@ public class PlaylistEJB {
 		pl.setName(name);
 		pl.setInsertDate(insertDate);
 		pl.setUserOwner(userlogged);
-		em.persist(pl);;
+		pl_crud.create(pl);
 	}    
 
 
@@ -72,14 +76,16 @@ public class PlaylistEJB {
 	}
 
 	public void updateName(int id, String name){
-		
+
 		pl_crud.find(id).setName(name);
-		
+
 	}
-	
+
 	public void update(PlaylistEntity playlist) {
 
 		pl_crud.update(playlist);
 	}
 
 }
+
+
