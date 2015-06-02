@@ -41,7 +41,7 @@
 								value="#{musicUploader.dateReleased}"/>
 							<h:inputFile id="file"
 								styleClass="btn btn-lg btn-primary btn-primary btn-block btn-file file"
-								value="#{musicUploader.file}" />
+								value="#{musicUploader.file}" required="true"/>
 							<h:commandButton action="#{musicUploader.fileUpload()}"
 								value="Enviar" styleClass="btn btn-lg btn-primary btn-block"
 								style="" />

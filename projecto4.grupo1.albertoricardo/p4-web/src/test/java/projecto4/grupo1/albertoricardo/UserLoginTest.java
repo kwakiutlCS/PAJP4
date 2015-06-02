@@ -47,7 +47,6 @@ public class UserLoginTest {
 	public void setUp() {
 	}
 	
-	@Ignore
 	@Test
 	public void doLoginFailTest() {
 		userLogin.setEmail("ricardo");
@@ -57,7 +56,6 @@ public class UserLoginTest {
 		assertEquals("", "", d);
 	}
 	
-	@Ignore
 	@Test
 	public void doLoginSuccessTest() {
 		FacesContext context = ContextMocker.mockFacesContext();
@@ -70,7 +68,7 @@ public class UserLoginTest {
 		userLogin.setPassword("123");
 		Mockito.when(userEJB.verifyLogin(userLogin.getEmail(), userLogin.getPassword())).thenReturn(true);
 		String d = userLogin.doLogin();
-		assertEquals("", "/Authorized/Layout/layout.xhtml?faces-redirect=true", d);
+		assertEquals("", "/Authorized/entry.xhtml?faces-redirect=true", d);
 	}
 
 }

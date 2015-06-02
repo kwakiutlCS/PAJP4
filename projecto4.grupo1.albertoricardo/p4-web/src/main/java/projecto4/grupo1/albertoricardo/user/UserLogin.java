@@ -43,12 +43,13 @@ public class UserLogin implements Serializable {
 	private String result = "";
 
 	public String doLogin() {
-		log.debug("Entrou no login!");
+		log.info("Acesso ao login");
 		String destiny = "";
 		if (userejb.verifyLogin(this.email, this.password)) {
 			userlog.setUser(userejb.getUserEntity(email));
 			setFacesContext();
 			destiny="/Authorized/entry.xhtml?faces-redirect=true";
+			log.info("Utilizador "+email+" iniciou sessão.");
 			result = "Login válido";
 		} else { 
 			result = "Login inválido!";
@@ -61,9 +62,8 @@ public class UserLogin implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext ext = context.getExternalContext();
 		HttpServletRequest request = (HttpServletRequest) ext.getRequest();
-		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession();
 		session.setAttribute("logged", "yes");
-		System.out.println(session.getAttribute("logged") == null);
 	}
 
 	public int getId() {
