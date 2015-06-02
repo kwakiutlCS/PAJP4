@@ -48,10 +48,16 @@
 		<!-- Logs et al. -->
 		<slf4j.version>1.7.12</slf4j.version>
 		<slf4jlog4.version>1.7.12</slf4jlog4.version>
-		
+
 		<!-- JUnit -->
 		<junit-version>4.12</junit-version>
+
+		<org.mapstruct.version>1.0.0.Beta3</org.mapstruct.version>
+
+
 	</properties>
+
+
 
 
 	<!-- 4. Dependencias do pai -->
@@ -94,6 +100,19 @@
 				<version>${junit-version}</version>
 				<scope>test</scope>
 			</dependency>
+
+			<dependency>
+				<groupId>org.mapstruct</groupId>
+				<artifactId>mapstruct-jdk8</artifactId>
+				<version>${org.mapstruct.version}</version>
+			</dependency>
+
+
+
+
+
+
+
 		</dependencies>
 	</dependencyManagement>
 
@@ -172,6 +191,44 @@
 						</webResources>
 					</configuration>
 				</plugin>
+
+				<plugin>
+					<groupId>org.bsc.maven</groupId>
+					<artifactId>maven-processor-plugin</artifactId>
+					<version>2.2.4</version>
+					<configuration>
+						<defaultOutputDirectory>
+							${project.build.directory}/generated-sources
+						</defaultOutputDirectory>
+						<processors>
+							<processor>org.mapstruct.ap.MappingProcessor</processor>
+						</processors>
+						<options>
+						<defaultComponentModel>cdi</defaultComponentModel>
+						
+						</options>
+					</configuration>
+					<executions>
+						<execution>
+							<id>process</id>
+							<phase>generate-sources</phase>
+							<goals>
+								<goal>process</goal>
+							</goals>
+						</execution>
+					</executions>
+					<dependencies>
+						<dependency>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>${org.mapstruct.version}</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+
+
+
+
 			</plugins>
 		</pluginManagement>
 	</build>
