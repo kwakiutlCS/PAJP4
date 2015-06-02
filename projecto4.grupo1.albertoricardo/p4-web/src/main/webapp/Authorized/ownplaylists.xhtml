@@ -21,6 +21,7 @@
 			<h:panelGroup layout="block" styleClass="container">
 				<h:panelGroup id="wrapper" layout="block" styleClass="wrapper">
 					<h:form>
+					<p:growl id="growl" showDetail="true" autoUpdate="true"/>
 						<p:dataTable value="#{listPlaylist.playlists}" var="pl" paginator="true"
 							paginatorPosition="bottom" rows="4"
 							styleClass="paginated text-center" emptyMessage="Nenhuma playlist encontrada.">
@@ -30,17 +31,7 @@
 							</p:column>
 							<p:column headerText="Nome" sortBy="#{pl.name}">
 								<p:commandLink value="#{pl.name}"
-									onclick="PF('addDialog').show();" />
-							</p:column>
-							<p:column>
-								<p:button icon="ui-icon-pencil" title="Editar"
-									outcome="createPlaylist.xhtml">
-									<f:param name="id" value="#{playlist.id}" />
-								</p:button>
-								<p:commandButton icon="ui-icon-trash" title="Excluir"
-									process="@this" update="@form">
-								</p:commandButton>
-							</p:column>
+									onclick="PF('addDialog').show()" />
 
 							<p:dialog header="Musicas da Playlist" widgetVar="addDialog" width="30%">
 								<p:dataTable id="listplistmusics" value="#{pl.getMusics()}"
@@ -52,11 +43,21 @@
 										<h:outputText value="#{m.title}" styleClass="text-center" />
 									</p:column>
 									<p:column headerText="Remover da Playlist">
-										<p:commandButton value="Remover"
-											action="#{listPlaylist.removeMusicFromPlaylist(p,m)}" />
+										<p:commandButton icon="ui-icon-trash"
+											action="#{listPlaylist.removeMusicFromPlaylist(pl,m)}" update="listplistmusics" oncomplete="PF('addDialog').show()"/>
 									</p:column>
 								</p:dataTable>
 							</p:dialog>
+							</p:column>
+							<p:column>
+								<p:button icon="ui-icon-pencil" title="Editar"
+									outcome="createPlaylist.xhtml">
+									<f:param name="id" value="#{playlist.id}" />
+								</p:button>
+								<p:commandButton icon="ui-icon-trash" title="Excluir"
+									process="@this" update="@form">
+								</p:commandButton>
+							</p:column>
 
 						</p:dataTable>
 					</h:form>
