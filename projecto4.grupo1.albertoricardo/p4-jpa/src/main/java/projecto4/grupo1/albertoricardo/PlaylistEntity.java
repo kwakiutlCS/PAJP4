@@ -24,7 +24,7 @@ public class PlaylistEntity{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(nullable=false,unique=true)
 	private int id;
-	@Column(nullable=false)
+	@Column(nullable=false,unique=true)
 	private String name;
 	@Temporal(TemporalType.DATE)
 	@Column(nullable=false,unique=false)

@@ -38,6 +38,8 @@ public class ListMusic implements Serializable {
 	private List<MusicEntity> ownMusics;
 
 	private List<MusicEntity> filteredMusics;
+	
+	private MusicEntity selectedMusic;
 
 
 
@@ -98,6 +100,14 @@ public class ListMusic implements Serializable {
 
 	public void setFilteredMusics(List<MusicEntity> filteredMusics) {
 		this.filteredMusics = filteredMusics;
+	}
+
+	public MusicEntity getSelectedMusic() {
+		return selectedMusic;
+	}
+
+	public void setSelectedMusic(MusicEntity selectedMusic) {
+		this.selectedMusic = selectedMusic;
 	}
 
 
