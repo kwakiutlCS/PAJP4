@@ -13,7 +13,7 @@
 	<h:outputScript library="js" name="inputFilePath.js" />
 	<h:outputStylesheet library="css" name="mainStyle.css" />
 	<h:outputStylesheet library="css" name="bootstrap.css" />
-	<h:outputStylesheet library="css" name="metro.css" />	
+	<h:outputStylesheet library="css" name="metro.css" />
 	<h:outputStylesheet library="css" name="metro-icons.css" />
 	<h:outputStylesheet library="css" name="loginStyle.css" />
 	<title>Playlist</title>
@@ -25,6 +25,7 @@
 				<h:panelGroup id="wrapper" layout="block" styleClass="wrapper">
 					<h:form enctype="multipart/form-data" styleClass="form-signin"
 						prependId="false">
+						<p:growl id="growl" autoUpdate="true" showDetail="true" />
 						<h:panelGroup id="sendFile">
 							<hr class="colorgraph" />
 				Título: <span class="reqfield">*</span>
@@ -38,17 +39,18 @@
 								value="#{musicUploader.album}" required="true" />	
 				Data: <span class="reqfield">*</span>
 							<p:calendar id="date" styleClass="form-control datebtn"
-								value="#{musicUploader.dateReleased}"/>
+								value="#{musicUploader.dateReleased}" />
+							<br />
 							<h:inputFile id="file"
 								styleClass="btn btn-lg btn-primary btn-primary btn-block btn-file file"
-								value="#{musicUploader.file}" required="true"/>
+								value="#{musicUploader.file}" required="true" />
+							<br />
 							<h:commandButton action="#{musicUploader.fileUpload()}"
 								value="Enviar" styleClass="btn btn-lg btn-primary btn-block"
-								style="" />
+								style="">
+								<f:ajax render="@form" execute="date album artist title file" />
+							</h:commandButton>
 							<hr class="colorgraph" />
-							<h:panelGroup layout="block" styleClass="text-center">
-								<h:outputText value="#{musicUploader.result}" />
-							</h:panelGroup>
 						</h:panelGroup>
 					</h:form>
 				</h:panelGroup>

@@ -20,5 +20,7 @@ public interface MusicListEJBLocal {
 	boolean update(MusicEntity music);
 
 	boolean removerUserOwnership(UserEntity user);
+
+	void removerMusicUserOwnership(MusicEntity m, UserEntity user);
 	
 }

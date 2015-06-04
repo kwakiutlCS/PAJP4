@@ -4,11 +4,14 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+
 import org.primefaces.event.RowEditEvent;
 
 import projecto4.grupo1.albertoricardo.MusicEntity;
@@ -16,7 +19,7 @@ import projecto4.grupo1.albertoricardo.MusicListEJBLocal;
 import projecto4.grupo1.albertoricardo.user.UserLogged;
 
 @Named
-@SessionScoped
+@RequestScoped
 public class ListMusic implements Serializable {
 
 	/**
@@ -31,9 +34,9 @@ public class ListMusic implements Serializable {
 	private UserLogged userlog;
 
 	private List<MusicEntity> musics;
-	
+
 	private List<MusicEntity> ownMusics;
-	
+
 	private List<MusicEntity> filteredMusics;
 
 
@@ -51,7 +54,7 @@ public class ListMusic implements Serializable {
 	}
 
 	public List<MusicEntity> getOwnMusic() {
-		if (ownMusics == null) {
+		if (ownMusics == null ) {
 			try {
 				ownMusics = mlejb.listOwnMusics(userlog.getUser());
 			} catch (Exception e) {
@@ -62,19 +65,31 @@ public class ListMusic implements Serializable {
 		return ownMusics;
 	}
 
+	public void removeProperty(MusicEntity m) {
+		mlejb.removerMusicUserOwnership(m, userlog.getUser());
+		refresh();
+	}
+
 
 
 	public void onRowEdit(RowEditEvent event) {
-		MusicEntity newMusic = (MusicEntity) event.getObject();
-		boolean updated = mlejb.update(newMusic);
+		mlejb.update((MusicEntity) event.getObject());
 
-		FacesMessage msg = new FacesMessage("Música "+newMusic.getTitle()+" editado com successo.");
+		FacesMessage msg = new FacesMessage("Música "+((MusicEntity) event.getObject()).getTitle()+" editado com successo.");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public void onRowCancel(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Edição cancelada");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	private void refresh() {
+		try {
+			ownMusics = mlejb.listOwnMusics(userlog.getUser());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public List<MusicEntity> getFilteredMusics() {

@@ -91,3 +91,89 @@ input[readonly] {
 	display: none;
 	visibility: hidden;
 }
+
+.fonterss {
+	text-align: center;
+}
+
+.fonterss img {
+	width: 40%;
+}
+
+.fonterss p {
+	font-size: 14px !important;
+	text-align: justify !important;
+}
+
+.fonterss iframe {
+	width: 40%;
+	text-align: center;
+}
+
+.tile {
+	width: 100%;
+	display: inline-block;
+	box-sizing: border-box;
+	background: #fff;
+	padding: 20px;
+	margin-bottom: 30px;
+}
+
+.tile.title {
+	margin-top: 0px;
+}
+
+.purple, .blue, .red, .orange, .green {
+	color: #fff;
+}
+
+.purple {
+	color: #fff;
+	background: #5133AB;
+}
+.purple:hover {
+	background: #c85249;
+}
+
+
+.red {
+	color: #fff;
+	background: #AC193D;
+
+}
+.red:hover {
+	background: #65001d;
+}
+.green {
+	color: #fff;
+	background: #00A600;
+}
+.green:hover {
+	background: #0d6c00;
+}
+.blue {
+	color: #fff;
+	background: #2672EC;
+}
+.blue:hover {
+	background: #1746aa;
+}
+.orange {
+	color:#fff;
+	background: #DC572E;
+}
+
+.orange:hover {
+	background: #a8321b;
+}
+.white {
+	background: #fff;
+}
+.tile a {
+	color: inherit;
+}
+
+.tile a:hover {
+	color: #fff;
+	text-decoration: none;
+}

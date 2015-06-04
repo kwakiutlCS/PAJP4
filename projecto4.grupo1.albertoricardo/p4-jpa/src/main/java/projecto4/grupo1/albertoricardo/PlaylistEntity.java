@@ -3,6 +3,7 @@ package projecto4.grupo1.albertoricardo;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,7 +24,7 @@ public class PlaylistEntity{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(nullable=false,unique=true)
 	private int id;
-	@Column(nullable=false,unique=true)
+	@Column(nullable=false)
 	private String name;
 	@Temporal(TemporalType.DATE)
 	@Column(nullable=false,unique=false)

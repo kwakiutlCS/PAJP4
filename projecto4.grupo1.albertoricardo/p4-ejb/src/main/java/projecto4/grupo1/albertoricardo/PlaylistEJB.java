@@ -15,6 +15,9 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 
 @Stateless
@@ -22,9 +25,11 @@ public class PlaylistEJB {
 
 	@PersistenceContext(name="Playlist")
 	private EntityManager em;
-	
+
 	@EJB
 	private PlaylistCRUD pl_crud;
+
+	private static Logger log = LoggerFactory.getLogger(PlaylistEJB.class);
 
 
 	public void addPlaylist(String name, Date insertDate, UserEntity userlogged) {
@@ -74,29 +79,46 @@ public class PlaylistEJB {
 		}
 		return found;
 	}
-	
+
 	public boolean removePlaylistsOfUser(UserEntity u) {
 		boolean success = false;
 		try {
-		int complete = em.createQuery("DELETE FROM PlaylistEntity p where p.userOwner.id = :i")
-				.setParameter("i", u.getId())
-				.executeUpdate();
-		if (complete > 0) success = true;
+			int complete = em.createQuery("DELETE FROM PlaylistEntity p where p.userOwner.id = :i")
+					.setParameter("i", u.getId())
+					.executeUpdate();
+			if (complete > 0) success = true;
 		} catch(Exception e) {
 			FacesMessage msg = new FacesMessage("Erro",e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
-		
+
 		return success;
-		
+
+	}
+
+	public boolean removePlaylistFromUser(PlaylistEntity p) {
+		boolean success = false;
+		try {
+			p.getMusics().clear();
+			pl_crud.remove(p);
+			success = true;
+			FacesMessage msg = new FacesMessage("Playlist","Playlist "+p.getName()+" removida com sucesso.");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		} catch(Exception e) {
+			log.error("Erro ao tentar remover playlist",e);
+			FacesMessage msg = new FacesMessage("Erro","Playlist "+p.getName()+" não foi eliminada");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+
+		return success;
 	}
 
 	public void updateName(int id, String name){
-		
+
 		pl_crud.find(id).setName(name);
-		
+
 	}
-	
+
 	public void update(PlaylistEntity playlist) {
 
 		pl_crud.update(playlist);

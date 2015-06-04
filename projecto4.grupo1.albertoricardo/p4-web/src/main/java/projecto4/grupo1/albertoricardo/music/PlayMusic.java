@@ -1,22 +1,26 @@
 package projecto4.grupo1.albertoricardo.music;
+import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.Serializable;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 import javazoom.jl.player.Player;
+import javazoom.jl.player.advanced.AdvancedPlayer;
 
 @Named
-@SessionScoped
+@ApplicationScoped
 public class PlayMusic implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Player player;
+	private AdvancedPlayer player = null;
 
 
 	public PlayMusic() {
@@ -24,9 +28,12 @@ public class PlayMusic implements Serializable {
 
 
 	public void play(String filename) {
-		try {  
-			InputStream buffer = new FileInputStream(filename);
-			player = new Player(buffer);
+		try {
+			File f = new File(filename);
+			FileInputStream fis = new FileInputStream(f);
+			BufferedInputStream bis = new BufferedInputStream(fis);
+			AdvancedPlayer p = new AdvancedPlayer(bis);
+			setPlayer(p);
 			player.play();
 		}
 		catch (Exception e) {
@@ -37,7 +44,17 @@ public class PlayMusic implements Serializable {
 	}
 
 	public void stop() {
-		player.close();
+		if (player != null) player.close();
+	}
+
+
+	public AdvancedPlayer getPlayer() {
+		return player;
+	}
+
+
+	public void setPlayer(AdvancedPlayer player) {
+		this.player = player;
 	}
 
 }

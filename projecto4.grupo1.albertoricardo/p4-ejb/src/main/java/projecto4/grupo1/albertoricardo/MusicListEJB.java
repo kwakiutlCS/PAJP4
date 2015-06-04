@@ -79,7 +79,11 @@ public class MusicListEJB implements MusicListEJBLocal {
 			int complete = em.createQuery("UPDATE MusicEntity m SET m.userOwner.id = NULL where m.userOwner.id = :i")
 					.setParameter("i", user.getId())
 					.executeUpdate();
-			if (complete > 0) success = true;
+			if (complete > 0) { 
+				success = true;
+				FacesMessage msg = new FacesMessage("Música","Propriedade removida com sucesso.");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
 		} catch (Exception e) {
 			log.error("Erro ao remover proprietário da música");
 			FacesMessage msg = new FacesMessage("Erro",e.getMessage());
@@ -87,6 +91,25 @@ public class MusicListEJB implements MusicListEJBLocal {
 		}
 		
 		return success;
+		
+	}
+
+	@Override
+	public void removerMusicUserOwnership(MusicEntity m, UserEntity user) {
+		try {
+			int complete = em.createQuery("UPDATE MusicEntity m SET m.userOwner.id = NULL where m.userOwner.id = :i AND m.id = :mid")
+					.setParameter("i", user.getId())
+					.setParameter("mid", m.getId())
+					.executeUpdate();
+			if (complete > 0) { 
+				FacesMessage msg = new FacesMessage("Música","Propriedade removida com sucesso.");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		} catch (Exception e) {
+			log.error("Erro ao remover proprietário da música");
+			FacesMessage msg = new FacesMessage("Erro",e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
 		
 	}
 }

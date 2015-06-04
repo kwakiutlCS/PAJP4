@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
 
 <h:head>
@@ -18,20 +19,23 @@
 	<ui:composition template="../Authorized/Layout/layout.xhtml">
 		<ui:define name="conteudo">
 			<h:panelGroup layout="block" styleClass="container">
-				<h:panelGroup id="wrapper" layout="block" styleClass="wrapper">
-					<h:form>
-						<h:panelGrid columns="2">
-							<f:facet name="header">
-								<h:outputText value="Inserir nova Playlist" />
-							</f:facet>
-							<h:outputText value="Nome:" />
-							<h:inputText size="30" value="#{playlist.name}" required="true"
-								requiredMessage="Insira nome!" />
+				<h:panelGroup layout="block" styleClass="wrapper">
+					<h:form styleClass="form-signin">
+						<p:growl id="growl" showDetail="true" autoUpdate="true" />
+						<h:panelGroup id="createPL">
+							<h3 class="form-signin-heading">Cria a tua playlist</h3>
+							<hr class="colorgraph" />
+							<br />
+					Nome: <span class="reqfield">*</span>
+							<h:inputText id="nomePL" styleClass="form-control"
+								value="#{playlist.name}" required="true" />
+								<br/>	
+							<h:commandButton action="#{playlist.insertPlaylist()}"
+								value="Criar" styleClass="btn btn-lg btn-primary btn-block">
+								<f:ajax render="@form" execute="nomePL"/>
+							</h:commandButton>
+						</h:panelGroup>
 
-							<h:commandButton value="Inserir"
-								action="#{playlist.insertPlaylist()}" />
-
-						</h:panelGrid>
 					</h:form>
 				</h:panelGroup>
 			</h:panelGroup>

@@ -9,6 +9,8 @@ import javax.inject.Named;
 import javax.servlet.http.Part;
 
 import org.primefaces.event.RowEditEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import projecto4.grupo1.albertoricardo.MusicUploadEJBLocal;
 import projecto4.grupo1.albertoricardo.user.UserLogged;
@@ -39,15 +41,18 @@ public class MusicUploader implements Serializable {
 
 	@EJB
 	private MusicUploadEJBLocal mu;
-	
+
 	@Inject
 	private UserLogged ulog;
-	
+
+	private static Logger log = LoggerFactory.getLogger(MusicUploader.class);
+
 
 	private Part file;
 
 
 	public void fileUpload() throws IOException {
+		try {
 		path = System.getProperty("user.dir");
 		File folder = new File(path+"/music/");
 		String fileName = getFilename(file);
@@ -67,7 +72,7 @@ public class MusicUploader implements Serializable {
 			}  
 			outputStream.close();  
 			inputStream.close();
-			result = "Ficheiro enviado.";
+			log.info("Novo ficheiro enviado, por "+ulog.getUser().getName());
 		} else {
 			folder.mkdir();
 			FileOutputStream outputStream = new FileOutputStream(new File(folder,fileName));
@@ -83,10 +88,15 @@ public class MusicUploader implements Serializable {
 			}  
 			outputStream.close();  
 			inputStream.close();
-			result = "Ficheiro enviado";
+			log.info("Novo ficheiro enviado, por "+ulog.getUser().getName());
 		}
 		String finalPath = folder.getAbsolutePath() + "/" + fileName;
 		mu.uploadMusicDB(title, artist, album, dateReleased, finalPath, ulog.getUser());
+		} catch (Exception e) {
+			log.error("Erro ao fazer upload",e);
+			FacesMessage msg = new FacesMessage("Música","Erro ao fazer upload.");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
 	}
 
 

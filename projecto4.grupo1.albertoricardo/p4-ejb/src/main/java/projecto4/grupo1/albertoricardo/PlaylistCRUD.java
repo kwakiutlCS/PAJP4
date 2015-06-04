@@ -4,11 +4,16 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Stateless
 public class PlaylistCRUD {
 
 	@PersistenceContext(name="Playlist")
 	private EntityManager em;
+	
+	private static Logger log = LoggerFactory.getLogger(PlaylistCRUD.class);
 	
 	
 	public PlaylistEntity create(PlaylistEntity playlist) {
@@ -18,7 +23,7 @@ public class PlaylistCRUD {
 
 	
 	public PlaylistEntity update(PlaylistEntity playlist) {
-
+		log.debug("Update à playlist "+playlist.getName());
 		return em.merge(playlist);
 	}
 

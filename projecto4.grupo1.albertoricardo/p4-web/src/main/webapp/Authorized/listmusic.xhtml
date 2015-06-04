@@ -25,7 +25,8 @@
 							styleClass="paginated text-center" widgetVar="listarmusicas"
 							emptyMessage="Nenhuma música encontrada"
 							filteredValue="#{listMusic.filteredMusics}" scrollable="true"
-							scrollWidth="100%">
+							scrollWidth="100%" paginatorPosition="bottom"
+							resizableColumns="true" paginatorAlwaysVisible="false">
 							<f:facet name="header">
 								<p:outputPanel styleClass="text-left">
 									<p:inputText id="globalFilter"
@@ -40,48 +41,55 @@
 								<h:outputText value="#{music.title}" styleClass="text-center" />
 							</p:column>
 							<p:column headerText="Artista" sortBy="#{music.artist}"
-								filterBy="#{music.artist}" filterStyle="hidefilter">
+								filterBy="#{music.artist}"
+								filterStyle="display: none;
+	visibility: hidden;">
 								<h:outputText value="#{music.artist}" />
 							</p:column>
 							<p:column headerText="Álbum" sortBy="#{music.album}"
-								filterBy="#{music.album}" filterStyle="hidefilter">
+								filterBy="#{music.album}"
+								filterStyle="display: none;
+	visibility: hidden;">
 								<h:outputText value="#{music.album}" />
 							</p:column>
 							<p:column headerText="Data de Lançamento"
 								sortBy="#{music.dateRecord}" filterBy="#{music.dateRecord}"
-								filterStyle="hidefilter">
+								filterStyle="display: none;
+	visibility: hidden;">
 								<h:outputText value="#{music.dateRecord}">
 									<f:convertDateTime pattern="dd/MM/yyyy" />
 								</h:outputText>
 							</p:column>
 							<p:column headerText="Ouvir">
-								<p:commandButton icon="ui-icon-play" action="#{playMusic.play(music.pathFile)}" />
-								<p:commandButton icon="ui-icon-stop" action="#{playMusic.stop()}" />
+								<p:commandButton icon="ui-icon-play"
+									action="#{playMusic.play(music.pathFile)}" />
+								<p:commandButton icon="ui-icon-stop"
+									action="#{playMusic.stop()}" />
 							</p:column>
 							<p:column headerText="Adicionar a Playlist">
 								<p:commandButton onclick="PF('addDialog').show();"
 									icon="ui-icon-circle-plus" />
-								<p:dialog header="Playlist" widgetVar="addDialog" width="30%">
-									<h:panelGrid columns="1" cellpadding="5"
-										styleClass="text-center">
-										<p:selectOneMenu id="plist"
-											value="#{listPlaylist.selectedPlaylist}"
-											converter="entityConverter" var="pl" style="width:80%">
-											<!-- Converter é usado para o item seleccionado é um objecto. Se fosse uma string não era preciso -->
-											<f:selectItem itemLabel="Seleccione:" itemValue="" />
-											<f:selectItems value="#{listPlaylist.playlists}" var="plst"
-												itemLabel="#{plst.name}" itemValue="#{plst}" />
-											<p:column>
+							</p:column>
+							<p:dialog id="dialog" header="Playlist" widgetVar="addDialog"
+								width="30%">
+								<h:panelGrid columns="1" cellpadding="5"
+									styleClass="text-center">
+									<p:selectOneMenu id="plist"
+										value="#{listPlaylist.selectedPlaylist}"
+										converter="entityConverter" var="pl" style="width:80%">
+										<!-- Converter é usado para o item seleccionado é um objecto. Se fosse uma string não era preciso -->
+										<f:selectItem itemLabel="Seleccione:" itemValue="" />
+										<f:selectItems value="#{listPlaylist.playlists}" var="plst"
+											itemLabel="#{plst.name}" itemValue="#{plst}" />
+										<p:column>
 												#{pl.name}
 											</p:column>
-										</p:selectOneMenu>
-										<p:commandButton
-											action="#{listPlaylist.addToSelectedPlaylist(music)}"
-											oncomplete="PF('addDialog').hide();" value="Enviar"
-											icon="ui-icon-check" />
-									</h:panelGrid>
-								</p:dialog>
-							</p:column>
+									</p:selectOneMenu>
+									<p:commandButton
+										action="#{listPlaylist.addToSelectedPlaylist(music)}"
+										value="Enviar" icon="ui-icon-check" ajax="false" />
+								</h:panelGrid>
+							</p:dialog>
 						</p:dataTable>
 					</h:form>
 				</h:panelGroup>

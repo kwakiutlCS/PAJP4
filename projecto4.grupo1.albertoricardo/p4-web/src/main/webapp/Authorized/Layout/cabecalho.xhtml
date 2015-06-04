@@ -19,35 +19,32 @@
 	<ui:composition>
 		<nav class="navbar navbar-inverse" role="navigation">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-collapse">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
+				<h:form>
+					<p:commandButton value="Início"
+						action="entry.xhtml?faces-redirect=true" icon="fa fa-home"
+						styleClass="navbar-brand" />
+				</h:form>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-navz">
 					<li class="center-email"><h:form prependId="false"
 							class="formnavbar">
-							<p:menuButton value="#{userLogged.user.name}">
+							<p:menuButton iconPos="right" value="#{userLogged.user.name}">
 								<p:menuitem value="Perfil"
 									url="/Authorized/profile.xhtml?faces-redirect=true"
 									icon="fa-user" />
-								<p:menuitem value="Início" url="/Authorized/entry.xhtml"
-									icon="fa-home" />
 								<p:separator />
-								<p:menuitem value="Inserir Playlist"
-									url="/Authorized/createPlaylist.xhtml" icon="fa-upload" />
-								<p:separator />
+								<p:menuitem value="Criar Playlist"
+									url="/Authorized/createPlaylist.xhtml" icon="fa fa-list-ol" />
 								<p:menuitem value="Inserir Musica"
-									url="/Authorized/uploadmusic.xhtml" icon="fa-upload" />
+									url="/Authorized/uploadmusic.xhtml" icon="fa fa-upload" />
 								<p:menuitem value="As Minhas Musicas"
-									url="/Authorized/ownmusic.xhtml" icon="fa-music" />
+									url="/Authorized/ownmusic.xhtml" icon="fa fa-music" />
 								<p:menuitem value="As Minhas Playlists"
-									url="/Authorized/ownplaylists.xhtml" icon="fa-list" />
+									url="/Authorized/ownplaylists.xhtml" icon="fa fa-navicon" />
 								<p:separator />
 								<p:menuitem value="Logout" action="#{userLogged.doLogout()}"
-									icon="ui-icon-extlink" />
+									icon="fa fa-sign-out" />
 							</p:menuButton>
 						</h:form></li>
 				</ul>
