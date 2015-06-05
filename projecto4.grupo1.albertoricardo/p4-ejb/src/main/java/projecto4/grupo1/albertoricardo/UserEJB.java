@@ -8,6 +8,9 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import projecto4.grupo1.albertoricardo.security.PasswordEncryptor;
 
 /**
@@ -22,6 +25,8 @@ public class UserEJB implements UserEJBLocal {
 	private UserCRUD crud;
 	@EJB
 	private MusicListEJBLocal mlistejb;
+	
+	private static Logger log = LoggerFactory.getLogger(UserEJB.class);
 
 	/**
 	 * Default constructor. 
@@ -33,8 +38,8 @@ public class UserEJB implements UserEJBLocal {
 	@Override
 	public boolean verifyLogin(String email, String password) {
 		boolean verified;
-		Query q = em.createQuery("select u from UserEntity u where u.email like :e")
-				.setParameter("e", email);
+		Query q = em.createQuery("select u from UserEntity u where u.email like :e");
+		q.setParameter("e", email);
 		try {
 			UserEntity usr = (UserEntity) q.getSingleResult();
 			PasswordEncryptor pe = new PasswordEncryptor();
@@ -43,6 +48,7 @@ public class UserEJB implements UserEJBLocal {
 		} catch (NoResultException nre) {
 			verified = false;
 			nre.printStackTrace();
+			log.warn("catch exception : verifyLogin method", nre);
 		}
 
 		return verified;
