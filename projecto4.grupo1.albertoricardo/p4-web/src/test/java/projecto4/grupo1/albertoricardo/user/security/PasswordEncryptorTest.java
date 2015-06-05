@@ -1,4 +1,4 @@
-package projecto4.grupo1.albertoricardo.security;
+package projecto4.grupo1.albertoricardo.user.security;
 
 import static org.junit.Assert.*;
 
@@ -6,6 +6,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import projecto4.grupo1.albertoricardo.security.PasswordEncryptor;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 

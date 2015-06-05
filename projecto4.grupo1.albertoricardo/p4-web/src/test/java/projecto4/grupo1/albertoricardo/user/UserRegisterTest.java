@@ -1,4 +1,4 @@
-package projecto4.grupo1.albertoricardo;
+package projecto4.grupo1.albertoricardo.user;
 
 import junit.framework.TestCase;
 
@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import projecto4.grupo1.albertoricardo.UserEJBLocal;
 import projecto4.grupo1.albertoricardo.user.LoginChoose;
 import projecto4.grupo1.albertoricardo.user.UserRegister;
 

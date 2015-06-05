@@ -1,6 +1,6 @@
-package projecto4.grupo1.albertoricardo;
+package projecto4.grupo1.albertoricardo.user;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -20,9 +19,7 @@ import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import projecto4.grupo1.albertoricardo.user.LoginChoose;
-import projecto4.grupo1.albertoricardo.user.UserLogged;
-import projecto4.grupo1.albertoricardo.user.UserLogin;
+import projecto4.grupo1.albertoricardo.UserEJBLocal;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserLoginTest {
@@ -47,7 +44,7 @@ public class UserLoginTest {
 	public void setUp() {
 	}
 	
-	@Ignore
+	//@Ignore
 	@Test
 	public void doLoginFailTest() {
 		userLogin.setEmail("ricardo");
@@ -57,7 +54,7 @@ public class UserLoginTest {
 		assertEquals("", "", d);
 	}
 	
-	@Ignore
+	//@Ignore
 	@Test
 	public void doLoginSuccessTest() {
 		FacesContext context = ContextMocker.mockFacesContext();

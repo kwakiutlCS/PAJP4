@@ -1,15 +1,10 @@
-package projecto4.grupo1.albertoricardo;
-
-import static org.junit.Assert.*;
+package projecto4.grupo1.albertoricardo.user;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
-import javax.validation.ValidationException;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -17,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import projecto4.grupo1.albertoricardo.UserEJBLocal;
 import projecto4.grupo1.albertoricardo.validators.UserValidator;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -35,7 +31,7 @@ public class UserValidatorTest {
 	@InjectMocks
 	UserValidator uv;
 	
-	@Ignore
+	//@Ignore
 	@Test(expected=ValidatorException.class)
 	public void test() {
 		String email = "testMail@mail.com";
