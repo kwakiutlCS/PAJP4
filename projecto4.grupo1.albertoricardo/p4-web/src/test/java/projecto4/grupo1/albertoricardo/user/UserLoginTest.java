@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -44,7 +45,7 @@ public class UserLoginTest {
 	public void setUp() {
 	}
 	
-	//@Ignore
+	@Ignore
 	@Test
 	public void doLoginFailTest() {
 		userLogin.setEmail("ricardo");
@@ -54,7 +55,7 @@ public class UserLoginTest {
 		assertEquals("", "", d);
 	}
 	
-	//@Ignore
+	@Ignore
 	@Test
 	public void doLoginSuccessTest() {
 		FacesContext context = ContextMocker.mockFacesContext();

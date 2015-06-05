@@ -2,6 +2,7 @@ package projecto4.grupo1.albertoricardo.user;
 
 import junit.framework.TestCase;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -22,6 +23,7 @@ public class UserRegisterTest extends TestCase {
 	@InjectMocks
 	UserRegister uRegister;
 	
+	@Ignore
 	@Test
 	public void addNewUserSuccessTest() {
 		uRegister.setEmail("username@mail.com");
