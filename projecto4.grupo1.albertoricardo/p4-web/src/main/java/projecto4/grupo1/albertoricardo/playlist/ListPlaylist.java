@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -51,6 +50,7 @@ public class ListPlaylist implements Serializable {
 				playlists = plistejb.getOwnPlaylists(u.getId());
 			} catch (Exception e) {
 				e.printStackTrace();
+				log.warn("catch exception - ownPlaylists method");
 			}
 		}
 
@@ -63,6 +63,7 @@ public class ListPlaylist implements Serializable {
 				playlists = plistejb.getOwnPlaylists(userlog.getUser().getId());
 			} catch (Exception e) {
 				e.printStackTrace();
+				log.warn("catch exception - getPlaylists method");
 			}
 		}
 		return playlists;
@@ -90,6 +91,7 @@ public class ListPlaylist implements Serializable {
 				} catch (Exception e) {
 					FacesMessage msg = new FacesMessage("Erro",e.getMessage());
 					FacesContext.getCurrentInstance().addMessage(null, msg);
+					log.warn("catch exception - addToSelectedPlaylist method");
 				}
 			}
 		}
@@ -124,6 +126,7 @@ public class ListPlaylist implements Serializable {
 		} catch (Exception e) {
 			FacesMessage msg = new FacesMessage("Playlist","Erro ao editar playlist");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
+			log.warn("catch exception - onRowEdit method");
 		}
 	}
 
@@ -137,6 +140,7 @@ public class ListPlaylist implements Serializable {
 			playlists = plistejb.getOwnPlaylists(userlog.getUser().getId());
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.warn("catch exception - refresh method");
 		}
 	}
 

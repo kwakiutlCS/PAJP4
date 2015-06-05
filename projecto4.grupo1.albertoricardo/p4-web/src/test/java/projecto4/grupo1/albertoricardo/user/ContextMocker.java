@@ -1,4 +1,4 @@
-package projecto4.grupo1.albertoricardo;
+package projecto4.grupo1.albertoricardo.user;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;

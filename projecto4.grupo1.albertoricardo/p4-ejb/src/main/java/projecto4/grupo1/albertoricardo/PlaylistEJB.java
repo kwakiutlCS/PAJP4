@@ -42,7 +42,7 @@ public class PlaylistEJB {
 		pl.setName(name);
 		pl.setInsertDate(insertDate);
 		pl.setUserOwner(userlogged);
-		em.persist(pl);;
+		em.persist(pl);
 	}    
 	
 	@SuppressWarnings("unchecked")
@@ -68,6 +68,7 @@ public class PlaylistEJB {
 			pe = (ArrayList<PlaylistEntity>) q.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.warn("catch exception - getPlaylists method");
 		}
 		return pe;
 	}
@@ -81,6 +82,7 @@ public class PlaylistEJB {
 			pe = (ArrayList<PlaylistEntity>) q.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.warn("catch exception - getOwnPlaylists method");
 		}
 		return pe;
 	}
@@ -95,6 +97,7 @@ public class PlaylistEJB {
 				found=true;
 		} catch (NoResultException nre) {
 			found = false;
+			log.warn("catch exception - findName method");
 		}
 		return found;
 	}
@@ -109,6 +112,7 @@ public class PlaylistEJB {
 		} catch(Exception e) {
 			FacesMessage msg = new FacesMessage("Erro",e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(null, msg);
+			log.warn("catch exception - removePlaylistsOfUser method");
 		}
 
 		return success;
