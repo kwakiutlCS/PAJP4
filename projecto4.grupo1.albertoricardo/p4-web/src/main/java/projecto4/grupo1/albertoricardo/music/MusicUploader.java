@@ -53,45 +53,45 @@ public class MusicUploader implements Serializable {
 
 	public void fileUpload() throws IOException {
 		try {
-		path = System.getProperty("user.dir");
-		File folder = new File(path+"/music/");
-		String fileName = getFilename(file);
-		System.out.println("Nome do ficheiro: "+fileName);
-		InputStream inputStream = file.getInputStream();          
-		if (folder.exists()) {
-			FileOutputStream outputStream = new FileOutputStream(new File(folder,fileName));
-			byte[] buffer = new byte[4096];          
-			int bytesRead = 0;  
-			while(true) {                          
-				bytesRead = inputStream.read(buffer);  
-				if(bytesRead > 0) {  
-					outputStream.write(buffer, 0, bytesRead);  
-				} else {  
-					break;  
-				}                         
-			}  
-			outputStream.close();  
-			inputStream.close();
-			log.info("Novo ficheiro enviado, por "+ulog.getUser().getName());
-		} else {
-			folder.mkdir();
-			FileOutputStream outputStream = new FileOutputStream(new File(folder,fileName));
-			byte[] buffer = new byte[4096];          
-			int bytesRead = 0;  
-			while(true) {                          
-				bytesRead = inputStream.read(buffer);  
-				if(bytesRead > 0) {  
-					outputStream.write(buffer, 0, bytesRead);  
-				} else {  
-					break;  
-				}                         
-			}  
-			outputStream.close();  
-			inputStream.close();
-			log.info("Novo ficheiro enviado, por "+ulog.getUser().getName());
-		}
-		String finalPath = folder.getAbsolutePath() + "/" + fileName;
-		mu.uploadMusicDB(title, artist, album, dateReleased, finalPath, ulog.getUser());
+			path = System.getProperty("user.dir");
+			File folder = new File(path+"/music/");
+			String fileName = getFilename(file);
+			System.out.println("Nome do ficheiro: "+fileName);
+			InputStream inputStream = file.getInputStream();          
+			if (folder.exists()) {
+				FileOutputStream outputStream = new FileOutputStream(new File(folder,fileName));
+				byte[] buffer = new byte[4096];          
+				int bytesRead = 0;  
+				while(true) {                          
+					bytesRead = inputStream.read(buffer);  
+					if(bytesRead > 0) {  
+						outputStream.write(buffer, 0, bytesRead);  
+					} else {  
+						break;  
+					}                         
+				}  
+				outputStream.close();  
+				inputStream.close();
+				log.info("Novo ficheiro enviado, por "+ulog.getUser().getName());
+			} else {
+				folder.mkdir();
+				FileOutputStream outputStream = new FileOutputStream(new File(folder,fileName));
+				byte[] buffer = new byte[4096];          
+				int bytesRead = 0;  
+				while(true) {                          
+					bytesRead = inputStream.read(buffer);  
+					if(bytesRead > 0) {  
+						outputStream.write(buffer, 0, bytesRead);  
+					} else {  
+						break;  
+					}                         
+				}  
+				outputStream.close();  
+				inputStream.close();
+				log.info("Novo ficheiro enviado, por "+ulog.getUser().getName());
+			}
+			String finalPath = folder.getAbsolutePath() + "/" + fileName;
+			mu.uploadMusicDB(title, artist, album, dateReleased, finalPath, ulog.getUser());
 		} catch (Exception e) {
 			log.error("Erro ao fazer upload",e);
 			FacesMessage msg = new FacesMessage("Música","Erro ao fazer upload.");

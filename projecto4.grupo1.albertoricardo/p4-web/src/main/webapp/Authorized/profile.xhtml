@@ -22,16 +22,17 @@
 					<h:form styleClass="form-signin">
 						<p:growl id="msgs" showDetail="true" autoUpdate="true" />
 						<h:panelGroup id="changeProfile">
+						<h3 class="form-signin-heading">Edita o teu perfil!</h3>
 							<hr class="colorgraph" />
 							<h:inputText styleClass="form-control"
 								value="#{userLogged.showEmail()}" disabled="true" />
 				Nome: <span class="reqfield">*</span>
 							<h:inputText id="newname" styleClass="form-control"
 								value="#{userLogged.newName}" required="true"
-								label="#{userLogged.user.name}" />
+								label="#{userLogged.user.getName()}" />
 				Password: <span class="reqfield">*</span>
 							<h:inputSecret id="newpassword" styleClass="form-control"
-								value="#{userLogged.newPassword}" required="true" />
+								value="#{userLogged.newPassword}" required="true" label="Nova Password"/>
 							<h:commandButton action="#{userLogged.changeSettings()}"
 								value="Guardar" styleClass="btn btn-lg btn-primary btn-block">
 								<f:ajax execute="newname newpassword" render="@form" />

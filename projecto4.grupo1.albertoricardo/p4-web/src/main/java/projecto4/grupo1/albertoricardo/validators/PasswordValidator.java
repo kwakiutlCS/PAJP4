@@ -21,9 +21,7 @@ public class PasswordValidator implements Validator {
 			Object value) throws ValidatorException {
 
 		String password = (String) value;
-
-		UIInput confirmComponent = (UIInput) component.getAttributes().get("confirmPassword");
-		String confirm = (String) confirmComponent.getSubmittedValue();
+		String confirm = (String) confirmComponent(component);
 
 		if (password == null || confirm == null) return;
 
@@ -48,6 +46,11 @@ public class PasswordValidator implements Validator {
 			throw new ValidatorException(msg);
 		}
 
+	}
+	
+	public String confirmComponent(UIComponent component) {
+		UIInput confirmComponent = (UIInput) component.getAttributes().get("confirmPassword");
+		return (String) confirmComponent.getSubmittedValue();
 	}
 
 

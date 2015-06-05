@@ -110,6 +110,18 @@ public class ListMusic implements Serializable {
 		this.selectedMusic = selectedMusic;
 	}
 
+	public List<MusicEntity> getOwnMusics() {
+		return ownMusics;
+	}
+
+	public void setOwnMusics(List<MusicEntity> ownMusics) {
+		this.ownMusics = ownMusics;
+	}
+
+	public void setMusics(List<MusicEntity> musics) {
+		this.musics = musics;
+	}
+
 
 
 }

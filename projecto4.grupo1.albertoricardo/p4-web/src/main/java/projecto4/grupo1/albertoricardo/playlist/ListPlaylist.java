@@ -1,6 +1,7 @@
 package projecto4.grupo1.albertoricardo.playlist;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -72,12 +73,13 @@ public class ListPlaylist implements Serializable {
 	public void addToSelectedPlaylist() {
 		boolean duplicate = false;
 		int id = selectedPlaylist.getId();
-		
 		if (selectedPlaylist != null) {
 			for (MusicEntity m:selectedPlaylist.getMusics()) {
-				if (selectedMusic.getId() == m.getId()) duplicate = true;
-				FacesMessage msg = new FacesMessage("Erro","Música " + selectedMusic.getTitle() + " já existe na Playlist "+selectedPlaylist.getName());
-				FacesContext.getCurrentInstance().addMessage(null, msg);
+				if (selectedMusic.getId() == m.getId()) { 
+					duplicate = true;
+					FacesMessage msg = new FacesMessage("Erro","Música " + selectedMusic.getTitle() + " já existe na Playlist "+selectedPlaylist.getName());
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				}
 			}
 			if (!duplicate) {
 				try {
@@ -120,9 +122,9 @@ public class ListPlaylist implements Serializable {
 
 	public void onRowEdit(RowEditEvent event) {
 		try {
-		plistejb.update((PlaylistEntity) event.getObject());
-		FacesMessage msg = new FacesMessage("Playlist","Playlist "+((PlaylistEntity) event.getObject()).getName()+" editado com successo.");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+			plistejb.update((PlaylistEntity) event.getObject());
+			FacesMessage msg = new FacesMessage("Playlist","Playlist "+((PlaylistEntity) event.getObject()).getName()+" editado com successo.");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} catch (Exception e) {
 			FacesMessage msg = new FacesMessage("Playlist","Erro ao editar playlist");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
