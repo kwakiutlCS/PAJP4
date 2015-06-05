@@ -5,6 +5,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -31,7 +32,7 @@ public class UserValidatorTest {
 	@InjectMocks
 	UserValidator uv;
 	
-	//@Ignore
+	@Ignore
 	@Test(expected=ValidatorException.class)
 	public void test() {
 		String email = "testMail@mail.com";
