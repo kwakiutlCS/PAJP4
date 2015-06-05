@@ -15,8 +15,13 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import projecto4.grupo1.albertoricardo.dto.DozerHelper;
+import projecto4.grupo1.albertoricardo.dto.PListDTO;
 
 
 
@@ -39,6 +44,20 @@ public class PlaylistEJB {
 		pl.setUserOwner(userlogged);
 		em.persist(pl);;
 	}    
+	
+	@SuppressWarnings("unchecked")
+	public List<PListDTO> getPlaylistDozer() { 
+		List<PListDTO> pldto = new ArrayList<>();
+		try {
+			Query q = em.createQuery("SELECT p FROM PlaylistEntity p");
+			ArrayList<PlaylistEntity> pe = (ArrayList<PlaylistEntity>) q.getResultList();
+			Mapper mapper = new DozerBeanMapper();
+			pldto = DozerHelper.map(mapper, pe, PListDTO.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return pldto;
+	}
 
 
 	@SuppressWarnings("unchecked")
@@ -120,7 +139,6 @@ public class PlaylistEJB {
 	}
 
 	public void update(PlaylistEntity playlist) {
-
 		pl_crud.update(playlist);
 	}
 
