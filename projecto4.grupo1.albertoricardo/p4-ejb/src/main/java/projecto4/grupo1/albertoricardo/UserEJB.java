@@ -93,11 +93,9 @@ public class UserEJB implements UserEJBLocal {
 
 	@Override
 	public int getUserID(String username) {
-		int id = -1;
-		Query q = em.createQuery("select u from UserEntity u where u.email like :e");
+		Query q = em.createQuery("select u.id from UserEntity u where u.email like :e");
 		q.setParameter("e", username);
-		UserEntity u = (UserEntity) q.getSingleResult();
-		id = u.getId();
+		int id = (Integer) q.getSingleResult();
 		return id;
 	}
 

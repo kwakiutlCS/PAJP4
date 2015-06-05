@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import org.junit.Test;
@@ -37,11 +38,30 @@ public class PlaylistEJBTest {
 
 	@Test
 	public void getPlaylistsTest() {
-		Mockito.when((em).createQuery("SELECT p FROM PlaylistEntity p WHERE p.userOwner.id = :id")).thenReturn(mockedQuery);
+		Mockito.when(em.createQuery("SELECT p FROM PlaylistEntity p WHERE p.userOwner.id = :id")).thenReturn(mockedQuery);
 		Mockito.when(mockedQuery.getResultList()).thenReturn(new ArrayList<PlaylistEntity>());
 		List<PlaylistEntity> p = plejb.getPlaylists();
 		int size = p.size();
 		assertEquals(0, size);
 	}
+	
+	@Test
+	public void findNameTest() {
+		String name = "abel";
+		Mockito.when(em.createQuery("select u from PlaylistEntity u where u.name like :e")).thenReturn(mockedQuery);
+		Mockito.when(mockedQuery.getSingleResult()).thenReturn(name);
+		
+		boolean result = plejb.findName(name);
+		assertTrue(result);
+		}
+	
+	@Test
+	public void findNameFailTest() {
+		Mockito.when(em.createQuery("select u from PlaylistEntity u where u.name like :e")).thenReturn(mockedQuery);
+		Mockito.when(mockedQuery.getSingleResult()).thenReturn(null);
+		
+		boolean result = plejb.findName("abel");
+		assertFalse(result);
+		}
 
 }

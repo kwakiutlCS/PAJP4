@@ -91,8 +91,8 @@ public class PlaylistEJB {
 	public boolean findName(String name){
 		boolean found=false;
 		try {
-			Query q = em.createQuery("select u from PlaylistEntity u where u.name like :e")
-					.setParameter("e", name);
+			Query q = em.createQuery("select u from PlaylistEntity u where u.name like :e");
+			q.setParameter("e", name);
 			if(q.getSingleResult()!=null)
 				found=true;
 		} catch (NoResultException nre) {
