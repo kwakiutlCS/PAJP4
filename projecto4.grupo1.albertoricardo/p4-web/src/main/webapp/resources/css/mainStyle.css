@@ -1,3 +1,7 @@
+body {
+	background-image: url("#{resource['imgs:bg2.jpg']}") !important;
+}
+
 .btn-file {
 	position: relative;
 	overflow: hidden;
@@ -123,7 +127,7 @@ input[readonly] {
 	margin-top: 0px;
 }
 
-.purple, .blue, .red, .orange, .green {
+.purple, .blue, .red, .orange, .green, .yellow, .lightgreen, .redbrick {
 	color: #fff;
 }
 
@@ -166,6 +170,30 @@ input[readonly] {
 .orange:hover {
 	background: #a8321b;
 }
+.yellow {
+	color:#fff;
+	background: #e2d000;
+}
+
+.yellow:hover {
+	background: #c5b507;
+}
+.lightgreen {
+	color:#fff;
+	background: #0eff8a;
+}
+
+.lightgreen:hover {
+	background: #1abe57;
+}
+.redbrick {
+	color: #fff;
+	background: firebrick;
+}
+
+.redbrick:hover {
+	background: #790c13;
+}
 .white {
 	background: #fff;
 }
@@ -176,4 +204,21 @@ input[readonly] {
 .tile a:hover {
 	color: #fff;
 	text-decoration: none;
+}
+
+.ratio{
+    position:relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 44.7% ; /* % of width, defines aspect ratio*/
+    background-image: url("#{resource['imgs:javasound.jpg']}");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;  
+}
+
+.brandbotao {
+	display:inline-block !important;
+	position: absolute !important;
+	padding-top: 0.9% !important;
 }

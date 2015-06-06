@@ -19,11 +19,13 @@
 	<ui:composition>
 		<nav class="navbar navbar-inverse" role="navigation">
 			<div class="navbar-header">
-				<h:form>
-					<p:commandButton value="Início"
-						action="entry.xhtml?faces-redirect=true" icon="fa fa-home"
-						styleClass="navbar-brand" />
-				</h:form>
+				<ul class="nav navbar-nav">
+					<li><h:graphicImage value="/resources/imgs/icon.png"
+							styleClass="navbar-brand" /></li>
+					<li class="brandbotao"><h:form>
+							<p:commandButton action="entry.xhtml?faces-redirect=true" icon="fa fa-home"/>
+						</h:form></li>
+				</ul>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-navz">

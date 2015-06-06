@@ -31,8 +31,39 @@
 						</h:panelGroup>
 					</h:panelGroup>
 					<h:panelGroup layout="block" styleClass="row">
-						<h:panelGroup layout="block" styleClass="col-sm-6">
-							<h:panelGroup layout="block" styleClass="tile blue">
+						<h:panelGroup layout="block" styleClass="col-md-6">
+							<h:panelGroup layout="block" styleClass="ratio"/>
+						</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="col-md-6">
+							<h:panelGroup layout="block" styleClass="row">
+								<h:panelGroup layout="block" styleClass="col-md-12">
+									<h:panelGroup layout="block" styleClass="tile green">
+										<h:form>
+											<h1>
+												<h:commandLink action="news.xhtml?faces-redirect=true"
+													value="Notícias" />
+											</h1>
+										</h:form>
+									</h:panelGroup>
+								</h:panelGroup>
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="row">
+								<h:panelGroup layout="block" styleClass="col-md-12">
+									<h:panelGroup layout="block" styleClass="tile red">
+										<h:form>
+											<h1>
+												<h:commandLink action="ownmusic.xhtml?faces-redirect=true"
+													value="Minha Música" />
+											</h1>
+										</h:form>
+									</h:panelGroup>
+								</h:panelGroup>
+							</h:panelGroup>
+						</h:panelGroup>
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="row">
+						<h:panelGroup layout="block" styleClass="col-sm-3">
+							<h:panelGroup layout="block" styleClass="tile yellow">
 								<h:form>
 									<h1>
 										<h:commandLink action="profile.xhtml?faces-redirect=true"
@@ -41,23 +72,11 @@
 								</h:form>
 							</h:panelGroup>
 						</h:panelGroup>
-						<h:panelGroup layout="block" styleClass="col-sm-6">
-							<h:panelGroup layout="block" styleClass="tile green">
-								<h:form>
-									<h1>
-										<h:commandLink action="ownmusic.xhtml?faces-redirect=true"
-											value="Minha Música" />
-									</h1>
-								</h:form>
-							</h:panelGroup>
-						</h:panelGroup>
-					</h:panelGroup>
-					<h:panelGroup layout="block" styleClass="row">
 						<h:panelGroup layout="block" styleClass="col-md-3">
 							<h:panelGroup layout="block" styleClass="tile blue">
 								<h:form>
 									<h1>
-										<a href="http://www.twitter.com">Twitter</a>
+										<a href="http://www.twitter.com">twitter</a>
 									</h1>
 								</h:form>
 							</h:panelGroup>
@@ -71,12 +90,14 @@
 								</h:form>
 							</h:panelGroup>
 						</h:panelGroup>
-						<h:panelGroup layout="block" styleClass="col-md-6">
-							<h:panelGroup layout="block" styleClass="tile red">
+						<h:panelGroup layout="block" styleClass="col-md-3">
+							<h:panelGroup layout="block" styleClass="tile lightgreen">
 								<h:form>
 									<h1>
-										<h:commandLink action="news.xhtml?faces-redirect=true"
-											value="Notícias" />
+										<h:commandLink action="about.xhtml?faces-redirect=true"
+											value="Sobre Nós">
+											<f:ajax render="all" />
+										</h:commandLink>
 									</h1>
 								</h:form>
 							</h:panelGroup>
