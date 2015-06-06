@@ -105,9 +105,9 @@ public class PlaylistEJB {
 	public boolean removePlaylistsOfUser(UserEntity u) {
 		boolean success = false;
 		try {
-			int complete = em.createQuery("DELETE FROM PlaylistEntity p where p.userOwner.id = :i")
-					.setParameter("i", u.getId())
-					.executeUpdate();
+			Query q = em.createQuery("DELETE FROM PlaylistEntity p where p.userOwner.id = :i");
+			q.setParameter("i", u.getId());
+			int complete = q.executeUpdate();
 			if (complete > 0) success = true;
 		} catch(Exception e) {
 			FacesMessage msg = new FacesMessage("Erro",e.getMessage());
