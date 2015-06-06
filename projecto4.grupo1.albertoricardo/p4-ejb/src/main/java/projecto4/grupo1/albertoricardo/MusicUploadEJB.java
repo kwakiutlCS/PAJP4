@@ -34,7 +34,6 @@ public class MusicUploadEJB implements MusicUploadEJBLocal {
 
 	@Override
 	public void uploadMusicDB(String title, String artist, String album, Date dateReleased, String path, UserEntity ue) {
-		System.out.println("Entrou no EJB");
 		MusicEntity me = new MusicEntity();
 		me.setTitle(title);
 		me.setArtist(artist);

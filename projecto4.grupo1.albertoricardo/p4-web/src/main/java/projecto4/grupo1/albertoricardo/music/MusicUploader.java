@@ -51,7 +51,6 @@ public class MusicUploader implements Serializable {
 			path = System.getProperty("user.dir");
 			File folder = new File(path+"/music/");
 			String fileName = getFilename(file);
-			System.out.println("Nome do ficheiro: "+fileName);
 			InputStream inputStream = file.getInputStream();          
 			if (folder.exists()) {
 				FileOutputStream outputStream = new FileOutputStream(new File(folder,fileName));
@@ -162,7 +161,6 @@ public class MusicUploader implements Serializable {
 
 
 	public void setFile(Part file) {
-		System.out.println();
 		this.file = file;
 	}
 

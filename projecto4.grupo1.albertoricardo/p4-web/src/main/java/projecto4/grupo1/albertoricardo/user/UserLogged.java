@@ -91,7 +91,6 @@ public class UserLogged implements Serializable {
 			statement = "Erro ao eliminar a conta.";
 		}
 
-		System.out.println(statement);
 		return statement;
 	}
 

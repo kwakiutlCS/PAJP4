@@ -81,9 +81,7 @@ public class ListPlaylist implements Serializable {
 			}
 			if (!duplicate) {
 				try {
-					System.out.println("Tamanho inicial: "+selectedPlaylist.getMusics().size());
 					selectedPlaylist.getMusics().add(selectedMusic);
-					System.out.println("Tamanho final: "+selectedPlaylist.getMusics().size());
 					plistejb.update(selectedPlaylist);
 					FacesMessage msg = new FacesMessage("Playlists","Música "+selectedMusic.getTitle()+" adicionada com successo à playlist "+selectedPlaylist.getName());
 					FacesContext.getCurrentInstance().addMessage(null, msg);

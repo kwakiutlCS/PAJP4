@@ -34,7 +34,6 @@ public class PlayMusic implements Serializable {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			System.out.println(e);
 		}
 
 	}

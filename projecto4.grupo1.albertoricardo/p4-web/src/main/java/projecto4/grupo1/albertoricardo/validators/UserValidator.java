@@ -28,11 +28,9 @@ public class UserValidator implements Validator {
 			Object value) throws ValidatorException {
 
 		String email = (String) value;
-		System.out.println(email);
 
 		UIInput passwordComponent = (UIInput) component.getAttributes().get("pword");
 		String pw = (String) passwordComponent.getSubmittedValue();
-		System.out.println(pw);
 
 		if (email == null || pw == null) return;
 		
