@@ -26,7 +26,7 @@ import projecto4.grupo1.albertoricardo.dto.PListDTO;
 
 
 @Stateless
-public class PlaylistEJB {
+public class PlaylistEJB implements PlaylistEJBLocal {
 
 	@PersistenceContext(name="Playlist")
 	private EntityManager em;
@@ -36,7 +36,7 @@ public class PlaylistEJB {
 
 	private static Logger log = LoggerFactory.getLogger(PlaylistEJB.class);
 
-
+	@Override
 	public void addPlaylist(String name, Date insertDate, UserEntity userlogged) {
 		PlaylistEntity pl = new PlaylistEntity();
 		pl.setName(name);
@@ -46,6 +46,7 @@ public class PlaylistEJB {
 	}    
 	
 	@SuppressWarnings("unchecked")
+	@Override
 	public List<PListDTO> getPlaylistDozer() { 
 		List<PListDTO> pldto = new ArrayList<>();
 		try {
@@ -61,6 +62,7 @@ public class PlaylistEJB {
 
 
 	@SuppressWarnings("unchecked")
+	@Override
 	public List<PlaylistEntity> getPlaylists() { 
 		List<PlaylistEntity> pe = new ArrayList<>();
 		try {
@@ -74,6 +76,7 @@ public class PlaylistEJB {
 	}
 
 	@SuppressWarnings("unchecked")
+	@Override
 	public List<PlaylistEntity> getOwnPlaylists(int id) { 
 		List<PlaylistEntity> pe = new ArrayList<>();
 		try {
@@ -87,7 +90,7 @@ public class PlaylistEJB {
 		return pe;
 	}
 
-
+	@Override
 	public boolean findName(String name){
 		boolean found=false;
 		try {
@@ -102,6 +105,7 @@ public class PlaylistEJB {
 		return found;
 	}
 
+	@Override
 	public boolean removePlaylistsOfUser(UserEntity u) {
 		boolean success = false;
 		try {
@@ -119,6 +123,7 @@ public class PlaylistEJB {
 
 	}
 
+	@Override
 	public boolean removePlaylistFromUser(PlaylistEntity p) {
 		boolean success = false;
 		try {
@@ -136,12 +141,14 @@ public class PlaylistEJB {
 		return success;
 	}
 
+	@Override
 	public void updateName(int id, String name){
 
 		pl_crud.find(id).setName(name);
 
 	}
 
+	@Override
 	public void update(PlaylistEntity playlist) {
 		pl_crud.update(playlist);
 	}

@@ -7,7 +7,7 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
-import projecto4.grupo1.albertoricardo.PlaylistEJB;
+import projecto4.grupo1.albertoricardo.PlaylistEJBLocal;
 import projecto4.grupo1.albertoricardo.dto.PListDTO;
 
 @Named
@@ -20,7 +20,7 @@ public class plDozer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EJB
-	private PlaylistEJB plejb;
+	private PlaylistEJBLocal plejb;
 	
 	private List<PListDTO> plist;
 	

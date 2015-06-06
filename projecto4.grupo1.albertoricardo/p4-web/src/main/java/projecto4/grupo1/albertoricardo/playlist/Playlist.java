@@ -14,8 +14,7 @@ import javax.inject.Named;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import projecto4.grupo1.albertoricardo.PlaylistEJB;
+import projecto4.grupo1.albertoricardo.PlaylistEJBLocal;
 import projecto4.grupo1.albertoricardo.PlaylistEntity;
 import projecto4.grupo1.albertoricardo.user.UserLogged;
 
@@ -34,7 +33,7 @@ public class Playlist implements Serializable {
 
 
 	@EJB
-	private PlaylistEJB playlistejb;
+	private PlaylistEJBLocal playlistejb;
 	@Inject
 	private UserLogged userlogged;
 
@@ -91,14 +90,6 @@ public class Playlist implements Serializable {
 		playlistejb.updateName(id, name);
 
 		return "update name Playlist";		
-	}
-
-	public PlaylistEJB getPlaylistejb() {
-		return playlistejb;
-	}
-
-	public void setPlaylistejb(PlaylistEJB playlistejb) {
-		this.playlistejb = playlistejb;
 	}
 
 

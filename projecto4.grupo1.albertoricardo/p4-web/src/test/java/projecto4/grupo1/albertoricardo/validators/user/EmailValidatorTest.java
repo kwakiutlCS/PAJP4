@@ -1,6 +1,5 @@
 package projecto4.grupo1.albertoricardo.validators.user;
 
-import static org.junit.Assert.*;
 
 import javax.faces.validator.ValidatorException;
 

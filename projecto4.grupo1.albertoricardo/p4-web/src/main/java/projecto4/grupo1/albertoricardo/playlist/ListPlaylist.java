@@ -1,7 +1,6 @@
 package projecto4.grupo1.albertoricardo.playlist;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -17,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import projecto4.grupo1.albertoricardo.MusicEntity;
-import projecto4.grupo1.albertoricardo.PlaylistEJB;
+import projecto4.grupo1.albertoricardo.PlaylistEJBLocal;
 import projecto4.grupo1.albertoricardo.PlaylistEntity;
 import projecto4.grupo1.albertoricardo.UserEntity;
 import projecto4.grupo1.albertoricardo.user.UserLogged;
@@ -34,7 +33,7 @@ public class ListPlaylist implements Serializable {
 
 	private static Logger log = LoggerFactory.getLogger(ListPlaylist.class);
 	@EJB
-	private PlaylistEJB plistejb;
+	private PlaylistEJBLocal plistejb;
 
 	@Inject
 	private UserLogged userlog;
@@ -72,7 +71,6 @@ public class ListPlaylist implements Serializable {
 
 	public void addToSelectedPlaylist() {
 		boolean duplicate = false;
-		int id = selectedPlaylist.getId();
 		if (selectedPlaylist != null) {
 			for (MusicEntity m:selectedPlaylist.getMusics()) {
 				if (selectedMusic.getId() == m.getId()) { 

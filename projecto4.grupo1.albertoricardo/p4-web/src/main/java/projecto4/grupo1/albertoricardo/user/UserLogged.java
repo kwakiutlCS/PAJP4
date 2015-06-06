@@ -13,8 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import projecto4.grupo1.albertoricardo.MusicListEJB;
 import projecto4.grupo1.albertoricardo.UserEJBLocal;
 import projecto4.grupo1.albertoricardo.UserEntity;
 import projecto4.grupo1.albertoricardo.security.PasswordEncryptor;
@@ -27,21 +25,21 @@ public class UserLogged implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@EJB
 	private UserEJBLocal userejb;
-	
+
 	private UserEntity user;
 	private String newName;
 	private String newPassword;
 	private String result = "";
-	
+
 	private static Logger log = LoggerFactory.getLogger(UserLogged.class);
 
 	public UserLogged() {
 		super();
 	}
-	
+
 	public String doLogout() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext ext = context.getExternalContext();
@@ -51,7 +49,7 @@ public class UserLogged implements Serializable {
 		log.info("Utilizador "+user.getEmail()+" encerrou a sessão.");
 		return "/login.xhtml?faces-redirect=true";
 	}
-	
+
 	public boolean changeSettings() {
 		boolean success = false;
 		try {
@@ -72,7 +70,7 @@ public class UserLogged implements Serializable {
 		}
 		return success;
 	}
-	
+
 	public String deleteAcc() {
 		String statement = "";
 		boolean success = false;
@@ -81,7 +79,7 @@ public class UserLogged implements Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		if (success) {
 			statement = invalidateSession();
 			log.warn("Utilizador "+user.getEmail()+" encerrou a sua conta.");
@@ -90,11 +88,11 @@ public class UserLogged implements Serializable {
 		} else {
 			statement = "Erro ao eliminar a conta.";
 		}
-		
+
 		System.out.println(statement);
 		return statement;
 	}
-	
+
 	public String invalidateSession() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext ext = context.getExternalContext();
@@ -112,7 +110,7 @@ public class UserLogged implements Serializable {
 	public void setUser(UserEntity user) {
 		this.user = user;
 	}
-	
+
 	public String showEmail() {
 		return user.getEmail();
 	}
