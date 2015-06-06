@@ -76,6 +76,7 @@ public class Playlist implements Serializable {
 			log.info("Playlist criada pelo utilizador "+userlogged.getUser().getName());
 			FacesMessage msg = new FacesMessage("Playlist","Playlist "+name+" criada com sucesso");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
+			name ="";
 		}
 		else {
 			log.info("Playlist com nome já existente");

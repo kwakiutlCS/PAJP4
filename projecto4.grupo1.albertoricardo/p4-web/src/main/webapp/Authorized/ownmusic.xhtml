@@ -20,15 +20,17 @@
 				<h:panelGroup id="wrapper" layout="block" styleClass="wrapper">
 					<h:form id="form">
 						<p:growl id="msgs" showDetail="true" />
-						<p:dataTable id="ownMusicList" value="#{listMusic.getOwnMusic()}" var="music"
-							type="unordered" itemType="none" paginator="true" rows="10"
-							styleClass="paginated text-center" editable="true"
-							emptyMessage="Nenhuma música encontrada." scrollable="true" draggableColumns="true" paginatorPosition="bottom">
+						<p:dataTable id="ownMusicList" value="#{listMusic.getOwnMusic()}"
+							var="music" type="unordered" itemType="none" paginator="true"
+							rows="10" styleClass="paginated text-center" editable="true"
+							emptyMessage="Nenhuma música encontrada." scrollable="true"
+							draggableColumns="true" paginatorPosition="bottom">
 							<p:ajax event="rowEdit" listener="#{listMusic.onRowEdit}"
 								update=":form:msgs" />
 							<p:ajax event="rowEditCancel" listener="#{listMusic.onRowCancel}"
 								update=":form:msgs" />
-							<p:column headerText="Título" sortBy="#{music.title}" style="width:100px">
+							<p:column headerText="Título" sortBy="#{music.title}"
+								style="width:100px">
 								<p:cellEditor>
 									<f:facet name="output">
 										<h:outputText value="#{music.title}" />
@@ -38,7 +40,8 @@
 									</f:facet>
 								</p:cellEditor>
 							</p:column>
-							<p:column headerText="Artista" sortBy="#{music.artist}" style="width:100px">
+							<p:column headerText="Artista" sortBy="#{music.artist}"
+								style="width:100px">
 								<p:cellEditor>
 									<f:facet name="output">
 										<h:outputText value="#{music.artist}" />
@@ -48,7 +51,8 @@
 									</f:facet>
 								</p:cellEditor>
 							</p:column>
-							<p:column headerText="Álbum" sortBy="#{music.album}" style="width:100px">
+							<p:column headerText="Álbum" sortBy="#{music.album}"
+								style="width:100px">
 								<p:cellEditor>
 									<f:facet name="output">
 										<h:outputText value="#{music.album}" />
@@ -77,7 +81,10 @@
 							</p:column>
 							<p:column headerText="Propriedade" style="width:100px">
 								<p:commandButton value="Remover" icon="fa fa-times"
-									action="#{listMusic.removeProperty(music)}" ajax="false"/>
+									action="#{listMusic.removeProperty(music)}"
+									onclick="return confirm('Tem a certeza?')" ajax="true">
+									<f:ajax render="@form :form:ownMusicList" />
+								</p:commandButton>
 							</p:column>
 						</p:dataTable>
 					</h:form>

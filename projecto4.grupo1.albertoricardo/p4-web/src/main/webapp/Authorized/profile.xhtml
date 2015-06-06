@@ -19,7 +19,7 @@
 		<ui:define name="conteudo">
 			<h:panelGroup layout="block" styleClass="container">
 				<h:panelGroup layout="block" styleClass="wrapper">
-					<h:form styleClass="form-signin">
+					<h:form styleClass="form-signin" style="padding-bottom:30px">
 						<p:growl id="msgs" showDetail="true" autoUpdate="true" />
 						<h:panelGroup id="changeProfile">
 						<h3 class="form-signin-heading">Edita o teu perfil!</h3>
@@ -39,7 +39,7 @@
 							</h:commandButton>
 						</h:panelGroup>
 					</h:form>
-					<h:form styleClass="form-signin">
+					<h:form styleClass="form-signin" style="padding-bottom:30px">
 						<h:commandButton onclick="return confirm('Tem a certeza?')"
 							action="#{userLogged.deleteAcc()}" value="Apagar conta"
 							styleClass="btn btn-lg btn-dlt btn-block" />
