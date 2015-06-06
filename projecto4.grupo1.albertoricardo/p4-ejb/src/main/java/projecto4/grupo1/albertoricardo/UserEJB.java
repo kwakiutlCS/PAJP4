@@ -27,10 +27,7 @@ public class UserEJB implements UserEJBLocal {
 	private MusicListEJBLocal mlistejb;
 	
 	private static Logger log = LoggerFactory.getLogger(UserEJB.class);
-
-	/**
-	 * Default constructor. 
-	 */
+	
 	public UserEJB() {
 
 	}
@@ -60,6 +57,7 @@ public class UserEJB implements UserEJBLocal {
 		String ePassword = pe.encrypt(password);
 		UserEntity u = new UserEntity(username, ePassword, name);
 		crud.create(u);
+		log.info("Novo utilizador registado: "+username);
 	}
 
 	@Override

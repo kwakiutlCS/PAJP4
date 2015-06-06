@@ -15,9 +15,7 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import projecto4.grupo1.albertoricardo.MusicEJB;
-import projecto4.grupo1.albertoricardo.MusicEJBLocal;
 import projecto4.grupo1.albertoricardo.MusicListEJB;
-import projecto4.grupo1.albertoricardo.MusicListEJBLocal;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MusicListEJBTest {
@@ -43,7 +41,6 @@ public class MusicListEJBTest {
 		Mockito.when(mockedQuery.getResultList()).thenReturn(null);
 		assertNull(mlistejb.listMusics());
 	}
-	
 	
 
 }

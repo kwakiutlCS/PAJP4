@@ -25,9 +25,6 @@ import java.util.Date;
 public class MusicUploader implements Serializable {
 
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private String title;

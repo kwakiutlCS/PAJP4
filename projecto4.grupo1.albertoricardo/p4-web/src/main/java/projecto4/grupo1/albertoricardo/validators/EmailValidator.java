@@ -6,17 +6,11 @@ import java.util.regex.Pattern;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Named;
-
-import projecto4.grupo1.albertoricardo.UserEJB;
 import projecto4.grupo1.albertoricardo.UserEJBLocal;
-import projecto4.grupo1.albertoricardo.user.LoginChoose;
-import projecto4.grupo1.albertoricardo.user.UserLogged;
 
 @Named
 public class EmailValidator implements Validator {

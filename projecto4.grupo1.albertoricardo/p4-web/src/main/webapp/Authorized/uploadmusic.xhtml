@@ -27,7 +27,7 @@
 						prependId="false">
 						<p:growl id="growl" autoUpdate="true" showDetail="true" />
 						<h:panelGroup id="sendFile">
-						<h3 class="form-signin-heading">Envia uma música!</h3>
+							<h3 class="form-signin-heading">Envia uma música!</h3>
 							<hr class="colorgraph" />
 				Título: <span class="reqfield">*</span>
 							<h:inputText id="title" styleClass="form-control"
@@ -44,7 +44,10 @@
 							<br />
 							<h:inputFile id="file"
 								styleClass="btn btn-lg btn-primary btn-primary btn-block btn-file file"
-								value="#{musicUploader.file}" required="true" />
+								value="#{musicUploader.file}" required="true">
+								<f:validator validatorId="filevalidate" />
+								<f:ajax event="change" execute="file" />
+							</h:inputFile>
 							<br />
 							<h:commandButton action="#{musicUploader.fileUpload()}"
 								value="Enviar" styleClass="btn btn-lg btn-primary btn-block"

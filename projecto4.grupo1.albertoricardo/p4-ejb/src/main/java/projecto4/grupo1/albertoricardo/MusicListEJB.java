@@ -28,11 +28,6 @@ public class MusicListEJB implements MusicListEJBLocal {
 	@EJB
 	private MusicEJBLocal crud;
 
-	//    The method merge creates or updates an entity,  
-	//    we cannot remove not-attached entities 
-	//    - we have to find them first. 
-	//    This is the "Seek And Destroy" pattern 
-
 	private static Logger log = LoggerFactory.getLogger(MusicListEJB.class);
 	
 	
@@ -42,6 +37,7 @@ public class MusicListEJB implements MusicListEJBLocal {
 		Query q = em.createQuery("select m from MusicEntity m");
 		List<MusicEntity> lme = new ArrayList<MusicEntity>();
 		lme = q.getResultList();
+		log.info("Consulta À base de dados para obter lista de músicas");
 		return lme;
 	}
 
@@ -51,10 +47,12 @@ public class MusicListEJB implements MusicListEJBLocal {
 		List<MusicEntity> me = new ArrayList<>();
 		Query q = em.createQuery("SELECT m FROM MusicEntity m where m.userOwner.id = :u")
 				.setParameter("u", user.getId());
+		log.info("Consulta À base de dados para obter lista de músicas do utilizador "+user.getName());
 		try {
 			me = q.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.warn("Erro ao obter lista de músicas do utilizador "+user.getName());
 		}
 		return me;
 	}
@@ -65,8 +63,10 @@ public class MusicListEJB implements MusicListEJBLocal {
 		try {
 			crud.update(music);
 			success = true;
+			log.info("Alteração feita à música com o ID: "+music.getId());
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.info("Erro na tentativa de alteração à música com o ID: "+music.getId());
 		}
 		
 		return success;
@@ -79,7 +79,8 @@ public class MusicListEJB implements MusicListEJBLocal {
 			int complete = em.createQuery("UPDATE MusicEntity m SET m.userOwner.id = NULL where m.userOwner.id = :i")
 					.setParameter("i", user.getId())
 					.executeUpdate();
-			if (complete > 0) { 
+			if (complete > 0) {
+				log.info("Alteração de propriedade a música");
 				success = true;
 				FacesMessage msg = new FacesMessage("Música","Propriedade removida com sucesso.");
 				FacesContext.getCurrentInstance().addMessage(null, msg);

@@ -58,6 +58,7 @@ public class UserLogged implements Serializable {
 			success = userejb.changeUser(user);
 			log.info("Utilizador "+user.getEmail()+" alterou os seus dados.");
 		} catch (Exception e) {
+			log.warn("Utilizador "+user.getEmail()+" tentou alterar os seus dados mas não conseguiu",e);
 			e.printStackTrace();
 		}
 		if (success) {
@@ -86,6 +87,7 @@ public class UserLogged implements Serializable {
 			FacesMessage msg = new FacesMessage("Utilizador","Conta removida com sucesso.");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} else {
+			log.warn("Utilizador "+user.getEmail()+" tentou encerrar a sua conta, mas ocorreu um erro.");
 			statement = "Erro ao eliminar a conta.";
 		}
 
