@@ -1,6 +1,8 @@
 package projecto4.grupo1.albertoricardo;
 
 
+import java.util.List;
+
 import javax.ejb.Local;
 
 @Local
@@ -19,6 +21,8 @@ public interface UserEJBLocal {
 	boolean changeUser(UserEntity user);
 
 	boolean deleteUser(UserEntity user);
+
+	List<UserEntity> getAllUsers();
 	
 	
 

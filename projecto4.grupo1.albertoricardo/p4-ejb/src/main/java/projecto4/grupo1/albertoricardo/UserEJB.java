@@ -1,5 +1,7 @@
 package projecto4.grupo1.albertoricardo;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.application.FacesMessage;
@@ -125,6 +127,12 @@ public class UserEJB implements UserEJBLocal {
 		}
 		return u;
 
+	}
+	
+	@Override
+	public List<UserEntity> getAllUsers() {
+		Query q = em.createQuery("select u from UserEntity u");
+		return q.getResultList();
 	}
 
 }

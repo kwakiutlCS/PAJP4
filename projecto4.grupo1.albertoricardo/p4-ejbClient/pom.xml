@@ -7,11 +7,10 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>p4-ejb</artifactId>
+	<artifactId>p4-ejbClient</artifactId>
 	<packaging>ejb</packaging>
 
-	<name>p4-ejb</name>
-	<description>EJB service layer</description>
+	<name>p4-ejbClient</name>
 
 	<build>
 		<finalName>${project.artifactId}</finalName>
@@ -22,9 +21,6 @@
 				<artifactId>maven-processor-plugin</artifactId>
 			</plugin>
 		</plugins>
-
-
-
 	</build>
 
 	<dependencies>
@@ -45,11 +41,6 @@
 			<artifactId>slf4j-log4j12</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct-jdk8</artifactId>
-			<!-- <version>${org.mapstruct.version}</version> -->
-		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
@@ -86,21 +77,25 @@
 		</dependency>
 
 		<dependency>
-			<groupId>net.sf.dozer</groupId>
-			<artifactId>dozer</artifactId>
-			<version>5.5.1</version>
-		</dependency>
-		<dependency>
 			<groupId>pt.uc.dei.paj</groupId>
 			<artifactId>p4-jpa</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
-			<groupId>pt.uc.dei.paj</groupId>
-			<artifactId>p4-ejbClient</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<type>ejb</type>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-client</artifactId>
+			<version>3.0.11.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxb-provider</artifactId>
+			<version>3.0.11.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jackson-provider</artifactId>
+			<version>3.0.11.Final</version>
 		</dependency>
 	</dependencies>
 </project>
