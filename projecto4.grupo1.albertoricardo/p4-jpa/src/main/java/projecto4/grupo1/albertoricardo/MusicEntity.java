@@ -42,7 +42,7 @@ public class MusicEntity {
 	List<PlaylistEntity> playlists;
 	@ManyToOne
 	private UserEntity userOwner;
-	@OneToMany(cascade=CascadeType.REMOVE)
+	@OneToMany(cascade=CascadeType.REMOVE, mappedBy="music")
 	private List<LyricsEntity> musicLyrics;
 
 
