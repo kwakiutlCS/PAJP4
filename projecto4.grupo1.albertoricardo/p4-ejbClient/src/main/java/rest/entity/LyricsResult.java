@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="LyricsResult")
 public class LyricsResult {
 	
-	@XmlElement(required=true,name="Lyric")
+	@XmlElement(required=true,name="lyrics")
 	private String lrc;
 
 	public String getLyric() {

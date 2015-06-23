@@ -28,6 +28,9 @@ public class MusicUploadEJB implements MusicUploadEJBLocal {
 	@EJB
 	MusicEJBLocal musicejb;
 	
+	@EJB
+	LyricsEJBLocal lyricsejb;
+	
 	@Inject
 	LyricSearch soapSearch;
 	@Inject
@@ -52,13 +55,16 @@ public class MusicUploadEJB implements MusicUploadEJBLocal {
 		me.setUserOwner(ue);
 		LyricsEntity le = new LyricsEntity();
 		le.setMusic(me);
+		
 		try {
 			le.setLyrics(soapSearch.getLyric(artist, title));
 		} catch(Exception e) {
 			le.setLyrics(restSearch.getLyric(artist, title));
 		}
+		
 		try {
 			musicejb.create(me);
+			lyricsejb.create(le);
 			FacesMessage msg = new FacesMessage("Música","Upload realizado com sucesso!");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} catch (Exception e) {

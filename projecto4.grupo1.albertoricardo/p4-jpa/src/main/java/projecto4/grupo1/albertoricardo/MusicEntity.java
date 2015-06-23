@@ -42,12 +42,10 @@ public class MusicEntity {
 	List<PlaylistEntity> playlists;
 	@ManyToOne
 	private UserEntity userOwner;
-	@OneToMany(cascade=CascadeType.REMOVE, mappedBy="music")
-	private List<LyricsEntity> musicLyrics;
-
-
+	
 	
 //	static Logger logger = LoggerFactory.getLogger(MusicEntity.class);
+	
 	
 	public MusicEntity() {
 
@@ -118,11 +116,5 @@ public class MusicEntity {
 	public void setUserOwner(UserEntity userOwner) {
 		this.userOwner = userOwner;
 	}
-
-	
- 
-	
-	
-	
 	
 }
