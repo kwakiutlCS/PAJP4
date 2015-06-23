@@ -14,21 +14,25 @@ public class LyricSearch {
 	/**
 	 * Default constructor. 
 	 */
+	private int count;
+	
 	public LyricSearch() {
 	}
 
-	public String getLyric(String author, String songname) {
+	public String getLyric(String author, String songname) throws Exception {
 		Apiv1 api = new Apiv1();
 		Apiv1Soap soap = api.getApiv1Soap();
+		count = 0;
 		while (true) {
 			try {
 				GetLyricResult result = soap.searchLyricDirect(author, songname);
 				String lyrics = result.getLyric();
 				if ("".equals(lyrics)) return null;
-	
+
 				else return lyrics;
 			} catch (WebServiceException wse) {
-				
+				count++;
+				if (count > 15) throw new Exception();
 			}
 		}
 

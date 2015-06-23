@@ -2,9 +2,11 @@ package projecto4.grupo1.albertoricardo;
 
 import java.util.Date;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -13,16 +15,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import projecto4.grupo1.albertoricardo.MusicEntity;
+import rest.app.LyricsRest;
+import rest.entity.LyricsResult;
+import soap.LyricSearch;
 
 
 
 
 @Stateless
 public class MusicUploadEJB implements MusicUploadEJBLocal {
-
-	@PersistenceContext(name="Playlist")
-	private EntityManager em;
-
+	
+	@EJB
+	MusicEJBLocal musicejb;
+	
+	@Inject
+	LyricSearch soapSearch;
+	@Inject
+	LyricsRest restSearch;
 	private static Logger log = LoggerFactory.getLogger(MusicUploadEJB.class);
 
 
@@ -41,8 +50,15 @@ public class MusicUploadEJB implements MusicUploadEJBLocal {
 		me.setDateRecord(dateReleased);
 		me.setPathFile(path);
 		me.setUserOwner(ue);
+		LyricsEntity le = new LyricsEntity();
+		le.setMusic(me);
 		try {
-			em.persist(me);
+			le.setLyrics(soapSearch.getLyric(artist, title));
+		} catch(Exception e) {
+			le.setLyrics(restSearch.getLyric(artist, title));
+		}
+		try {
+			musicejb.create(me);
 			FacesMessage msg = new FacesMessage("Música","Upload realizado com sucesso!");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} catch (Exception e) {

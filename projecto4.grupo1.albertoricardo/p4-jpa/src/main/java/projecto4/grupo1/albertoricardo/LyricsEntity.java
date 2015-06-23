@@ -19,4 +19,24 @@ public class LyricsEntity {
 	private UserEntity user;
 	@ManyToOne
 	private MusicEntity music;
+	public String getLyrics() {
+		return lyrics;
+	}
+	public void setLyrics(String lyrics) {
+		this.lyrics = lyrics;
+	}
+	public UserEntity getUser() {
+		return user;
+	}
+	public void setUser(UserEntity user) {
+		this.user = user;
+	}
+	public MusicEntity getMusic() {
+		return music;
+	}
+	public void setMusic(MusicEntity music) {
+		this.music = music;
+	}
+	
+	
 }
