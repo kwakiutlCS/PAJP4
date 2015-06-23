@@ -28,6 +28,8 @@ public class UserEntity {
 	private List<MusicEntity> uploadedMusics;
 	@OneToMany(cascade =CascadeType.REMOVE,mappedBy="userOwner")
 	private List<PlaylistEntity> userPlaylists;
+	@OneToMany(cascade=CascadeType.REMOVE)
+	private List<LyricsEntity> userLyrics;
 
 	public UserEntity() {
 		super();
