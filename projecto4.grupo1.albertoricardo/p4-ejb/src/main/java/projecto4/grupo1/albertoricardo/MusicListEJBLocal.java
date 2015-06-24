@@ -7,6 +7,8 @@ import java.util.List;
 import javax.ejb.Local;
 
 import projecto4.grupo1.albertoricardo.MusicEntity;
+import projecto4.grupo1.albertoricardo.ws.ListMusicEntities;
+import projecto4.grupo1.albertoricardo.ws.MusicDetail;
 
 
 
@@ -22,5 +24,9 @@ public interface MusicListEJBLocal {
 	boolean removerUserOwnership(UserEntity user);
 
 	void removerMusicUserOwnership(MusicEntity m, UserEntity user);
+
+	ListMusicEntities getAllMusics();
+
+	ListMusicEntities getAllMusicsFromUser(int id);
 	
 }

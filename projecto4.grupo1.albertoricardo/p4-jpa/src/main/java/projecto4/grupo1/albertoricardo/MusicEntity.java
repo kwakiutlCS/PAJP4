@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import projecto4.grupo1.albertoricardo.LyricsEntity;
 
@@ -42,6 +43,8 @@ public class MusicEntity {
 	List<PlaylistEntity> playlists;
 	@ManyToOne
 	private UserEntity userOwner;
+	@Transient
+	private int plSize;
 	
 	
 //	static Logger logger = LoggerFactory.getLogger(MusicEntity.class);
@@ -116,5 +119,12 @@ public class MusicEntity {
 	public void setUserOwner(UserEntity userOwner) {
 		this.userOwner = userOwner;
 	}
+
+	public int getPlSize() {
+		plSize = playlists.size();
+		return plSize;
+	}
+	
+	
 	
 }

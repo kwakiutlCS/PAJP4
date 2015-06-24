@@ -11,10 +11,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import projecto4.grupo1.albertoricardo.MusicEntity;
+import projecto4.grupo1.albertoricardo.ws.ListMusicEntities;
+import projecto4.grupo1.albertoricardo.ws.MusicDetail;
 
 
 
@@ -29,8 +33,8 @@ public class MusicListEJB implements MusicListEJBLocal {
 	private MusicEJBLocal crud;
 
 	private static Logger log = LoggerFactory.getLogger(MusicListEJB.class);
-	
-	
+
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<MusicEntity> listMusics() {
@@ -56,7 +60,7 @@ public class MusicListEJB implements MusicListEJBLocal {
 		}
 		return me;
 	}
-	
+
 	@Override
 	public boolean update(MusicEntity music) {
 		boolean success = false;
@@ -68,10 +72,10 @@ public class MusicListEJB implements MusicListEJBLocal {
 			e.printStackTrace();
 			log.info("Erro na tentativa de alteração à música com o ID: "+music.getId());
 		}
-		
+
 		return success;
 	}
-	
+
 	@Override
 	public boolean removerUserOwnership(UserEntity user) {
 		boolean success = false;
@@ -90,9 +94,9 @@ public class MusicListEJB implements MusicListEJBLocal {
 			FacesMessage msg = new FacesMessage("Erro",e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
-		
+
 		return success;
-		
+
 	}
 
 	@Override
@@ -111,6 +115,45 @@ public class MusicListEJB implements MusicListEJBLocal {
 			FacesMessage msg = new FacesMessage("Erro",e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
-		
+
+	}
+
+	@Override
+	public ListMusicEntities getAllMusics() {
+		Query q = em.createQuery("select m from MusicEntity m");
+		List<MusicEntity> lme = q.getResultList();
+		if (lme != null && lme.size() > 0) {
+			List<String> dozermapping = new ArrayList<>();
+			dozermapping.add("META-INF/playlistmapping.xml");
+			Mapper mapper = new DozerBeanMapper(dozermapping);
+			ListMusicEntities lm = new ListMusicEntities();
+			for (MusicEntity me:lme) {
+				MusicDetail md = new MusicDetail();
+				mapper.map(me, md);
+				lm.getListOfMusics().add(md);
+			}
+			return lm;
+		}
+		return null;
+	}
+	
+	@Override
+	public ListMusicEntities getAllMusicsFromUser(int id) {
+		Query q = em.createQuery("select m from MusicEntity m where m.userOwner.id = :i")
+				.setParameter("i", id);
+		List<MusicEntity> lme = q.getResultList();
+		if (lme != null && lme.size() > 0) {
+			List<String> dozermapping = new ArrayList<>();
+			dozermapping.add("META-INF/playlistmapping.xml");
+			Mapper mapper = new DozerBeanMapper(dozermapping);
+			ListMusicEntities lm = new ListMusicEntities();
+			for (MusicEntity me:lme) {
+				MusicDetail md = new MusicDetail();
+				mapper.map(me, md);
+				lm.getListOfMusics().add(md);
+			}
+			return lm;
+		}
+		return null;
 	}
 }

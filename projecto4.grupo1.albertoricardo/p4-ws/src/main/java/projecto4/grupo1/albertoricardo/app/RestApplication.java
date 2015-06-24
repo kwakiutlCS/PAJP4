@@ -25,6 +25,7 @@ public class RestApplication extends Application {
 	    // resources.add(xpto.class);
 		resources.add(Users.class);
 		resources.add(PlaylistsWS.class);
+		resources.add(MusicsWS.class);
 	}
 
 }
