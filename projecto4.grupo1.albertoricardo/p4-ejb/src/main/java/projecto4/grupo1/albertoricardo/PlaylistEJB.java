@@ -22,6 +22,8 @@ import org.slf4j.LoggerFactory;
 
 import projecto4.grupo1.albertoricardo.dto.DozerHelper;
 import projecto4.grupo1.albertoricardo.dto.PListDTO;
+import projecto4.grupo1.albertoricardo.ws.AllPlaylists;
+import projecto4.grupo1.albertoricardo.ws.ListPlaylists;
 
 
 
@@ -44,7 +46,7 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 		pl.setUserOwner(userlogged);
 		em.persist(pl);
 	}    
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<PListDTO> getPlaylistDozer() { 
@@ -151,6 +153,62 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 	@Override
 	public void update(PlaylistEntity playlist) {
 		pl_crud.update(playlist);
+	}
+
+	@Override
+	public AllPlaylists findToDTO(Object id) {
+		PlaylistEntity pe = pl_crud.find(id);
+		if (pe != null) {
+			List<String> dozermapping = new ArrayList<>();
+			dozermapping.add("META-INF/playlistmapping.xml");
+			Mapper mapper = new DozerBeanMapper(dozermapping);
+			AllPlaylists ap = new AllPlaylists();
+			mapper.map(pe, ap);
+			return ap;
+		}
+		return null;
+	}
+
+	@Override
+	public ListPlaylists getAllPlaylists() {
+		Query q = em.createQuery("select p from PlaylistEntity p");
+		List<PlaylistEntity> lpe = q.getResultList();
+		if (lpe != null) {
+			ListPlaylists lp = new ListPlaylists();
+			List<String> dozermapping = new ArrayList<>();
+			dozermapping.add("META-INF/playlistmapping.xml");
+			Mapper mapper = new DozerBeanMapper(dozermapping);
+			for (PlaylistEntity p:lpe) {
+				AllPlaylists ap = new AllPlaylists();
+				mapper.map(p, ap);
+				lp.getListOfPlaylists().add(ap);
+			}
+			return lp;
+		}
+
+		return null;
+
+	}
+	
+	@Override
+	public ListPlaylists getPlaylistsFromUser(Object id) {
+		Query q = em.createQuery("select p from PlaylistEntity p where p.userOwner.id = :i")
+				.setParameter("i", id);
+		List<PlaylistEntity> lpe = q.getResultList();
+		if (lpe != null && lpe.size() > 0) {
+			ListPlaylists lp = new ListPlaylists();
+			List<String> dozermapping = new ArrayList<>();
+			dozermapping.add("META-INF/playlistmapping.xml");
+			Mapper mapper = new DozerBeanMapper(dozermapping);
+			for (PlaylistEntity p:lpe) {
+				AllPlaylists ap = new AllPlaylists();
+				mapper.map(p, ap);
+				lp.getListOfPlaylists().add(ap);
+			}
+			return lp;
+		}
+
+		return null;
 	}
 
 }

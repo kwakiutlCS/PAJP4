@@ -9,13 +9,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
-
-import projecto4.grupo1.albertoricardo.UserCRUD;
 import projecto4.grupo1.albertoricardo.UserEJBLocal;
-import projecto4.grupo1.albertoricardo.UserEntity;
 import projecto4.grupo1.albertoricardo.ws.ListUserEntities;
 import projecto4.grupo1.albertoricardo.ws.UserDetail;
 
@@ -53,13 +47,6 @@ public class Users {
 		if (ud != null) {
 			return Response.ok(ud).build();
 		} else return Response.status(Response.Status.NOT_FOUND).entity("Utilizador não encontrado com o id: "+id).type(MediaType.TEXT_PLAIN).build();
-	}
-
-	@GET
-	@Path("/um")
-	@Produces({MediaType.APPLICATION_JSON})
-	public UserEntity getUm() {
-		return userejb.getUserEntity("jesus@email.com");
 	}
 
 

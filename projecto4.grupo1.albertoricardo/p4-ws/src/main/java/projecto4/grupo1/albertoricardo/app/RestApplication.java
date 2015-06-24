@@ -24,6 +24,7 @@ public class RestApplication extends Application {
 	private void addRestResourceClasses(Set<Class<?>> resources) {
 	    // resources.add(xpto.class);
 		resources.add(Users.class);
+		resources.add(PlaylistsWS.class);
 	}
 
 }
