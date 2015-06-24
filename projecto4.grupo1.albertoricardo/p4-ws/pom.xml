@@ -15,25 +15,20 @@
 
 	<build>
 		<finalName>${project.artifactId}</finalName>
+
 	</build>
 
-	<!-- As dependencias que este projeto tem .. por agora só jee -->
 	<dependencies>
-		<dependency>
-			<groupId>pt.uc.dei.paj</groupId>
-			<artifactId>p4-jpa</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 		</dependency>
+		
 		<dependency>
 			<groupId>pt.uc.dei.paj</groupId>
 			<artifactId>p4-ejb</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<type>ejb</type>
+			<version>${project.version}</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
-
 </project>

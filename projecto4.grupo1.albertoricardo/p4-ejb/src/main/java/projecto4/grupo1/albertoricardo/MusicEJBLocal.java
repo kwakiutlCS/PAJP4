@@ -15,4 +15,5 @@ public interface MusicEJBLocal {
     MusicEntity update(MusicEntity music);
     void remove(MusicEntity music);
     MusicEntity find(Object id);
+   
 }

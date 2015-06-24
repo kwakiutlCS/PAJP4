@@ -24,6 +24,8 @@ public interface UserEJBLocal {
 
 	List<UserEntity> getAllUsers();
 	
-	
+	UserEntity find(int id);
+
+	public abstract void remove(int id);
 
 }

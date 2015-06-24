@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -133,6 +134,24 @@ public class UserEJB implements UserEJBLocal {
 	public List<UserEntity> getAllUsers() {
 		Query q = em.createQuery("select u from UserEntity u");
 		return q.getResultList();
+	}
+
+	@Override
+	public UserEntity find(int id) {
+		TypedQuery<UserEntity> q = em.createQuery("from UserEntity u where id = :id", UserEntity.class);
+		q.setParameter("id", id);
+		List<UserEntity> l = q.getResultList();
+		if (l.isEmpty())
+			return null;
+		return l.get(0);
+	}
+
+	@Override
+	public void remove(int id) {
+		// TODO Auto-generated method stub
+		UserEntity u = find(id);
+		if (u != null)
+			crud.remove(u);
 	}
 
 }

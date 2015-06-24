@@ -1,5 +1,6 @@
 package projecto4.grupo1.albertoricardo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAnyElement;
@@ -14,6 +15,7 @@ public class ListUserEntities {
 	
 	public ListUserEntities() {
 		// TODO Auto-generated constructor stub
+		listOfUsers = new ArrayList<>();
 	}
 
 	public List<UserEntity> getListUsers() {

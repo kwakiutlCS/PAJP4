@@ -15,11 +15,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import projecto4.grupo1.albertoricardo.LyricsEntity;
 
 @Entity
 @Table (name="musics")
+@XmlRootElement
 public class MusicEntity {
 	
 
