@@ -1,10 +1,12 @@
-package projecto4.grupo1.albertoricardo;
+package projecto4.grupo1.albertoricardo.ws;
 
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import projecto4.grupo1.albertoricardo.UserEntity;
 
 
 @XmlRootElement
@@ -13,7 +15,6 @@ public class ListUserEntities {
 	private List<UserEntity> listOfUsers;
 	
 	public ListUserEntities() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public List<UserEntity> getListUsers() {

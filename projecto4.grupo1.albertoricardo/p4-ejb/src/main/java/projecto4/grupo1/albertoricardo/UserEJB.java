@@ -10,10 +10,13 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import projecto4.grupo1.albertoricardo.security.PasswordEncryptor;
+import projecto4.grupo1.albertoricardo.ws.UserDetail;
 
 /**
  * Session Bean implementation class UserEJB
@@ -133,6 +136,17 @@ public class UserEJB implements UserEJBLocal {
 	public List<UserEntity> getAllUsers() {
 		Query q = em.createQuery("select u from UserEntity u");
 		return q.getResultList();
+	}
+	
+	@Override
+	public UserDetail findToDTO(Object id) {
+		Mapper mapper = new DozerBeanMapper();
+		UserEntity ue = crud.find(id);
+		if (ue != null) {
+			UserDetail ud = mapper.map(ue, UserDetail.class);
+			return ud;
+		}
+		return null;
 	}
 
 }

@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import projecto4.grupo1.albertoricardo.ws.UserDetail;
+
 @Local
 public interface UserEJBLocal {
 
@@ -23,6 +25,8 @@ public interface UserEJBLocal {
 	boolean deleteUser(UserEntity user);
 
 	List<UserEntity> getAllUsers();
+
+	UserDetail findToDTO(Object id);
 	
 	
 
