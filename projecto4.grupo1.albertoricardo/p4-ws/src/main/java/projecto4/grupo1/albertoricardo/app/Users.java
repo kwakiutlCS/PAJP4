@@ -1,14 +1,11 @@
 package projecto4.grupo1.albertoricardo.app;
 
-import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.ws.rs.GET;
-import javax.ws.rs.MatrixParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -21,7 +18,7 @@ import projecto4.grupo1.albertoricardo.UserEntity;
 @Path("/users")
 public class Users {
 
-	@Inject
+	@EJB
 	UserEJBLocal userejb;
 
 	@GET
@@ -30,13 +27,6 @@ public class Users {
 		ListUserEntities lue = new ListUserEntities();
 		lue.setListUsers(userejb.getAllUsers());
 		return Response.ok(lue).build();
-		//		if ("json".equalsIgnoreCase(type)) {
-		//			return Response.ok(lue, MediaType.APPLICATION_JSON).build();
-		//		} else if ("xml".equalsIgnoreCase(type)) {
-		//			return Response.ok(lue, MediaType.APPLICATION_XML).build();
-		//		} else {
-		//			return Response.status(Response.Status.BAD_REQUEST).type(MediaType.TEXT_PLAIN).entity("Erro").build();
-		//		}
 	}
 
 	@GET

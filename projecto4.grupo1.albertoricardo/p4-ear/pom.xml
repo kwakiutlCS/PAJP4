@@ -18,6 +18,12 @@
 			<version>${project.version}</version>
 			<type>war</type>
 		</dependency>
+		<dependency>
+			<groupId>pt.uc.dei.paj</groupId>
+			<artifactId>p4-ws</artifactId>
+			<version>${project.version}</version>
+			<type>war</type>
+		</dependency>
 
 		<dependency>
 			<groupId>pt.uc.dei.paj</groupId>
