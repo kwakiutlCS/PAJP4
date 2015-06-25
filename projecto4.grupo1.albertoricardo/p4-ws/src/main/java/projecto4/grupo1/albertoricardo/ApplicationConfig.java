@@ -22,7 +22,6 @@ public class ApplicationConfig extends Application{
 	 */
 	private void addRestResourceClasses(Set<Class<?>> resources) {
 	    // resources.add(xpto.class);
-		resources.add(SimpleService.class);
 		resources.add(UserService.class);
 		resources.add(PlaylistService.class);
 		resources.add(MusicService.class);
