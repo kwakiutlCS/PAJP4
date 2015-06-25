@@ -25,7 +25,7 @@ public class MusicsWS {
 		ListMusicEntities lme = mejb.getAllMusics();
 		if (lme != null) {
 			return Response.status(Response.Status.OK).entity(lme).build();
-		} else return Response.status(Response.Status.NOT_FOUND).entity("Nenhuma musica encontrada.").type(MediaType.TEXT_PLAIN).build();
+		} else return Response.status(Response.Status.NO_CONTENT).entity("Nenhuma musica encontrada.").type(MediaType.TEXT_PLAIN).build();
 	}
 	
 	@GET

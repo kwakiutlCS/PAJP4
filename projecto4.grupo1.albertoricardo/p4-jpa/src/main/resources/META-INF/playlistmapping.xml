@@ -51,5 +51,25 @@
 			<b>nPlaylists</b>
 		</field>
 	</mapping>
+	<mapping>
+		<class-a>projecto4.grupo1.albertoricardo.UserEntity</class-a>
+		<class-b>projecto4.grupo1.albertoricardo.ws.UserDetail</class-b>
+		<field>
+			<a>id</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>email</a>
+			<b>email</b>
+		</field>
+		<field>
+			<a>password</a>
+			<b>password</b>
+		</field>
+		<field>
+			<a>name</a>
+			<b>name</b>
+		</field>
+	</mapping>
 
 </mappings> 

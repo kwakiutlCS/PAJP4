@@ -27,6 +27,8 @@ public interface UserEJBLocal {
 	List<UserEntity> getAllUsers();
 
 	UserDetail findToDTO(Object id);
+
+	boolean changePassword(UserDetail ud, String newpassword);
 	
 	
 

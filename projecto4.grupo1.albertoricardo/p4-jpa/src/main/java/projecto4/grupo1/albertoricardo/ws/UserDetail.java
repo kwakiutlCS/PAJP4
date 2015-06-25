@@ -1,6 +1,7 @@
 package projecto4.grupo1.albertoricardo.ws;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 
 @XmlRootElement
@@ -8,9 +9,10 @@ public class UserDetail {
 	private int id;
 	private String email;
 	private String name;
+	@XmlTransient
+	private String password;
 	
 	public UserDetail() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	
@@ -43,12 +45,26 @@ public class UserDetail {
 		this.id = id;
 	}
 	
+	
+	
 	@Override
 	public String toString() {
 		return "Utilizador:\n"
 				+ "E-mail: "+email+"\n"
 						+ "Nome: "+name+"\n"
 								+ "(ID: "+id+")";
+	}
+
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

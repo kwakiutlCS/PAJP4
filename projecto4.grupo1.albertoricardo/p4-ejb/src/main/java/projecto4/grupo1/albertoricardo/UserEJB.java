@@ -1,5 +1,6 @@
 package projecto4.grupo1.albertoricardo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -147,6 +148,24 @@ public class UserEJB implements UserEJBLocal {
 			return ud;
 		}
 		return null;
+	}
+	
+	@Override
+	public boolean changePassword(UserDetail ud, String newpassword) {
+		PasswordEncryptor pe = new PasswordEncryptor();
+		String ePassword = pe.encrypt(newpassword);
+		ud.setPassword(ePassword);
+		List<String> dozermapping = new ArrayList<>();
+		dozermapping.add("META-INF/playlistmapping.xml");
+		Mapper mapper = new DozerBeanMapper();
+		UserEntity ue = mapper.map(ud,UserEntity.class);
+		try {
+			crud.update(ue);
+			return true;
+		} catch (Exception e) {
+			log.error("Erro ao alterar a password no Web Service");
+			return false;
+		}
 	}
 
 }
