@@ -38,4 +38,6 @@ public interface PlaylistEJBLocal {
 
 	boolean updateFromDTO(AllPlaylists ap);
 
+	boolean createPlaylistFromDTO(AllPlaylists ap);
+
 }

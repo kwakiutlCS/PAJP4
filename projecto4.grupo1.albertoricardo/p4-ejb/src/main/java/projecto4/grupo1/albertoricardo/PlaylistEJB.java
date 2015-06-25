@@ -173,6 +173,7 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public ListPlaylists getAllPlaylists() {
 		Query q = em.createQuery("select p from PlaylistEntity p");
@@ -198,6 +199,7 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 	public ListPlaylists getPlaylistsFromUser(Object id) {
 		Query q = em.createQuery("select p from PlaylistEntity p where p.userOwner.id = :i")
 				.setParameter("i", id);
+		@SuppressWarnings("unchecked")
 		List<PlaylistEntity> lpe = q.getResultList();
 		if (lpe != null && lpe.size() > 0) {
 			ListPlaylists lp = new ListPlaylists();
@@ -225,6 +227,17 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 		pe.setListMusic(mel);
 		mapper.map(ap,pe);
 		pl_crud.update(pe);
+		return true;
+	}
+	
+	@Override
+	public boolean createPlaylistFromDTO(AllPlaylists ap) {
+		List<String> dozermapping = new ArrayList<>();
+		dozermapping.add("META-INF/playlistmapping.xml");
+		Mapper mapper = new DozerBeanMapper(dozermapping);
+		PlaylistEntity pe = new PlaylistEntity();
+		mapper.map(ap, pe);
+		pl_crud.create(pe);
 		return true;
 	}
 	
