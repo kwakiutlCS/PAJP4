@@ -124,6 +124,14 @@ public class MusicEntity {
 		plSize = playlists.size();
 		return plSize;
 	}
+
+	public void setPlSize(int plSize) {
+		this.plSize = plSize;
+	}
+	
+	
+	
+	
 	
 	
 	

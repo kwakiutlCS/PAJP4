@@ -36,4 +36,6 @@ public interface PlaylistEJBLocal {
 
 	ListPlaylists getPlaylistsFromUser(Object id);
 
+	boolean updateFromDTO(AllPlaylists ap);
+
 }

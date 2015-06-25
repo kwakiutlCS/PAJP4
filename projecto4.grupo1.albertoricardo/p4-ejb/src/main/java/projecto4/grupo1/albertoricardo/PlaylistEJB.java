@@ -24,6 +24,7 @@ import projecto4.grupo1.albertoricardo.dto.DozerHelper;
 import projecto4.grupo1.albertoricardo.dto.PListDTO;
 import projecto4.grupo1.albertoricardo.ws.AllPlaylists;
 import projecto4.grupo1.albertoricardo.ws.ListPlaylists;
+import projecto4.grupo1.albertoricardo.ws.MusicDetail;
 
 
 
@@ -164,6 +165,9 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 			Mapper mapper = new DozerBeanMapper(dozermapping);
 			AllPlaylists ap = new AllPlaylists();
 			mapper.map(pe, ap);
+			List<MusicEntity> mel = pe.getMusics();
+			List<MusicDetail> mdl = meToMd(mel);
+			ap.setListOfMusics(mdl);
 			return ap;
 		}
 		return null;
@@ -209,6 +213,29 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 		}
 
 		return null;
+	}
+	
+	@Override
+	public boolean updateFromDTO(AllPlaylists ap) {
+		List<String> dozermapping = new ArrayList<>();
+		dozermapping.add("META-INF/playlistmapping.xml");
+		Mapper mapper = new DozerBeanMapper(dozermapping);
+		PlaylistEntity pe = new PlaylistEntity();
+		List<MusicEntity> mel = mdToMe(ap.getListOfMusics());
+		pe.setListMusic(mel);
+		mapper.map(ap,pe);
+		pl_crud.update(pe);
+		return true;
+	}
+	
+	private ArrayList<MusicDetail> meToMd(List<MusicEntity> mel) {
+		Mapper mapper = new DozerBeanMapper();
+		return DozerHelper.map(mapper, mel, MusicDetail.class);
+	}
+	
+	private ArrayList<MusicEntity> mdToMe(List<MusicDetail> mdl) {
+		Mapper mapper = new DozerBeanMapper();
+		return DozerHelper.map(mapper, mdl, MusicEntity.class);
 	}
 
 }
