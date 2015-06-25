@@ -10,12 +10,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAnyAttribute;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table (name="users")
 @XmlRootElement
 public class UserEntity {
+	@XmlAttribute
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	@Column(unique=true,nullable=false)

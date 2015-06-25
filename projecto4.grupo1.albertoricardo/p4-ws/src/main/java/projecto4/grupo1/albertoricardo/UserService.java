@@ -1,6 +1,7 @@
 package projecto4.grupo1.albertoricardo;
 
 import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -11,6 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Stateless
 @Path("/users")
@@ -18,13 +20,6 @@ public class UserService {
 	@Inject
 	UserEJBLocal user;
 	
-	// test
-	@GET
-	@Path("{id: \\d+}")
-	@Produces(MediaType.APPLICATION_XML)
-	public UserEntity find(@PathParam("id") int id) {
-		return user.find(id);
-	}
 	
 	
 	// EX 2
@@ -56,7 +51,7 @@ public class UserService {
 	@POST
 	@Consumes(MediaType.APPLICATION_XML)
 	public void create(projecto4.grupo1.albertoricardo.entities.UserEntity newUser) {
-		user.registerUser(newUser.getName(), newUser.getEmail(), newUser.getPassword());
+		user.registerUser(newUser.getName(), newUser.getPassword(), newUser.getEmail());
 	}
 	
 }

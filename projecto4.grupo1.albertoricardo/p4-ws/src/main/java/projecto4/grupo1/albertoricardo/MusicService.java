@@ -4,6 +4,7 @@ package projecto4.grupo1.albertoricardo;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -35,4 +36,10 @@ public class MusicService {
 	}
 	
 	
+	// EX 16
+	@DELETE
+	@Path("/user/{id: \\d+}")
+	public void delete(@PathParam("id") int id) {
+		musicList.removeFromUser(id);
+	}
 }

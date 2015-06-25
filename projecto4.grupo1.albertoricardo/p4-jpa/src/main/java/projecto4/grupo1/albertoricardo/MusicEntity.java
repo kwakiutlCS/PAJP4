@@ -44,6 +44,8 @@ public class MusicEntity {
 	List<PlaylistEntity> playlists;
 	@ManyToOne
 	private UserEntity userOwner;
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy="music")
+	private List<LyricsEntity> lyrics;
 	
 	
 //	static Logger logger = LoggerFactory.getLogger(MusicEntity.class);
@@ -119,4 +121,20 @@ public class MusicEntity {
 		this.userOwner = userOwner;
 	}
 	
+	public List<PlaylistEntity> getPlaylists() {
+		return playlists;
+	}
+
+	public void setPlaylists(List<PlaylistEntity> playlists) {
+		this.playlists = playlists;
+	}
+
+	public List<LyricsEntity> getLyrics() {
+		return lyrics;
+	}
+
+	public void setLyrics(List<LyricsEntity> lyrics) {
+		this.lyrics = lyrics;
+	}
+
 }

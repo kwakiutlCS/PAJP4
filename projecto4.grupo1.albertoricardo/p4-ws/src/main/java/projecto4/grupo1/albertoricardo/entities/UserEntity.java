@@ -2,7 +2,7 @@ package projecto4.grupo1.albertoricardo.entities;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="UserEntity")
+@XmlRootElement
 public class UserEntity {
 	
 	private String email;

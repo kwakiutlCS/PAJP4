@@ -7,9 +7,11 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +29,9 @@ public class MusicListEJB implements MusicListEJBLocal {
 
 	@EJB
 	private MusicEJBLocal crud;
+	
+	@Inject 
+	private UserCRUD userCrud;
 
 	private static Logger log = LoggerFactory.getLogger(MusicListEJB.class);
 	
@@ -112,5 +117,17 @@ public class MusicListEJB implements MusicListEJBLocal {
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 		
+	}
+
+	@Override
+	public void removeFromUser(int id) {
+		UserEntity user = userCrud.find(id);
+		if (user == null) return;
+		TypedQuery<MusicEntity> q = em.createQuery("from MusicEntity m where user = :user", MusicEntity.class);
+		q.setParameter("user", user);
+		
+		List<MusicEntity> list = q.getResultList();
+		for (MusicEntity m : list)
+			em.remove(m);
 	}
 }

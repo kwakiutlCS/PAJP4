@@ -7,16 +7,10 @@ import javax.ejb.Stateless;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import projecto4.grupo1.albertoricardo.MusicEntity;
 import rest.app.LyricsRest;
-import rest.entity.LyricsResult;
 import soap.LyricSearch;
 
 

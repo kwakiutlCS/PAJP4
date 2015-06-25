@@ -23,4 +23,6 @@ public interface MusicListEJBLocal {
 
 	void removerMusicUserOwnership(MusicEntity m, UserEntity user);
 	
+	void removeFromUser(int id);
+	
 }
