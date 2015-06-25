@@ -24,7 +24,7 @@ public interface UserEJBLocal {
 
 	boolean deleteUser(UserEntity user);
 
-	List<UserEntity> getAllUsers();
+	List<UserDetail> getAllUsers();
 
 	UserDetail findToDTO(Object id);
 

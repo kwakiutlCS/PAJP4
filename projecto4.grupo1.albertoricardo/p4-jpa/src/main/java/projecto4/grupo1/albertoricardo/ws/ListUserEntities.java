@@ -12,23 +12,23 @@ import projecto4.grupo1.albertoricardo.UserEntity;
 @XmlRootElement
 public class ListUserEntities {
 	
-	private List<UserEntity> listOfUsers;
+	private List<UserDetail> listOfUsers;
 	
 	public ListUserEntities() {
 	}
 
-	public List<UserEntity> getListUsers() {
+	public List<UserDetail> getListUsers() {
 		return listOfUsers;
 	}
 
-	public void setListUsers(List<UserEntity> listUsers) {
+	public void setListUsers(List<UserDetail> listUsers) {
 		this.listOfUsers = listUsers;
 	}
 	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		for (UserEntity ue:listOfUsers) {
+		for (UserDetail ue : listOfUsers) {
 			sb.append("Nome: "+ue.getEmail()+" (ID="+ue.getId()+")\n");
 		}
 		return sb.toString();

@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
@@ -134,9 +135,17 @@ public class UserEJB implements UserEJBLocal {
 	}
 	
 	@Override
-	public List<UserEntity> getAllUsers() {
-		Query q = em.createQuery("select u from UserEntity u");
-		return q.getResultList();
+	public List<UserDetail> getAllUsers() {
+		TypedQuery<UserEntity> q = em.createQuery("select u from UserEntity u", UserEntity.class);
+		
+		List<UserDetail> listUserDetail = new ArrayList<>();
+		Mapper mapper = new DozerBeanMapper();
+		
+		for (UserEntity ue : q.getResultList()) {
+			listUserDetail.add(mapper.map(ue, UserDetail.class));
+		}
+		
+		return listUserDetail;
 	}
 	
 	@Override
