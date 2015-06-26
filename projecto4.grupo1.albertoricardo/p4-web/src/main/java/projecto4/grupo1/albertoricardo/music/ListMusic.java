@@ -66,7 +66,14 @@ public class ListMusic implements Serializable {
 	}
 
 	public void removeProperty(MusicEntity m) {
-		mlejb.removerMusicUserOwnership(m, userlog.getUser());
+		if (mlejb.removerMusicUserOwnership(m, userlog.getUser())) {
+			FacesMessage msg = new FacesMessage("Música","Propriedade removida com sucesso.");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+		else {
+			FacesMessage msg = new FacesMessage("Erro","Erro");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
 		refresh();
 	}
 

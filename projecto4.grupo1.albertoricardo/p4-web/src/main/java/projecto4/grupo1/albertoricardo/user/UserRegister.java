@@ -43,7 +43,12 @@ public class UserRegister implements Serializable {
 
 
 	public String addNewUser() {
-		userejb.registerUser(email, password, name);
+		try{
+			userejb.registerUser(email, password, name);
+		}
+		catch(Exception e) {
+			log.error("Erro registo utilizador: "+name+" ("+email+")");
+		}
 		log.info("Novo utilizador registado: "+name+" ("+email+")");
 		lc.toggle();
 		return "login.xhtml?faces-redirect=true";

@@ -23,10 +23,14 @@ public interface MusicListEJBLocal {
 
 	boolean removerUserOwnership(UserEntity user);
 
-	void removerMusicUserOwnership(MusicEntity m, UserEntity user);
+	boolean removerMusicUserOwnership(MusicEntity m, UserEntity user);
 
 	ListMusicEntities getAllMusics();
 
 	ListMusicEntities getAllMusicsFromUser(int id);
 	
+	MusicDetail find(int id);
+	
+	boolean removerUserOwnership(int id);
+
 }

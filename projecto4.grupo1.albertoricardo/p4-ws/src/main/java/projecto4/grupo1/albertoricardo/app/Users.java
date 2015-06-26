@@ -3,6 +3,8 @@ package projecto4.grupo1.albertoricardo.app;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -34,11 +36,11 @@ public class Users {
 	
 	@GET
 	@Path("/total")
-	@Produces(MediaType.TEXT_PLAIN)
-	public String nUsers() {
+	@Produces({MediaType.TEXT_PLAIN, MediaType.TEXT_HTML})
+	public Response nUsers() {
 		int n = userejb.getAllUsers().size();
 		String nUsers = "Número de utilizadores registados: " + n;
-		return nUsers;
+		return Response.ok(nUsers).build();
 		
 	}
 	
@@ -65,5 +67,23 @@ public class Users {
 	}
 
 
+	@DELETE
+	@Path("{id: \\d+}")
+	public Response remove(@PathParam("id") int id) {
+		if (userejb.remove(id))
+			return Response.ok("Utilizador removido").build();
+		return Response.status(Response.Status.NOT_FOUND).entity("Utilizador não existe").build();
+	}
 	
+	@POST
+	@Consumes(MediaType.APPLICATION_XML)
+	public Response create(UserDetail newUser) {
+		try {
+			userejb.registerUser(newUser.getEmail(), newUser.getPassword(), newUser.getName());
+			return Response.ok().build();
+		}
+		catch(Exception e) {
+			return Response.ok().entity(e.getMessage()).build();
+		}	
+	}
 }

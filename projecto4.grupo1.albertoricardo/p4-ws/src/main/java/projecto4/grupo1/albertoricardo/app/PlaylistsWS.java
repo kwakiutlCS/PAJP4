@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 
 import projecto4.grupo1.albertoricardo.PlaylistEJBLocal;
 import projecto4.grupo1.albertoricardo.ws.AllPlaylists;
+import projecto4.grupo1.albertoricardo.ws.ListMusicEntities;
 import projecto4.grupo1.albertoricardo.ws.ListPlaylists;
 import projecto4.grupo1.albertoricardo.ws.MusicDetail;
 
@@ -81,12 +82,31 @@ public class PlaylistsWS {
 			}
 		}
 		if (music2removeDetail != null) {
-			System.out.println(ap.getListOfMusics());
 			ap.getListOfMusics().remove(music2removeDetail);
-			System.out.println(ap.getListOfMusics());
 			plejb.updateFromDTO(ap);
 			return Response.status(Response.Status.OK).entity("Música "+music2removeDetail.getTitle()+" removida com sucesso da playlist "+ap.getName()).type(MediaType.TEXT_PLAIN).build();
 		} else return Response.notModified().build();
 	}
 
+	@GET
+	@Path("/total")
+	@Produces({MediaType.TEXT_PLAIN, MediaType.TEXT_HTML})
+	public Response count() {
+		String s = "Número de playlists existentes: "+ plejb.getPlaylists().size();
+		return Response.ok(s).build();
+	}
+	
+	@GET
+	@Path("/{id: \\d+}/musics")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN})
+	public Response findAll(@PathParam("id") int id) {
+		AllPlaylists p = plejb.findToDTO(id);
+		if (p != null) {
+			ListMusicEntities musics = new ListMusicEntities();
+			musics.setListOfMusics(p.getListOfMusics());
+			return Response.ok(musics).build();
+		}
+		
+		return Response.status(Response.Status.NOT_FOUND).build();
+	}
 }
