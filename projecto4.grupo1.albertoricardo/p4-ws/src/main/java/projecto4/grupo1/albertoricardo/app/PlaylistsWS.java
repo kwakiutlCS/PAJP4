@@ -1,11 +1,9 @@
 package projecto4.grupo1.albertoricardo.app;
-
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -85,6 +83,16 @@ public class PlaylistsWS {
 			ap.getListOfMusics().remove(music2removeDetail);
 			plejb.updateFromDTO(ap);
 			return Response.status(Response.Status.OK).entity("Música "+music2removeDetail.getTitle()+" removida com sucesso da playlist "+ap.getName()).type(MediaType.TEXT_PLAIN).build();
+		} else return Response.notModified().build();
+	}
+	
+	@POST
+	@Path("/create")
+	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN})
+	public Response createNewPlaylist(AllPlaylists ap) {
+		if (plejb.createPlaylistFromDTO(ap)) {
+			return Response.status(Response.Status.OK).entity("Playlist "+ap.getName()+" criada com sucesso.").type(MediaType.TEXT_PLAIN).build();
 		} else return Response.notModified().build();
 	}
 

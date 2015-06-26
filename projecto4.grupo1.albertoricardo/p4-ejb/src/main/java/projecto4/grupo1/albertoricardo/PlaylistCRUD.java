@@ -16,9 +16,9 @@ public class PlaylistCRUD {
 	private static Logger log = LoggerFactory.getLogger(PlaylistCRUD.class);
 	
 	
-	public PlaylistEntity create(PlaylistEntity playlist) {
+	public void create(PlaylistEntity playlist) {
 
-		return em.merge(playlist);
+		em.persist(playlist);
 	}
 
 	
