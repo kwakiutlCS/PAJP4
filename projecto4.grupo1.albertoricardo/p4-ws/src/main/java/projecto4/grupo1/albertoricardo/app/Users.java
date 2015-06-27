@@ -55,13 +55,15 @@ public class Users {
 	}
 	
 	@PUT
-	@Path("/{id}/changepassword/{newpassword}")
+	@Path("changepassword")
 	@Produces({MediaType.TEXT_PLAIN})
-	public Response changePassword(@PathParam("id") int id,
-			@PathParam("newpassword") String password) {
+	@Consumes(MediaType.APPLICATION_XML)
+	public Response changePassword(UserDetail newUser) {
+		int id = newUser.getId();
 		UserDetail ud = userejb.findToDTO(id);
+		
 		if (ud != null) {
-			if (userejb.changePassword(ud, password)) return Response.status(Response.Status.OK).entity("Password do utilizador com o id "+id+" alterada com sucesso").type(MediaType.TEXT_PLAIN).build();
+			if (userejb.changePassword(ud, newUser.getPassword())) return Response.status(Response.Status.OK).entity("Password do utilizador com o id "+id+" alterada com sucesso").type(MediaType.TEXT_PLAIN).build();
 			else return Response.notModified().build();
 		} else return Response.status(Response.Status.NOT_FOUND).entity("Utilizador com o id "+id+" nao existe").type(MediaType.TEXT_PLAIN).build();
 	}

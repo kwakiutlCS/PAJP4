@@ -177,6 +177,7 @@ public class UserEJB implements UserEJBLocal {
 		UserEntity ue = mapper.map(ud,UserEntity.class);
 		try {
 			crud.update(ue);
+			em.flush();
 			return true;
 		} catch (Exception e) {
 			log.error("Erro ao alterar a password no Web Service");
