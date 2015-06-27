@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import projecto4.grupo1.albertoricardo.MusicListEJBLocal;
 import projecto4.grupo1.albertoricardo.PlaylistEJBLocal;
 import projecto4.grupo1.albertoricardo.ws.AllPlaylists;
 import projecto4.grupo1.albertoricardo.ws.ListMusicEntities;
@@ -25,6 +26,8 @@ public class PlaylistsWS {
 
 	@EJB
 	PlaylistEJBLocal plejb;
+	@EJB
+	MusicListEJBLocal mEjb;
 
 	@GET
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN})
@@ -86,6 +89,20 @@ public class PlaylistsWS {
 			plejb.updateFromDTO(ap);
 			return Response.status(Response.Status.OK).entity("Música "+music2removeDetail.getTitle()+" removida com sucesso da playlist "+ap.getName()).type(MediaType.TEXT_PLAIN).build();
 		} else return Response.status(Response.Status.OK).entity("Música não existente").build();
+	}
+	
+	@POST
+	@Path("/{id}/add/{musicid}")
+	@Produces(MediaType.TEXT_PLAIN)
+	public Response addMusic(@PathParam("id") int id, @PathParam("musicid") int musicid) {
+		AllPlaylists ap = plejb.findToDTO(id);
+		MusicDetail md = mEjb.find(musicid);
+		
+		if (ap != null && md != null) {
+			ap.getListOfMusics().add(md);
+			plejb.updateFromDTO(ap);
+			return Response.status(Response.Status.OK).entity("Música "+md.getTitle()+" adicionada com sucesso da playlist "+ap.getName()).type(MediaType.TEXT_PLAIN).build();
+		} else return Response.status(Response.Status.OK).entity("Música ou playlist não existente").build();
 	}
 	
 	@POST
