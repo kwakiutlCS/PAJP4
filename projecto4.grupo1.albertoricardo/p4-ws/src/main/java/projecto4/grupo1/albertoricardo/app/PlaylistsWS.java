@@ -14,6 +14,7 @@ import javax.ws.rs.core.Response;
 
 import projecto4.grupo1.albertoricardo.PlaylistEJBLocal;
 import projecto4.grupo1.albertoricardo.ws.AllPlaylists;
+import projecto4.grupo1.albertoricardo.ws.ListMusicEntities;
 import projecto4.grupo1.albertoricardo.ws.ListPlaylists;
 import projecto4.grupo1.albertoricardo.ws.MusicDetail;
 
@@ -95,4 +96,25 @@ public class PlaylistsWS {
 		} else return Response.notModified().build();
 	}
 
+	@GET
+	@Path("/total")
+	@Produces({MediaType.TEXT_PLAIN, MediaType.TEXT_HTML})
+	public Response count() {
+		String s = "Número de playlists existentes: "+ plejb.getPlaylists().size();
+		return Response.ok(s).build();
+	}
+	
+	@GET
+	@Path("/{id: \\d+}/musics")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN})
+	public Response findAll(@PathParam("id") int id) {
+		AllPlaylists p = plejb.findToDTO(id);
+		if (p != null) {
+			ListMusicEntities musics = new ListMusicEntities();
+			musics.setListOfMusics(p.getListOfMusics());
+			return Response.ok(musics).build();
+		}
+		
+		return Response.status(Response.Status.NOT_FOUND).build();
+	}
 }

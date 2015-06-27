@@ -3,6 +3,7 @@ package projecto4.grupo1.albertoricardo;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -13,8 +14,9 @@ public class UserCRUD {
 	private EntityManager em;
 
 
-	public UserEntity create(UserEntity user) {
-		return em.merge(user);
+	public UserEntity create(UserEntity user) throws EntityExistsException {
+		em.persist(user);
+		return user;
 	}
 	
 	public UserEntity update(UserEntity user) {

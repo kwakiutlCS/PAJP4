@@ -31,6 +31,8 @@ public class MusicListEJB implements MusicListEJBLocal {
 
 	@EJB
 	private MusicEJBLocal crud;
+	@EJB
+	private UserCRUD userCrud;
 
 	private static Logger log = LoggerFactory.getLogger(MusicListEJB.class);
 
@@ -86,13 +88,9 @@ public class MusicListEJB implements MusicListEJBLocal {
 			if (complete > 0) {
 				log.info("Alteração de propriedade a música");
 				success = true;
-				FacesMessage msg = new FacesMessage("Música","Propriedade removida com sucesso.");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
 		} catch (Exception e) {
 			log.error("Erro ao remover proprietário da música");
-			FacesMessage msg = new FacesMessage("Erro",e.getMessage());
-			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 
 		return success;
@@ -100,22 +98,19 @@ public class MusicListEJB implements MusicListEJBLocal {
 	}
 
 	@Override
-	public void removerMusicUserOwnership(MusicEntity m, UserEntity user) {
+	public boolean removerMusicUserOwnership(MusicEntity m, UserEntity user) {
 		try {
 			int complete = em.createQuery("UPDATE MusicEntity m SET m.userOwner.id = NULL where m.userOwner.id = :i AND m.id = :mid")
 					.setParameter("i", user.getId())
 					.setParameter("mid", m.getId())
 					.executeUpdate();
 			if (complete > 0) { 
-				FacesMessage msg = new FacesMessage("Música","Propriedade removida com sucesso.");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
+				return true;
 			}
 		} catch (Exception e) {
 			log.error("Erro ao remover proprietário da música");
-			FacesMessage msg = new FacesMessage("Erro",e.getMessage());
-			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
-
+		return false;
 	}
 
 	@Override
@@ -155,5 +150,24 @@ public class MusicListEJB implements MusicListEJBLocal {
 			return lm;
 		}
 		return null;
+	}
+
+	@Override
+	public MusicDetail find(int id) {
+		MusicEntity me = crud.find(id);
+		if (me == null) return null;
+		
+		Mapper mapper = new DozerBeanMapper();
+		MusicDetail md = new MusicDetail();
+		mapper.map(me, md);
+		return md;
+	}
+
+	@Override
+	public boolean removerUserOwnership(int id) {
+		UserEntity user = userCrud.find(id);
+		if (user == null) return false;
+		
+		return removerUserOwnership(user);
 	}
 }

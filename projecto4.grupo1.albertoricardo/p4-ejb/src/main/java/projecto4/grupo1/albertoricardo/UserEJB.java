@@ -9,6 +9,7 @@ import javax.faces.application.FacesMessage;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
@@ -59,11 +60,17 @@ public class UserEJB implements UserEJBLocal {
 	}
 
 	@Override
-	public void registerUser(String username, String password, String name) {
+	public void registerUser(String username, String password, String name) throws Exception {
 		PasswordEncryptor pe = new PasswordEncryptor();
 		String ePassword = pe.encrypt(password);
 		UserEntity u = new UserEntity(username, ePassword, name);
 		crud.create(u);
+		try {
+			em.flush();
+		}
+		catch(PersistenceException e) {
+			throw new Exception("error");
+		}
 		log.info("Novo utilizador registado: "+username);
 	}
 
@@ -85,10 +92,10 @@ public class UserEJB implements UserEJBLocal {
 	public boolean deleteUser(UserEntity user) {
 		boolean success = false;
 		try {
-			mlistejb.removerUserOwnership(user);
-			crud.remove(user);
-			success = true;
-			
+			if (!mlistejb.removerUserOwnership(user)) {
+				crud.remove(user);
+				success = true;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -175,6 +182,13 @@ public class UserEJB implements UserEJBLocal {
 			log.error("Erro ao alterar a password no Web Service");
 			return false;
 		}
+	}
+
+	@Override
+	public boolean remove(int id) {
+		UserEntity u = crud.find(id);
+		if (u != null) return deleteUser(u);
+		return false;
 	}
 
 }

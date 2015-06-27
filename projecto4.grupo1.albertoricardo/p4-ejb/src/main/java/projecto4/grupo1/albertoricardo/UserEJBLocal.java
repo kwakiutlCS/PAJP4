@@ -12,7 +12,7 @@ public interface UserEJBLocal {
 
 	public abstract boolean verifyLogin(String email, String password);
 
-	public abstract void registerUser(String username, String password, String name);
+	public abstract void registerUser(String username, String password, String name) throws Exception;
 
 	int getUserID(String username);
 
@@ -30,6 +30,6 @@ public interface UserEJBLocal {
 
 	boolean changePassword(UserDetail ud, String newpassword);
 	
-	
+	boolean remove(int id);
 
 }

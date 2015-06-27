@@ -14,8 +14,6 @@ public class LyricSearch {
 	/**
 	 * Default constructor. 
 	 */
-	private int count;
-	
 	public LyricSearch() {
 	}
 
@@ -23,7 +21,7 @@ public class LyricSearch {
 		System.out.println("start soap lyrics for "+author+" and "+songname);
 		Apiv1 api = new Apiv1();
 		Apiv1Soap soap = api.getApiv1Soap();
-		count = 0;
+		int count = 0;
 		while (true) {
 			try {
 				GetLyricResult result = soap.searchLyricDirect(author, songname);
