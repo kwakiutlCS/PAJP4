@@ -57,9 +57,14 @@ public class MusicUploadEJB implements MusicUploadEJBLocal {
 		le.setMusic(me);
 		
 		try {
-			le.setLyrics(soapSearch.getLyric(artist, title));
-		} catch(Exception e) {
 			le.setLyrics(restSearch.getLyric(artist, title));
+		} catch(Exception e) {
+
+			try {
+				le.setLyrics(soapSearch.getLyric(artist, title));
+			} catch (Exception e1) {
+				System.out.println("Falhou");
+			}
 		}
 		
 		try {

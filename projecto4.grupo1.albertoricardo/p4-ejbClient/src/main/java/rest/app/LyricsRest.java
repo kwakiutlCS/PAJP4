@@ -17,16 +17,16 @@ import rest.entity.LyricsResult;
 @Stateless
 @LocalBean
 public class LyricsRest {
-	
+
 	private final static String urlTarget = "http://lyrics.wikia.com/api.php?";
-	
-    public LyricsRest() {
-    }
-    
-    public String getLyric(String author, String songname) {
-    	System.out.println("start rest lyrics for "+author+" and "+songname);
-		
-    	try {
+
+	public LyricsRest() {
+	}
+
+	public String getLyric(String author, String songname) {
+		System.out.println("start rest lyrics for "+author+" and "+songname);
+		while(true) {
+			try {
 				ResteasyClient reClient = new ResteasyClientBuilder().build();
 				ResteasyWebTarget tgt = reClient
 						.target(urlTarget + "artist=" + author + "&song=" + songname + "&fmt=xml");
@@ -37,10 +37,9 @@ public class LyricsRest {
 				if ("Not found".equals(lyrics)) return null;
 				else return lyrics;
 			} catch (Exception e) {
-				
+				System.out.println("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH#!#!#!#!#!#!");
 			}
-    	System.out.println("failed");
-    	return null;
-    }
+		}
+	}
 
 }

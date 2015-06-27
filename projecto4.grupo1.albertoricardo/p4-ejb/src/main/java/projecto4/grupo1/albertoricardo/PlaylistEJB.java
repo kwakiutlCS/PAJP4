@@ -21,7 +21,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import projecto4.grupo1.albertoricardo.dto.DozerHelper;
+import projecto4.grupo1.albertoricardo.dto.MusicDTO;
 import projecto4.grupo1.albertoricardo.dto.PListDTO;
+import projecto4.grupo1.albertoricardo.dto.PlaylistDTO;
 import projecto4.grupo1.albertoricardo.ws.AllPlaylists;
 import projecto4.grupo1.albertoricardo.ws.ListPlaylists;
 import projecto4.grupo1.albertoricardo.ws.MusicDetail;
@@ -247,6 +249,11 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 	}
 	
 	private ArrayList<MusicEntity> mdToMe(List<MusicDetail> mdl) {
+		Mapper mapper = new DozerBeanMapper();
+		return DozerHelper.map(mapper, mdl, MusicEntity.class);
+	}
+	
+	private ArrayList<MusicEntity> mDTOToMe(List<MusicDTO> mdl) {
 		Mapper mapper = new DozerBeanMapper();
 		return DozerHelper.map(mapper, mdl, MusicEntity.class);
 	}

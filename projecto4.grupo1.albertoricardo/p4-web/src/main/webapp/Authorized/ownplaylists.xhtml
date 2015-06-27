@@ -72,7 +72,7 @@
 							<p:dataTable id="plm"
 								value="#{listPlaylist.selectedPlaylist.getMusics()}" var="m"
 								paginator="true" rows="10" styleClass="paginated text-center"
-								widgetVar="listarmusicas"
+								widgetVar="listarmusicas" paginatorPosition="bottom"
 								emptyMessage="Nenhuma música encontrada." scrollable="true"
 								scrollWidth="100%">
 								<p:column headerText="Título" sortBy="#{m.title}">
@@ -80,10 +80,35 @@
 								</p:column>
 								<p:column headerText="Remover da Playlist">
 									<p:commandButton icon="ui-icon-trash"
-										action="#{listPlaylist.removeMusicFromPlaylist(m)}" update=":form:plm :form:myPlaylists"/>
+										action="#{listPlaylist.removeMusicFromPlaylist(m)}"
+										update=":form:plm :form:myPlaylists" />
+								</p:column>
+								<p:column headerText="Letra">
+									<p:commandButton icon="ui-icon-comment"
+										oncomplete="PF('lyrics').show()"
+										update=":form:plm :form:myPlaylists :form:dlg :form:ldlg">
+										<f:setPropertyActionListener value="#{m.id}"
+											target="#{lyricsWeb.musicid}" />
+									</p:commandButton>
 								</p:column>
 							</p:dataTable>
 						</p:dialog>
+						<p:scrollPanel mode="native" style="max-height:500px;margi">
+							<p:dialog closeOnEscape="true" id="ldlg"
+								header="Letras (clique na letra para editar)" widgetVar="lyrics"
+								width="40%" height="500px">
+								<p:inplace>
+									<p:inputTextarea style="width:100%;"
+										value="#{lyricsWeb.customedLyrics}" label="customLyrics"/>
+								</p:inplace>
+								<h:panelGroup layout="block"
+									style="text-align:right;margin-top:20px;">
+									<p:commandButton id="lyricbutton"
+										value="Editar" action="#{lyricsWeb.saveNewLyric()}"
+										update=":form:myPlaylists :form:ldlg :form:dlg"/>
+								</h:panelGroup>
+							</p:dialog>
+						</p:scrollPanel>
 					</h:form>
 				</h:panelGroup>
 			</h:panelGroup>

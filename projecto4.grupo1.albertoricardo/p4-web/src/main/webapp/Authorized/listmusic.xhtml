@@ -60,6 +60,13 @@
 									<f:convertDateTime pattern="dd/MM/yyyy" />
 								</h:outputText>
 							</p:column>
+							<p:column headerText="Letra">
+								<p:commandButton icon="ui-icon-comment"
+									oncomplete="PF('lyrics').show()"
+									action="#{lyricsWeb.setMusicid(music.id)}"
+									update=":form :listallmusics :lyrics">
+								</p:commandButton>
+							</p:column>
 							<p:column headerText="Ouvir">
 								<p:commandButton icon="ui-icon-play"
 									action="#{playMusic.play(music.pathFile)}" />
@@ -67,7 +74,7 @@
 									action="#{playMusic.stop()}" />
 							</p:column>
 
-							<p:column headerText="Adicionar a Playlist">
+							<p:column selectRow="" headerText="Adicionar a Playlist">
 								<p:commandButton oncomplete="PF('addDialog').show();"
 									icon="ui-icon-circle-plus" update="@form">
 									<f:setPropertyActionListener value="#{music}"
@@ -75,6 +82,15 @@
 								</p:commandButton>
 							</p:column>
 						</p:dataTable>
+						<p:dialog id="lyrics" header="Letras" widgetVar="lyrics"
+							width="30%">
+							<h:panelGrid columns="1" cellpadding="20"
+								styleClass="text-center" style="width:100%">
+								<f:facet name="header">
+									<h:outputText value="#{lyricsWeb.getOriginalLyrics()}" />
+								</f:facet>
+							</h:panelGrid>
+						</p:dialog>
 					</h:form>
 					<h:form>
 						<p:dialog id="dialog" header="Playlist" widgetVar="addDialog"
@@ -84,8 +100,7 @@
 								<p:selectOneMenu id="plist"
 									value="#{listPlaylist.selectedPlaylist}"
 									converter="entityConverter" var="pl" style="width:80%">
-															Converter é usado para o item seleccionado é um objecto. Se fosse uma string não era preciso
-															<f:selectItem itemLabel="Seleccione:" itemValue="" />
+									<f:selectItem itemLabel="Seleccione:" itemValue="" />
 									<f:selectItems value="#{listPlaylist.playlists}" var="plst"
 										itemLabel="#{plst.name}" itemValue="#{plst}" />
 									<p:column>

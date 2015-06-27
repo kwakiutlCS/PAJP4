@@ -7,15 +7,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name="lyrics")
+@Table(name="lyrics", 
+uniqueConstraints=
+@UniqueConstraint(columnNames={"music_id", "user_id"})
+)
 public class LyricsEntity {
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	@Column
+	@Column(length=999)
 	private String lyrics;
-	@ManyToOne
+	@ManyToOne()
 	private UserEntity user;
 	@ManyToOne
 	private MusicEntity music;
@@ -37,6 +41,12 @@ public class LyricsEntity {
 	public void setMusic(MusicEntity music) {
 		this.music = music;
 	}
-	
-	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
 }

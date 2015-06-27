@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+          
+    
+	<mapping>
+		<class-a>projecto4.grupo1.albertoricardo.MusicEntity</class-a>
+		<class-b>projecto4.grupo1.albertoricardo.dto.MusicDTO</class-b>
+		<field>
+			<a>id</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>title</a>
+			<b>title</b>
+		</field>
+		<field>
+			<a>artist</a>
+			<b>artist</b>
+		</field>
+		<field>
+			<a>dateRecord</a>
+			<b>dateRecord</b>
+		</field>
+	</mapping>
+	<mapping>
+		<class-a>projecto4.grupo1.albertoricardo.PlaylistEntity</class-a>
+		<class-b>projecto4.grupo1.albertoricardo.dto.PlaylistDTO</class-b>
+		<field>
+			<a>id</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>name</a>
+			<b>name</b>
+		</field>
+		<field>
+			<a>insertDate</a>
+			<b>insertDate</b>
+		</field>
+		<field>
+			<a>musics</a>
+			<b>musics</b>
+		</field>
+	</mapping>
+	<mapping>
+		<class-a>projecto4.grupo1.albertoricardo.LyricsEntity</class-a>
+		<class-b>projecto4.grupo1.albertoricardo.dto.LyricDTO</class-b>
+		<field>
+			<a>id</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>user</a>
+			<b>user</b>
+		</field>
+	</mapping>
+
+
+</mappings> 
