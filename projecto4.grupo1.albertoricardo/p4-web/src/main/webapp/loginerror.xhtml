@@ -17,21 +17,18 @@
 <h:body>
 	<h:panelGroup layout="block" styleClass="container">
 		<h:panelGroup layout="block" styleClass="wrapper">
-			<form class="form-signin" method="POST" action="j_security_check">
-				<p:growl id="growl" showDetail="true" autoUpdate="true" />
-				<div id="loginDiv">
-					<h3 class="form-signin-heading">Bem-vind@! Faz login!</h3>
+			<h:form styleClass="form-signin">
+			<p:growl id="growl" showDetail="true" autoUpdate="true"/>
+				<h:panelGroup id="loginDiv">
+					<h3 class="form-signin-heading">Acesso não autorizado!</h3>
 					<hr class="colorgraph" />
-					<br /> E-mail: <span class="reqfield">*</span> <input
-						name="j_username" type="text" class="form-control" /> Password: <span
-						class="reqfield">*</span> <input name="j_password" size="15"
-						type="password" class="form-control" /> <input type="submit"
-						value="Entrar" class="btn btn-lg btn-primary btn-block" /> <input
-						type="button" value="Registar"
-						class="btn btn-lg btn-primary btn-block"
-						onclick="window.location.href='http://www.localhost:8080/p4-web/register.xhtml'" />
-				</div>
-			</form>
+					<br />
+					<h:commandButton action="login.xhtml?faces-redirect=true" value="Início"
+						styleClass="btn btn-lg btn-primary btn-block">
+						<f:ajax render="@form" />
+					</h:commandButton>
+				</h:panelGroup>
+			</h:form>
 		</h:panelGroup>
 	</h:panelGroup>
 </h:body>

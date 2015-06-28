@@ -12,13 +12,13 @@ import javax.inject.Named;
 import projecto4.grupo1.albertoricardo.UserEJBLocal;
 
 @Named
-public class UserValidator implements Validator {
+public class ValidatorUser implements Validator {
 
 	@EJB
 	private UserEJBLocal userejb;
 
 
-	public UserValidator() {
+	public ValidatorUser() {
 	}
 
 

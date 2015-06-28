@@ -14,7 +14,7 @@ public class PasswordEncryptor {
 		String securedPassword = "";
 		
 		try {
-			MessageDigest md = MessageDigest.getInstance("MD5");
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
 			md.update(password.getBytes());
 			
 			byte byteData[] = md.digest();

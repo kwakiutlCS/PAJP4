@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import projecto4.grupo1.albertoricardo.UserEJBLocal;
-import projecto4.grupo1.albertoricardo.validators.UserValidator;
+import projecto4.grupo1.albertoricardo.validators.ValidatorUser;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserValidatorTest {
@@ -30,7 +30,7 @@ public class UserValidatorTest {
 	
 	
 	@InjectMocks
-	UserValidator uv;
+	ValidatorUser uv;
 	
 	@Ignore
 	@Test(expected=ValidatorException.class)

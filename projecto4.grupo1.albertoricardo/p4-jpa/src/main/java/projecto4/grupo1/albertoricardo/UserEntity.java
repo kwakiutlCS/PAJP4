@@ -1,5 +1,6 @@
 package projecto4.grupo1.albertoricardo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,11 @@ import projecto4.grupo1.albertoricardo.roles.Role;
 @Entity
 @Table (name="users")
 @XmlRootElement
-public class UserEntity {
+public class UserEntity implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	@Column(unique=true,nullable=false)
@@ -39,8 +44,9 @@ public class UserEntity {
 	@OneToMany(cascade =CascadeType.REMOVE,mappedBy="userOwner")
 	private List<PlaylistEntity> userPlaylists;
 	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name="ROLES",joinColumns=@JoinColumn(name="user_id"),uniqueConstraints = @UniqueConstraint(columnNames={"roles","user_id"}))
+	@CollectionTable(name="ROLES",joinColumns=@JoinColumn(name="email",referencedColumnName="email"),uniqueConstraints = @UniqueConstraint(columnNames={"role","email"}))
 	@Enumerated(EnumType.STRING)
+	@Column(name="role")
 	private List<Role> roles;
 	public UserEntity() {
 		super();
