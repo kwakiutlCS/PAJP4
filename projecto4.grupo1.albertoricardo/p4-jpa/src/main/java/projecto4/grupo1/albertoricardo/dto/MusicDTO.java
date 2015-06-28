@@ -3,8 +3,6 @@ package projecto4.grupo1.albertoricardo.dto;
 import java.util.Date;
 import java.util.List;
 
-import projecto4.grupo1.albertoricardo.PlaylistEntity;
-
 public class MusicDTO {
 	
 	private int id;

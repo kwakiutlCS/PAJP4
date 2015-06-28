@@ -252,10 +252,5 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 		Mapper mapper = new DozerBeanMapper();
 		return DozerHelper.map(mapper, mdl, MusicEntity.class);
 	}
-	
-	private ArrayList<MusicEntity> mDTOToMe(List<MusicDTO> mdl) {
-		Mapper mapper = new DozerBeanMapper();
-		return DozerHelper.map(mapper, mdl, MusicEntity.class);
-	}
 
 }

@@ -12,7 +12,6 @@ import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 
 import projecto4.grupo1.albertoricardo.dto.LyricDTO;
-import projecto4.grupo1.albertoricardo.dto.MusicDTO;
 
 
 

@@ -4,7 +4,6 @@ package projecto4.grupo1.albertoricardo;
 import java.util.List;
 
 import javax.ejb.Local;
-
 import projecto4.grupo1.albertoricardo.ws.UserDetail;
 
 @Local

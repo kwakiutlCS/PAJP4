@@ -17,7 +17,7 @@ import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import projecto4.grupo1.albertoricardo.roles.Role;
 import projecto4.grupo1.albertoricardo.security.PasswordEncryptor;
 import projecto4.grupo1.albertoricardo.ws.UserDetail;
 
@@ -64,6 +64,7 @@ public class UserEJB implements UserEJBLocal {
 		PasswordEncryptor pe = new PasswordEncryptor();
 		String ePassword = pe.encrypt(password);
 		UserEntity u = new UserEntity(username, ePassword, name);
+		u.addRole(Role.USER);
 		crud.create(u);
 		try {
 			em.flush();

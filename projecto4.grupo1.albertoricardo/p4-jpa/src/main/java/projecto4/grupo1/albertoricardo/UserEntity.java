@@ -1,16 +1,26 @@
 package projecto4.grupo1.albertoricardo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import projecto4.grupo1.albertoricardo.roles.Role;
 
 @Entity
 @Table (name="users")
@@ -28,7 +38,10 @@ public class UserEntity {
 	private List<MusicEntity> uploadedMusics;
 	@OneToMany(cascade =CascadeType.REMOVE,mappedBy="userOwner")
 	private List<PlaylistEntity> userPlaylists;
-	
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name="ROLES",joinColumns=@JoinColumn(name="user_id"),uniqueConstraints = @UniqueConstraint(columnNames={"roles","user_id"}))
+	@Enumerated(EnumType.STRING)
+	private List<Role> roles;
 	public UserEntity() {
 		super();
 	}
@@ -75,6 +88,43 @@ public class UserEntity {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
+	public void addRole(Role role) {
+		if (roles == null) {
+			roles = new ArrayList<>();
+			roles.add(role);
+		} else roles.add(role);
+	}
+
+	//	public List<RoleEntity> getRoles() {
+	//		return roles;
+	//	}
+	//
+	//	public void setRoles(List<RoleEntity> roles) {
+	//		this.roles = roles;
+	//	}
+	//	
+	//	public void addRole(RoleEntity role) {
+	//		if (this.roles == null) {
+	//			this.roles = new ArrayList<RoleEntity>();
+	//			roles.add(role);
+	//		} else this.roles.add(role);
+	//	}
+
+
+
+
+
+
+
 
 
 
