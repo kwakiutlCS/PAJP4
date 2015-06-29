@@ -1,12 +1,17 @@
 package projecto4.grupo1.albertoricardo.music;
 
+import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.ejb.EJBContext;
+import javax.ejb.SessionContext;
+import javax.ejb.spi.EJBContainerProvider;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +38,6 @@ public class MusicUploader implements Serializable {
 	private Date dateReleased;
 	private String path;
 	private String result = "";
-
 	@EJB
 	private MusicUploadEJBLocal mu;
 

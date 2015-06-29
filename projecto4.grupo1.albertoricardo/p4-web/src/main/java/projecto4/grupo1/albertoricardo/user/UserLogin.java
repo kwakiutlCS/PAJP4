@@ -42,7 +42,7 @@ public class UserLogin implements Serializable {
 	private String result = "";
 
 	public String doLogin() {
-		userlog.setUser(userejb.getUserEntity(email));
+		// userlog.setUser(userejb.getUserEntity(email));
 		setFacesContext();
 		log.info("Utilizador "+email+" iniciou sessão.");
 		return "/Authorized/entry.xhtml?faces-redirect=true";

@@ -17,21 +17,59 @@
 <h:body>
 	<h:panelGroup layout="block" styleClass="container">
 		<h:panelGroup layout="block" styleClass="wrapper">
-			<form class="form-signin" method="POST" action="j_security_check">
+			<h:form id="loginform" styleClass="form-signin">
 				<p:growl id="growl" showDetail="true" autoUpdate="true" />
-				<div id="loginDiv">
+				<h:panelGroup id="loginDiv" rendered="#{loginChoose.showLogin}">
 					<h3 class="form-signin-heading">Bem-vind@! Faz login!</h3>
 					<hr class="colorgraph" />
-					<br /> E-mail: <span class="reqfield">*</span> <input
-						name="j_username" type="text" class="form-control" /> Password: <span
-						class="reqfield">*</span> <input name="j_password" size="15"
-						type="password" class="form-control" /> <input type="submit"
-						value="Entrar" class="btn btn-lg btn-primary btn-block" /> <input
-						type="button" value="Registar"
-						class="btn btn-lg btn-primary btn-block"
-						onclick="window.location.href='http://www.localhost:8080/p4-web/register.xhtml'" />
-				</div>
-			</form>
+					<br />
+					E-mail: <span class="reqfield">*</span>
+					<h:inputText id="mail" styleClass="form-control"
+						value="#{login.email}" required="true" />
+					Password: <span class="reqfield">*</span>
+					<h:inputSecret id="passwordLogin" styleClass="form-control"
+						value="#{login.password}" />
+					<h:commandButton action="#{login.login}" value="Entrar"
+						styleClass="btn btn-lg btn-primary btn-block" />
+					<h:commandButton action="#{loginChoose.toggle()}" value="Registar"
+						styleClass="btn btn-lg btn-primary btn-block">
+						<f:ajax render="@form" />
+					</h:commandButton>
+					<h:outputText value="#{userLogin.result}" />
+				</h:panelGroup>
+				<h:panelGroup id="registerDiv"
+					rendered="#{loginChoose.showRegister}">
+					<h3 class="form-signin-heading">Bem-vind@! Faz o teu registo!</h3>
+					<hr class="colorgraph" />
+					<br />
+				Nome: <span class="reqfield">*</span>
+					<h:inputText styleClass="form-control" value="#{userRegister.name}"
+						required="true" />
+				E-mail: <span class="reqfield">*</span>
+					<h:inputText id="regEmail" styleClass="form-control"
+						value="#{userRegister.email}" required="true"
+						validator="#{emailValidator.validate}" />
+				Password: <span class="reqfield">*</span>
+					<h:inputSecret id="password" styleClass="form-control"
+						value="#{userRegister.password}" required="true"
+						validator="passwordvalidate">
+						<f:attribute name="confirmPassword" value="#{confirmPassword}" />
+					</h:inputSecret>
+				Conf. Password: <span class="reqfield">*</span>
+					<h:inputSecret id="confirmPassword" styleClass="form-control"
+						value="#{userRegister.passwordConfirm}"
+						binding="#{confirmPassword}" required="true" />
+					<h:commandButton action="#{userRegister.addNewUser()}"
+						value="Registar" styleClass="btn btn-lg btn-primary btn-block">
+					</h:commandButton>
+					<h:commandButton action="#{loginChoose.toggle()}" value="Voltar"
+						styleClass="btn btn-lg btn-primary btn-block">
+						<f:ajax render="@form" />
+					</h:commandButton>
+					<br />
+					<h:outputText value="#{userRegister.result}" />
+				</h:panelGroup>
+			</h:form>
 		</h:panelGroup>
 	</h:panelGroup>
 </h:body>

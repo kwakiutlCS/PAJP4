@@ -3,6 +3,8 @@ package projecto4.grupo1.albertoricardo.security;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import com.sun.syndication.io.impl.Base64;
+
 public class PasswordEncryptor {
 	
 	
@@ -18,13 +20,9 @@ public class PasswordEncryptor {
 			md.update(password.getBytes());
 			
 			byte byteData[] = md.digest();
-			
-			StringBuffer sb = new StringBuffer();
-	        for (int i = 0; i < byteData.length; i++) {
-	         sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1)); // Converter para uma String HEX
-	        }
-	        
-	        securedPassword = sb.toString();
+			byte[] data2 = Base64.encode(byteData);
+			securedPassword = new String(data2);
+			return securedPassword;
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
