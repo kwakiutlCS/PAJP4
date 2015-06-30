@@ -33,7 +33,7 @@ public class LyricsRest {
 				Response response = tgt.request(MediaType.APPLICATION_XML)
 						.get();
 				String lyrics = response.readEntity(LyricsResult.class).getLyric();
-				System.out.println(lyrics);
+				//System.out.println(lyrics);
 				if ("Not found".equals(lyrics)) return null;
 				else return lyrics;
 			} catch (Exception e) {
@@ -42,4 +42,8 @@ public class LyricsRest {
 		}
 	}
 
+	public static void main(String[] args) {
+		LyricsRest l = new LyricsRest();
+		System.out.println(l.getLyric("The Doors", "Touch me"));
+	}
 }
