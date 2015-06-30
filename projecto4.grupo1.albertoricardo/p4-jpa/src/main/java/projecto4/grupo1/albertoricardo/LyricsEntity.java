@@ -19,7 +19,7 @@ public class LyricsEntity {
 	private int id;
 	@Column(length=999)
 	private String lyrics;
-	@ManyToOne()
+	@ManyToOne
 	private UserEntity user;
 	@ManyToOne
 	private MusicEntity music;

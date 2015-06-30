@@ -10,12 +10,15 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.iterators.SingletonIterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 import projecto4.grupo1.albertoricardo.UserEJBLocal;
 import projecto4.grupo1.albertoricardo.roles.Role;
 import projecto4.grupo1.albertoricardo.security.PasswordEncryptor;
+import projecto4.grupo1.albertoricardo.ws.UserDetail;
 
 @Named
 @SessionScoped
@@ -24,7 +27,6 @@ public class Login implements Serializable {
 	/**
 	 * 
 	 */
-	
 	@Inject
 	UserLogged user;
 	@EJB
@@ -65,6 +67,7 @@ public class Login implements Serializable {
 							+ "password: "+password);
 			request.login(email, password);
 			user.setUser(ejb.getUserEntity(email));
+			UserDetail ud = ejb.getUD(user.getUser());
 			for (Role r:user.getUser().getRoles()) System.out.println("Roles: "+r);
 			if (user.getUser().getRoles().contains(Role.USER)) {
 				result = "Authorized/entry.xhtml?faces-redirect=true";

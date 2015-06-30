@@ -191,5 +191,15 @@ public class UserEJB implements UserEJBLocal {
 		if (u != null) return deleteUser(u);
 		return false;
 	}
+	
+	@Override
+	public UserDetail getUD(UserEntity ue) {
+		UserDetail ud = new UserDetail();
+		List<String> dozermapping = new ArrayList<>();
+		dozermapping.add("META-INF/playlistmapping.xml");
+		Mapper mapper = new DozerBeanMapper();
+		mapper.map(ue, ud);
+		return ud;
+	}
 
 }

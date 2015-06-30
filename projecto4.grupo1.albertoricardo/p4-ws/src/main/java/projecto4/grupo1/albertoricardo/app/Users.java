@@ -1,8 +1,10 @@
 package projecto4.grupo1.albertoricardo.app;
 
 
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -14,6 +16,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
+
 import projecto4.grupo1.albertoricardo.UserEJBLocal;
 import projecto4.grupo1.albertoricardo.ws.ListUserEntities;
 import projecto4.grupo1.albertoricardo.ws.UserDetail;
@@ -22,7 +29,9 @@ import projecto4.grupo1.albertoricardo.ws.UserDetail;
 @Stateless
 @Path("/users")
 public class Users {
-
+	
+	private static Logger log = LoggerFactory.getLogger(Users.class);
+	
 	@EJB
 	UserEJBLocal userejb;
 

@@ -31,4 +31,6 @@ public interface UserEJBLocal {
 	
 	boolean remove(int id);
 
+	UserDetail getUD(UserEntity ue);
+
 }
