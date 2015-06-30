@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import projecto4.grupo1.albertoricardo.UserEJBLocal;
 import projecto4.grupo1.albertoricardo.UserEntity;
+import projecto4.grupo1.albertoricardo.logged.LoggedEjb;
 //import projecto4.grupo1.albertoricardo.logged.LoggedEjb;
 import projecto4.grupo1.albertoricardo.security.PasswordEncryptor;
 
@@ -30,8 +31,8 @@ public class UserLogged implements Serializable {
 
 	@EJB
 	private UserEJBLocal userejb;
-	//@EJB
-	//private LoggedEjb loggedEjb;
+	@EJB
+	private LoggedEjb loggedEjb;
 
 	private UserEntity user;
 	private String newName;
@@ -49,7 +50,7 @@ public class UserLogged implements Serializable {
 		ExternalContext ext = context.getExternalContext();
 		HttpServletRequest req = (HttpServletRequest) ext.getRequest();
 		HttpSession session = req.getSession();
-		//loggedEjb.remove(user);
+		loggedEjb.remove(user);
 		session.invalidate();
 		log.info("Utilizador "+user.getEmail()+" encerrou a sessão.");
 		return "/login.xhtml?faces-redirect=true";
@@ -114,6 +115,7 @@ public class UserLogged implements Serializable {
 	}
 
 	public void setUser(UserEntity user) {
+		loggedEjb.addUser(user);
 		this.user = user;
 	}
 
