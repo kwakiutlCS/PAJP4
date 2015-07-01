@@ -80,7 +80,7 @@
 								</p:column>
 								<p:column headerText="Remover da Playlist">
 									<p:commandButton icon="ui-icon-trash"
-										action="#{listPlaylist.removeMusicFromPlaylist(m)}"/>
+										action="#{listPlaylist.removeMusicFromPlaylist(m)}" />
 								</p:column>
 								<p:column headerText="Letra">
 									<p:commandButton icon="ui-icon-comment"
@@ -96,13 +96,12 @@
 							<p:dialog closeOnEscape="true" id="ldlg"
 								header="Letras (clique na letra para editar)" widgetVar="lyrics"
 								width="40%" height="500px">
-									<p:inputTextarea style="width:100%;"
-										value="#{lyricsWeb.customedLyrics}" label="customLyrics"/>
+								<p:inputTextarea style="width:100%;"
+									value="#{lyricsWeb.customedLyrics}" label="customLyrics" />
 								<h:panelGroup layout="block"
 									style="text-align:right;margin-top:20px;">
-									<p:commandButton id="lyricbutton"
-										value="Editar" action="#{lyricsWeb.saveNewLyric()}"
-										update="@form"/>
+									<p:commandButton id="lyricbutton" value="Editar"
+										action="#{lyricsWeb.saveNewLyric()}" update="@form" />
 								</h:panelGroup>
 							</p:dialog>
 						</p:scrollPanel>
