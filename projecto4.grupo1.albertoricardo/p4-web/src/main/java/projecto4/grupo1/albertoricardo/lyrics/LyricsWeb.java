@@ -119,6 +119,8 @@ public class LyricsWeb implements Serializable {
 	public void saveNewLyric() {
 		if (lyricdto == null) lyricdto = new LyricDTO(customedLyrics, user.getUser(), musicett);
 		else lyricdto.setLyrics(customedLyrics);
+		log.trace("saveNewLyric, musicett: "+musicett.getArtist());
+		
 		ejb.editedLyrics(lyricdto);
 	}
 

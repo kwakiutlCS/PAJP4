@@ -14,6 +14,18 @@
 	<dependencies>
 		<dependency>
 			<groupId>pt.uc.dei.paj</groupId>
+			<artifactId>p4-hit</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>pt.uc.dei.paj</groupId>
+			<artifactId>p4-jpa</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>pt.uc.dei.paj</groupId>
 			<artifactId>p4-web</artifactId>
 			<version>${project.version}</version>
 			<type>war</type>
@@ -57,9 +69,17 @@
 							<groupId>pt.uc.dei.paj</groupId>
 							<artifactId>p4-web</artifactId>
 						</webModule>
+						<webModule>
+							<groupId>pt.uc.dei.paj</groupId>
+							<artifactId>p4-ws</artifactId>
+						</webModule>
 						<ejbModule>
 							<groupId>pt.uc.dei.paj</groupId>
 							<artifactId>p4-ejb</artifactId>
+						</ejbModule>
+						<ejbModule>
+							<groupId>pt.uc.dei.paj</groupId>
+							<artifactId>p4-ejbClient</artifactId>
 						</ejbModule>
 					</modules>
 				</configuration>

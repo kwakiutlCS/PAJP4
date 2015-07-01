@@ -1,14 +1,22 @@
 package projecto4.grupo1.albertoricardo.ws;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 
 @XmlRootElement
-public class UserDetail {
+public class UserDetail implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 123456789L;
 	private int id;
 	private String email;
 	private String name;
+	@XmlTransient
+	private boolean logged;
 	@XmlTransient
 	private String password;
 	
@@ -66,5 +74,19 @@ public class UserDetail {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+
+
+	public boolean isLogged() {
+		return logged;
+	}
+
+
+
+	public void setLogged(boolean logged) {
+		this.logged = logged;
+	}
+	
+	
 
 }

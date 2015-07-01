@@ -201,5 +201,11 @@ public class UserEJB implements UserEJBLocal {
 		mapper.map(ue, ud);
 		return ud;
 	}
+	
+//	@Override
+//	public void logged(UserEntity ue, boolean loggedin) {
+//		ue.setLogged(loggedin);
+//		crud.update(ue);
+//	}
 
 }

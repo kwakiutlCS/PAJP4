@@ -102,6 +102,13 @@
 			<artifactId>rome</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		<dependency>
+			<groupId>pt.uc.dei.paj</groupId>
+			<artifactId>
+				p4-hit
+			</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 </project>

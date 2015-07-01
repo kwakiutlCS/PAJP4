@@ -110,21 +110,6 @@ public class UserEntity implements Serializable {
 		} else roles.add(role);
 	}
 
-	//	public List<RoleEntity> getRoles() {
-	//		return roles;
-	//	}
-	//
-	//	public void setRoles(List<RoleEntity> roles) {
-	//		this.roles = roles;
-	//	}
-	//	
-	//	public void addRole(RoleEntity role) {
-	//		if (this.roles == null) {
-	//			this.roles = new ArrayList<RoleEntity>();
-	//			roles.add(role);
-	//		} else this.roles.add(role);
-	//	}
-
 
 
 

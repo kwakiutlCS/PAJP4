@@ -7,15 +7,17 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>p4-jpa</artifactId>
-	<packaging>ejb</packaging>
+	<artifactId>p4-hit</artifactId>
+	<packaging>jar</packaging>
 
-	<name>p4-jpa</name>
-	<description>Entities</description>
+	<name>p4-hit</name>
+	<description>Hit Counter</description>
 
 	<build>
 		<finalName>${project.artifactId}</finalName>
 	</build>
+
+	<!-- As dependencias que este projeto tem .. por agora só jee -->
 	<dependencies>
 		<dependency>
 			<groupId>javax</groupId>

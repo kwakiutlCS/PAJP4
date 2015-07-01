@@ -17,6 +17,7 @@
 		<module>p4-jpa</module>
 		<module>p4-ws</module>
 		<module>p4-ejbClient</module>
+		<module>p4-hit</module>
 	</modules>
 
 

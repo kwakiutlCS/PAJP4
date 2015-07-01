@@ -33,4 +33,6 @@ public interface UserEJBLocal {
 
 	UserDetail getUD(UserEntity ue);
 
+//	void logged(UserEntity ue, boolean loggedin);
+
 }
