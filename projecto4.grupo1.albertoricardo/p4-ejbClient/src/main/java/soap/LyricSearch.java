@@ -18,7 +18,6 @@ public class LyricSearch {
 	}
 
 	public String getLyric(String author, String songname) throws Exception {
-		System.out.println("start soap lyrics for "+author+" and "+songname);
 		try {
 			Apiv1 api = new Apiv1();
 			Apiv1Soap soap = api.getApiv1Soap();
@@ -31,7 +30,6 @@ public class LyricSearch {
 
 					else return lyrics;
 				} catch (WebServiceException wse) {
-					System.out.println("failed");
 					count++;
 					if (count > 50) throw new Exception();
 				}

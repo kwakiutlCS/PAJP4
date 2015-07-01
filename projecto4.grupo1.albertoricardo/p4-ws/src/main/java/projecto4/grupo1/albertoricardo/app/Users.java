@@ -101,7 +101,6 @@ public class Users {
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response loggedTotal() {
 		int n = LoggedInUsers.getCount();
-		System.out.println("ClassLOADER: "+LoggedInUsers.class.getClassLoader().hashCode());
 			return Response.ok("Users logados: "+n).type(MediaType.TEXT_PLAIN).build();
 	}
 	

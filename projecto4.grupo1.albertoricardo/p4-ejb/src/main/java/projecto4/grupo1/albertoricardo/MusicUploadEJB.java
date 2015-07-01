@@ -63,7 +63,7 @@ public class MusicUploadEJB implements MusicUploadEJBLocal {
 			try {
 				le.setLyrics(soapSearch.getLyric(artist, title));
 			} catch (Exception e1) {
-				System.out.println("Falhou");
+				log.error("Erro no SOAP");
 			}
 		}
 		
