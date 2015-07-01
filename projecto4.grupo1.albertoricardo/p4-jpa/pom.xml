@@ -21,11 +21,5 @@
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>pt.uc.dei.paj</groupId>
-			<artifactId>p4-jpa</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<type>ejb</type>
-		</dependency>
 	</dependencies>
 </project>
