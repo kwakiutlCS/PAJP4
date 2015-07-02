@@ -17,7 +17,7 @@ uniqueConstraints=
 public class LyricsEntity {
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	@Column(length=999)
+	@Column(length=30000)
 	private String lyrics;
 	@ManyToOne
 	private UserEntity user;

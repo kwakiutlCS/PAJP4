@@ -4,6 +4,9 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.xml.ws.WebServiceException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.chartlyrics.api.*;
 /**
  * Session Bean implementation class LyricSearch
@@ -14,6 +17,7 @@ public class LyricSearch {
 	/**
 	 * Default constructor. 
 	 */
+	private static Logger log = LoggerFactory.getLogger(LyricSearch.class);
 	public LyricSearch() {
 	}
 
@@ -31,11 +35,15 @@ public class LyricSearch {
 					else return lyrics;
 				} catch (WebServiceException wse) {
 					count++;
-					if (count > 50) throw new Exception();
+					if (count > 50) { 
+						log.warn("After 50 tries, it has failed once again.");
+						throw new Exception();
+					}
 				}
 			}
 		} catch (Exception e) {
-			return null;
+			log.error("Error on SOAP (ChartLyrics");
+			throw new Exception();
 		}
 
 

@@ -62,11 +62,12 @@ public class MusicUploadEJB implements MusicUploadEJBLocal {
 		
 		try {
 			le.setLyrics(chartRest.getLyric(artist, title));
-		}
-		catch(Exception e2) {
+		} catch(Exception e2) {
+			e2.printStackTrace();
 			try {
 				le.setLyrics(restSearch.getLyric(artist, title));
 			} catch(Exception e) {
+				le.setLyrics(null);
 				try {
 					le.setLyrics(soapSearch.getLyric(artist, title));
 				} catch (Exception e1) {
