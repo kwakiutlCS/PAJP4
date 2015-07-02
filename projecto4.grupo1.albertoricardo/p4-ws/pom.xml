@@ -17,36 +17,47 @@
 		<finalName>${project.artifactId}</finalName>
 	</build>
 
-	<!-- As dependencias que este projeto tem .. por agora só jee -->
 	<dependencies>
+		<!-- modules dependencies -->
+		<dependency>
+			<groupId>pt.uc.dei.paj</groupId>
+			<artifactId>p4-ejb</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>pt.uc.dei.paj</groupId>
+			<artifactId>p4-jpa</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- system dependencies -->
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>pt.uc.dei.paj</groupId>
-			<artifactId>p4-ejb</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<type>ejb</type>
-			<scope>provided</scope>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-client</artifactId>
-			<version>3.0.11.Final</version>
-		</dependency>
-		<!-- Parser XML -->
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-jaxb-provider</artifactId>
-			<version>3.0.11.Final</version>
-		</dependency>
-		<!-- Parser json -->
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-jackson-provider</artifactId>
-			<version>3.0.11.Final</version>
-		</dependency>
-	</dependencies>
 
+		<!-- <dependency> -->
+		<!-- <groupId>org.jboss.resteasy</groupId> -->
+		<!-- <artifactId>resteasy-client</artifactId> -->
+		<!-- <version>3.0.11.Final</version> -->
+		<!-- </dependency> -->
+		<!-- Parser XML -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.jboss.resteasy</groupId> -->
+		<!-- <artifactId>resteasy-jaxb-provider</artifactId> -->
+		<!-- <version>3.0.11.Final</version> -->
+		<!-- </dependency> -->
+		<!-- Parser json -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.jboss.resteasy</groupId> -->
+		<!-- <artifactId>resteasy-jackson-provider</artifactId> -->
+		<!-- <version>3.0.11.Final</version> -->
+		<!-- </dependency> -->
+	</dependencies>
 </project>

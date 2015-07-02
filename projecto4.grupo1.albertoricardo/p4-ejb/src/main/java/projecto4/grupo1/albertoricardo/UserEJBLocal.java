@@ -1,38 +1,38 @@
 package projecto4.grupo1.albertoricardo;
 
-
 import java.util.List;
 
 import javax.ejb.Local;
-import projecto4.grupo1.albertoricardo.ws.UserDetail;
+
+import pt.uc.dei.aor.paj.proj4.group1.business.ws.model.UserDetail;
 
 @Local
 public interface UserEJBLocal {
 
-	public abstract boolean verifyLogin(String email, String password);
+    public abstract boolean verifyLogin(String email, String password);
 
-	public abstract void registerUser(String username, String password, String name) throws Exception;
+    public abstract void registerUser(String username, String password, String name) throws Exception;
 
-	int getUserID(String username);
+    int getUserID(String username);
 
-	String getName(String username);
-	
-	UserEntity getUserEntity(String username);
+    String getName(String username);
 
-	boolean changeUser(UserEntity user);
+    UserEntity getUserEntity(String username);
 
-	boolean deleteUser(UserEntity user);
+    boolean changeUser(UserEntity user);
 
-	List<UserDetail> getAllUsers();
+    boolean deleteUser(UserEntity user);
 
-	UserDetail findToDTO(Object id);
+    List<UserDetail> getAllUsers();
 
-	boolean changePassword(UserDetail ud, String newpassword);
-	
-	boolean remove(int id);
+    UserDetail findToDTO(Object id);
 
-	UserDetail getUD(UserEntity ue);
+    boolean changePassword(UserDetail ud, String newpassword);
 
-//	void logged(UserEntity ue, boolean loggedin);
+    boolean remove(int id);
+
+    UserDetail getUD(UserEntity ue);
+
+    // void logged(UserEntity ue, boolean loggedin);
 
 }

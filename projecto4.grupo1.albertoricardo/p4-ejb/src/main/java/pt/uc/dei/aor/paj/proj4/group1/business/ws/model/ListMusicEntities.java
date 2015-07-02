@@ -1,4 +1,4 @@
-package projecto4.grupo1.albertoricardo.ws;
+package pt.uc.dei.aor.paj.proj4.group1.business.ws.model;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

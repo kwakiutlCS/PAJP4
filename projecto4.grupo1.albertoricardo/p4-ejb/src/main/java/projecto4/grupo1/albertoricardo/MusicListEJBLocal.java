@@ -1,36 +1,30 @@
 package projecto4.grupo1.albertoricardo;
 
-
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Local;
 
-import projecto4.grupo1.albertoricardo.MusicEntity;
-import projecto4.grupo1.albertoricardo.ws.ListMusicEntities;
-import projecto4.grupo1.albertoricardo.ws.MusicDetail;
-
-
+import pt.uc.dei.aor.paj.proj4.group1.business.ws.model.ListMusicEntities;
+import pt.uc.dei.aor.paj.proj4.group1.business.ws.model.MusicDetail;
 
 @Local
 public interface MusicListEJBLocal {
 
-	List<MusicEntity> listMusics();
+    List<MusicEntity> listMusics();
 
-	List<MusicEntity> listOwnMusics(UserEntity user);
+    List<MusicEntity> listOwnMusics(UserEntity user);
 
-	boolean update(MusicEntity music);
+    boolean update(MusicEntity music);
 
-	boolean removerUserOwnership(UserEntity user);
+    boolean removerUserOwnership(UserEntity user);
 
-	boolean removerMusicUserOwnership(MusicEntity m, UserEntity user);
+    boolean removerMusicUserOwnership(MusicEntity m, UserEntity user);
 
-	ListMusicEntities getAllMusics();
+    ListMusicEntities getAllMusics();
 
-	ListMusicEntities getAllMusicsFromUser(int id);
-	
-	MusicDetail find(int id);
-	
-	boolean removerUserOwnership(int id);
+    ListMusicEntities getAllMusicsFromUser(int id);
 
+    MusicDetail find(int id);
+
+    boolean removerUserOwnership(int id);
 }

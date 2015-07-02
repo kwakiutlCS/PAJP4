@@ -17,197 +17,199 @@ import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import projecto4.grupo1.albertoricardo.roles.Role;
 import projecto4.grupo1.albertoricardo.security.PasswordEncryptor;
-import projecto4.grupo1.albertoricardo.ws.UserDetail;
+import pt.uc.dei.aor.paj.proj4.group1.business.ws.model.UserDetail;
 
 /**
  * Session Bean implementation class UserEJB
  */
 @Stateless
 public class UserEJB implements UserEJBLocal {
-	@PersistenceContext(name="Playlist")
-	EntityManager em;
 
-	@EJB
-	private UserCRUD crud;
-	@EJB
-	private MusicListEJBLocal mlistejb;
-	
-	private static Logger log = LoggerFactory.getLogger(UserEJB.class);
-	
-	public UserEJB() {
+    @PersistenceContext(name = "Playlist")
+    EntityManager em;
 
-	}
+    @EJB
+    private UserCRUD crud;
+    @EJB
+    private MusicListEJBLocal mlistejb;
 
-	@Override
-	public boolean verifyLogin(String email, String password) {
-		boolean verified;
-		Query q = em.createQuery("select u from UserEntity u where u.email like :e");
-		q.setParameter("e", email);
-		try {
-			UserEntity usr = (UserEntity) q.getSingleResult();
-			PasswordEncryptor pe = new PasswordEncryptor();
-			if (pe.check(password, usr.getPassword())) verified = true;
-			else verified = false;
-		} catch (NoResultException nre) {
-			verified = false;
-			nre.printStackTrace();
-			log.warn("catch exception : verifyLogin method", nre);
-		}
+    private static Logger log = LoggerFactory.getLogger(UserEJB.class);
 
-		return verified;
-	}
+    public UserEJB() {
+    }
 
-	@Override
-	public void registerUser(String username, String password, String name) throws Exception {
-		PasswordEncryptor pe = new PasswordEncryptor();
-		String ePassword = pe.encrypt(password);
-		UserEntity u = new UserEntity(username, ePassword, name);
-		u.addRole(Role.USER);
-		crud.create(u);
-		try {
-			em.flush();
-		}
-		catch(PersistenceException e) {
-			throw new Exception("error");
-		}
-		log.info("Novo utilizador registado: "+username);
-	}
+    @Override
+    public boolean verifyLogin(String email, String password) {
+        boolean verified;
+        Query q = em.createQuery("select u from UserEntity u where u.email like :e");
+        q.setParameter("e", email);
+        try {
+            UserEntity usr = (UserEntity) q.getSingleResult();
+            PasswordEncryptor pe = new PasswordEncryptor();
+            if (pe.check(password, usr.getPassword()))
+                verified = true;
+            else
+                verified = false;
+        } catch (NoResultException nre) {
+            verified = false;
+            nre.printStackTrace();
+            log.warn("catch exception : verifyLogin method", nre);
+        }
 
-	@Override
-	public boolean changeUser(UserEntity user) {
-		boolean success = false;
-		try {
-			crud.update(user);
-			success = true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        return verified;
+    }
 
-		return success;
+    @Override
+    public void registerUser(String username, String password, String name) throws Exception {
+        PasswordEncryptor pe = new PasswordEncryptor();
+        String ePassword = pe.encrypt(password);
+        UserEntity u = new UserEntity(username, ePassword, name);
+        u.addRole(Role.USER);
+        crud.create(u);
+        try {
+            em.flush();
+        } catch (PersistenceException e) {
+            throw new Exception("error");
+        }
+        log.info("Novo utilizador registado: " + username);
+    }
 
-	}
+    @Override
+    public boolean changeUser(UserEntity user) {
+        boolean success = false;
+        try {
+            crud.update(user);
+            success = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-	@Override
-	public boolean deleteUser(UserEntity user) {
-		boolean success = false;
-		try {
-			if (!mlistejb.removerUserOwnership(user)) {
-				crud.remove(user);
-				success = true;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        return success;
 
-		return success;
-	}
+    }
 
-	@Override
-	public int getUserID(String username) {
-		Query q = em.createQuery("select u.id from UserEntity u where u.email like :e");
-		q.setParameter("e", username);
-		int id = (Integer) q.getSingleResult();
-		return id;
-	}
+    @Override
+    public boolean deleteUser(UserEntity user) {
+        boolean success = false;
+        try {
+            if (!mlistejb.removerUserOwnership(user)) {
+                crud.remove(user);
+                success = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-	@Override
-	public String getName(String username) {
-		String name = null;
-		try {
-			Query q = em.createQuery("select u from UserEntity u where u.email like :e");
-			q.setParameter("e", username);
-			UserEntity u = (UserEntity) q.getSingleResult();
-			name = u.getName();
-		} catch(Exception e) {
-			FacesMessage msg = new FacesMessage("Login", 
-					"Utilizador inexistente.");
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-		}
-		return name;
-	}
+        return success;
+    }
 
-	@Override
-	public UserEntity getUserEntity(String username) {
-		UserEntity u = null;
-		try {
-			Query q = em.createQuery("select u from UserEntity u where u.email like :e");
-			q.setParameter("e", username);
-			u = (UserEntity) q.getSingleResult();
-		} catch(NoResultException nre) {
-			nre.printStackTrace();
-		}
-		return u;
+    @Override
+    public int getUserID(String username) {
+        Query q = em.createQuery("select u.id from UserEntity u where u.email like :e");
+        q.setParameter("e", username);
+        int id = (Integer) q.getSingleResult();
+        return id;
+    }
 
-	}
-	
-	@Override
-	public List<UserDetail> getAllUsers() {
-		TypedQuery<UserEntity> q = em.createQuery("select u from UserEntity u", UserEntity.class);
-		
-		List<UserDetail> listUserDetail = new ArrayList<>();
-		Mapper mapper = new DozerBeanMapper();
-		
-		for (UserEntity ue : q.getResultList()) {
-			listUserDetail.add(mapper.map(ue, UserDetail.class));
-		}
-		
-		return listUserDetail;
-	}
-	
-	@Override
-	public UserDetail findToDTO(Object id) {
-		Mapper mapper = new DozerBeanMapper();
-		UserEntity ue = crud.find(id);
-		if (ue != null) {
-			UserDetail ud = mapper.map(ue, UserDetail.class);
-			return ud;
-		}
-		return null;
-	}
-	
-	@Override
-	public boolean changePassword(UserDetail ud, String newpassword) {
-		PasswordEncryptor pe = new PasswordEncryptor();
-		String ePassword = pe.encrypt(newpassword);
-		ud.setPassword(ePassword);
-		List<String> dozermapping = new ArrayList<>();
-		dozermapping.add("META-INF/playlistmapping.xml");
-		Mapper mapper = new DozerBeanMapper();
-		UserEntity ue = mapper.map(ud, UserEntity.class);
+    @Override
+    public String getName(String username) {
+        String name = null;
+        try {
+            Query q = em.createQuery("select u from UserEntity u where u.email like :e");
+            q.setParameter("e", username);
+            UserEntity u = (UserEntity) q.getSingleResult();
+            name = u.getName();
+        } catch (Exception e) {
+            FacesMessage msg = new FacesMessage("Login", "Utilizador inexistente.");
+            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+        }
+        return name;
+    }
 
-		try {
-			crud.update(ue);
-			em.flush();
-			return true;
-		} catch (Exception e) {
-			log.error("Erro ao alterar a password no Web Service");
-			return false;
-		}
-	}
+    @Override
+    public UserEntity getUserEntity(String username) {
+        UserEntity u = null;
+        try {
+            Query q = em.createQuery("select u from UserEntity u where u.email like :e");
+            q.setParameter("e", username);
+            u = (UserEntity) q.getSingleResult();
+        } catch (NoResultException nre) {
+            nre.printStackTrace();
+        }
+        return u;
 
-	@Override
-	public boolean remove(int id) {
-		UserEntity u = crud.find(id);
-		if (u != null) return deleteUser(u);
-		return false;
-	}
-	
-	@Override
-	public UserDetail getUD(UserEntity ue) {
-		UserDetail ud = new UserDetail();
-		List<String> dozermapping = new ArrayList<>();
-		dozermapping.add("META-INF/playlistmapping.xml");
-		Mapper mapper = new DozerBeanMapper();
-		mapper.map(ue, ud);
-		return ud;
-	}
-	
-//	@Override
-//	public void logged(UserEntity ue, boolean loggedin) {
-//		ue.setLogged(loggedin);
-//		crud.update(ue);
-//	}
+    }
+
+    @Override
+    public List<UserDetail> getAllUsers() {
+        TypedQuery<UserEntity> q = em.createQuery("select u from UserEntity u", UserEntity.class);
+
+        List<UserDetail> listUserDetail = new ArrayList<>();
+        Mapper mapper = new DozerBeanMapper();
+
+        for (UserEntity ue : q.getResultList()) {
+            listUserDetail.add(mapper.map(ue, UserDetail.class));
+        }
+
+        return listUserDetail;
+    }
+
+    @Override
+    public UserDetail findToDTO(Object id) {
+        Mapper mapper = new DozerBeanMapper();
+        UserEntity ue = crud.find(id);
+        if (ue != null) {
+            UserDetail ud = mapper.map(ue, UserDetail.class);
+            return ud;
+        }
+        return null;
+    }
+
+    @Override
+    public boolean changePassword(UserDetail ud, String newpassword) {
+        PasswordEncryptor pe = new PasswordEncryptor();
+        String ePassword = pe.encrypt(newpassword);
+        ud.setPassword(ePassword);
+        List<String> dozermapping = new ArrayList<>();
+        dozermapping.add("META-INF/playlistmapping.xml");
+        Mapper mapper = new DozerBeanMapper();
+        UserEntity ue = mapper.map(ud, UserEntity.class);
+
+        try {
+            crud.update(ue);
+            em.flush();
+            return true;
+        } catch (Exception e) {
+            log.error("Erro ao alterar a password no Web Service");
+            return false;
+        }
+    }
+
+    @Override
+    public boolean remove(int id) {
+        UserEntity u = crud.find(id);
+        if (u != null)
+            return deleteUser(u);
+        return false;
+    }
+
+    @Override
+    public UserDetail getUD(UserEntity ue) {
+        UserDetail ud = new UserDetail();
+        List<String> dozermapping = new ArrayList<>();
+        dozermapping.add("META-INF/playlistmapping.xml");
+        Mapper mapper = new DozerBeanMapper();
+        mapper.map(ue, ud);
+        return ud;
+    }
+
+    // @Override
+    // public void logged(UserEntity ue, boolean loggedin) {
+    // ue.setLogged(loggedin);
+    // crud.update(ue);
+    // }
 
 }

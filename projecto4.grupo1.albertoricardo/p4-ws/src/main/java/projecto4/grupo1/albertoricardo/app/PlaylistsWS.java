@@ -1,4 +1,5 @@
 package projecto4.grupo1.albertoricardo.app;
+
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -14,126 +15,137 @@ import javax.ws.rs.core.Response;
 
 import projecto4.grupo1.albertoricardo.MusicListEJBLocal;
 import projecto4.grupo1.albertoricardo.PlaylistEJBLocal;
-import projecto4.grupo1.albertoricardo.ws.AllPlaylists;
-import projecto4.grupo1.albertoricardo.ws.ListMusicEntities;
-import projecto4.grupo1.albertoricardo.ws.ListPlaylists;
-import projecto4.grupo1.albertoricardo.ws.MusicDetail;
-
+import pt.uc.dei.aor.paj.proj4.group1.business.ws.model.AllPlaylists;
+import pt.uc.dei.aor.paj.proj4.group1.business.ws.model.ListMusicEntities;
+import pt.uc.dei.aor.paj.proj4.group1.business.ws.model.ListPlaylists;
+import pt.uc.dei.aor.paj.proj4.group1.business.ws.model.MusicDetail;
 
 @Stateless
 @Path("/playlists")
 public class PlaylistsWS {
 
-	@EJB
-	PlaylistEJBLocal plejb;
-	@EJB
-	MusicListEJBLocal mEjb;
+    @EJB
+    PlaylistEJBLocal plejb;
+    @EJB
+    MusicListEJBLocal mEjb;
 
-	@GET
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN})
-	public Response teste() {
-		ListPlaylists lp = plejb.getAllPlaylists();
-		if (lp != null) {
-			return Response.status(Response.Status.OK).entity(lp).build();
-		} else return Response.status(Response.Status.NOT_FOUND).entity("Nenhuma playlist encontrada").type(MediaType.TEXT_PLAIN).build();
-	}
+    @GET
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN })
+    public Response teste() {
+        ListPlaylists lp = plejb.getAllPlaylists();
 
-	@GET
-	@Path("{id}")
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN})
-	public Response getPlaylist(@PathParam("id") int id) {
-		AllPlaylists ap = plejb.findToDTO(id);
-		if (ap != null) {
-			return Response.ok(ap).build();
-		} else return Response.status(Response.Status.NOT_FOUND).entity("Playlist nao encontrada").type(MediaType.TEXT_PLAIN).build();
-	}
-	
-	@GET
-	@Path("/user/{id}")
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN})
-	public Response getPlaylistsFromUser(@PathParam("id") int id ) {
-		ListPlaylists lp = plejb.getPlaylistsFromUser(id);
-		if (lp != null) {
-			return Response.status(Response.Status.OK).entity(lp).build();
-		} else return Response.status(Response.Status.NOT_FOUND).entity("Nenhuma playlist encontrada para o utilizador com o id: "+id).type(MediaType.TEXT_PLAIN).build();
-	}
-	
-	@POST
-	@Path("/{id}/remove")
-	@Produces(MediaType.TEXT_PLAIN)
-	public Response removeAllMusics(@PathParam("id") int id) {
-		System.out.println(id);
-		AllPlaylists ap = plejb.findToDTO(id);
-		System.out.println(ap);
-		ap.getListOfMusics().clear();
-		if (plejb.updateFromDTO(ap)) {
-			return Response.status(Response.Status.OK).entity("Músicas removidas com sucesso da playlist "+ap.getName()).type(MediaType.TEXT_PLAIN).build();
-		} else return Response.notModified().build();
-	}
-	
-	@POST
-	@Path("/{id}/remove/{musicid}")
-	@Produces(MediaType.TEXT_PLAIN)
-	public Response removeSpecificMusic(@PathParam("id") int id, @PathParam("musicid") int musicid) {
-		AllPlaylists ap = plejb.findToDTO(id);
-		List<MusicDetail> mdl = ap.getListOfMusics();
-		MusicDetail music2removeDetail = null;
-		for (MusicDetail md:mdl) {
-			if (md.getId() == musicid) {
-				music2removeDetail = md;
-				break;
-			}
-		}
-		if (music2removeDetail != null) {
-			ap.getListOfMusics().remove(music2removeDetail);
-			plejb.updateFromDTO(ap);
-			return Response.status(Response.Status.OK).entity("Música "+music2removeDetail.getTitle()+" removida com sucesso da playlist "+ap.getName()).type(MediaType.TEXT_PLAIN).build();
-		} else return Response.status(Response.Status.OK).entity("Música não existente").build();
-	}
-	
-	@POST
-	@Path("/{id}/add/{musicid}")
-	@Produces(MediaType.TEXT_PLAIN)
-	public Response addMusic(@PathParam("id") int id, @PathParam("musicid") int musicid) {
-		AllPlaylists ap = plejb.findToDTO(id);
-		MusicDetail md = mEjb.find(musicid);
-		
-		if (ap != null && md != null) {
-			ap.getListOfMusics().add(md);
-			plejb.updateFromDTO(ap);
-			return Response.status(Response.Status.OK).entity("Música "+md.getTitle()+" adicionada com sucesso da playlist "+ap.getName()).type(MediaType.TEXT_PLAIN).build();
-		} else return Response.status(Response.Status.OK).entity("Música ou playlist não existente").build();
-	}
-	
-	@POST
-	@Path("/create")
-	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN})
-	public Response createNewPlaylist(AllPlaylists ap) {
-		if (plejb.createPlaylistFromDTO(ap)) {
-			return Response.status(Response.Status.OK).entity("Playlist "+ap.getName()+" criada com sucesso.").type(MediaType.TEXT_PLAIN).build();
-		} else return Response.notModified().build();
-	}
+        if (lp != null) {
+            return Response.status(Response.Status.OK).entity(lp).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).entity("Nenhuma playlist encontrada").type(MediaType.TEXT_PLAIN).build();
+        }
+    }
 
-	@GET
-	@Path("/total")
-	@Produces({MediaType.TEXT_PLAIN, MediaType.TEXT_HTML})
-	public Response count() {
-		String s = "Número de playlists existentes: "+ plejb.getPlaylists().size();
-		return Response.ok(s).build();
-	}
-	
-	@GET
-	@Path("/{id: \\d+}/musics")
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN})
-	public Response findAll(@PathParam("id") int id) {
-		AllPlaylists p = plejb.findToDTO(id);
-		if (p != null) {
-			ListMusicEntities musics = new ListMusicEntities();
-			musics.setListOfMusics(p.getListOfMusics());
-			return Response.ok(musics).build();
-		}
-		
-		return Response.status(Response.Status.NOT_FOUND).build();
-	}
+    @GET
+    @Path("{id}")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN })
+    public Response getPlaylist(@PathParam("id") int id) {
+        AllPlaylists ap = plejb.findToDTO(id);
+        if (ap != null) {
+            return Response.ok(ap).build();
+        } else
+            return Response.status(Response.Status.NOT_FOUND).entity("Playlist nao encontrada").type(MediaType.TEXT_PLAIN).build();
+    }
+
+    @GET
+    @Path("/user/{id}")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN })
+    public Response getPlaylistsFromUser(@PathParam("id") int id) {
+        ListPlaylists lp = plejb.getPlaylistsFromUser(id);
+        if (lp != null) {
+            return Response.status(Response.Status.OK).entity(lp).build();
+        } else
+            return Response.status(Response.Status.NOT_FOUND).entity("Nenhuma playlist encontrada para o utilizador com o id: " + id)
+                    .type(MediaType.TEXT_PLAIN).build();
+    }
+
+    @POST
+    @Path("/{id}/remove")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response removeAllMusics(@PathParam("id") int id) {
+        System.out.println(id);
+        AllPlaylists ap = plejb.findToDTO(id);
+        System.out.println(ap);
+        ap.getListOfMusics().clear();
+        if (plejb.updateFromDTO(ap)) {
+            return Response.status(Response.Status.OK).entity("Músicas removidas com sucesso da playlist " + ap.getName()).type(MediaType.TEXT_PLAIN).build();
+        } else
+            return Response.notModified().build();
+    }
+
+    @POST
+    @Path("/{id}/remove/{musicid}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response removeSpecificMusic(@PathParam("id") int id, @PathParam("musicid") int musicid) {
+        AllPlaylists ap = plejb.findToDTO(id);
+        List<MusicDetail> mdl = ap.getListOfMusics();
+        MusicDetail music2removeDetail = null;
+        for (MusicDetail md : mdl) {
+            if (md.getId() == musicid) {
+                music2removeDetail = md;
+                break;
+            }
+        }
+        if (music2removeDetail != null) {
+            ap.getListOfMusics().remove(music2removeDetail);
+            plejb.updateFromDTO(ap);
+            return Response.status(Response.Status.OK).entity("Música " + music2removeDetail.getTitle() + " removida com sucesso da playlist " + ap.getName())
+                    .type(MediaType.TEXT_PLAIN).build();
+        } else
+            return Response.status(Response.Status.OK).entity("Música não existente").build();
+    }
+
+    @POST
+    @Path("/{id}/add/{musicid}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response addMusic(@PathParam("id") int id, @PathParam("musicid") int musicid) {
+        AllPlaylists ap = plejb.findToDTO(id);
+        MusicDetail md = mEjb.find(musicid);
+
+        if (ap != null && md != null) {
+            ap.getListOfMusics().add(md);
+            plejb.updateFromDTO(ap);
+            return Response.status(Response.Status.OK).entity("Música " + md.getTitle() + " adicionada com sucesso da playlist " + ap.getName())
+                    .type(MediaType.TEXT_PLAIN).build();
+        } else
+            return Response.status(Response.Status.OK).entity("Música ou playlist não existente").build();
+    }
+
+    @POST
+    @Path("/create")
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN })
+    public Response createNewPlaylist(AllPlaylists ap) {
+        if (plejb.createPlaylistFromDTO(ap)) {
+            return Response.status(Response.Status.OK).entity("Playlist " + ap.getName() + " criada com sucesso.").type(MediaType.TEXT_PLAIN).build();
+        } else
+            return Response.notModified().build();
+    }
+
+    @GET
+    @Path("/total")
+    @Produces({ MediaType.TEXT_PLAIN, MediaType.TEXT_HTML })
+    public Response count() {
+        String s = "Número de playlists existentes: " + plejb.getPlaylistCount();
+        return Response.ok(s).build();
+    }
+
+    @GET
+    @Path("/{id: \\d+}/musics")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN })
+    public Response findAll(@PathParam("id") int id) {
+        AllPlaylists p = plejb.findToDTO(id);
+        if (p != null) {
+            ListMusicEntities musics = new ListMusicEntities();
+            musics.setListOfMusics(p.getListOfMusics());
+            return Response.ok(musics).build();
+        }
+
+        return Response.status(Response.Status.NOT_FOUND).build();
+    }
 }

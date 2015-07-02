@@ -6,39 +6,40 @@ import java.util.List;
 import javax.ejb.Local;
 
 import projecto4.grupo1.albertoricardo.dto.PListDTO;
-import projecto4.grupo1.albertoricardo.dto.PlaylistDTO;
-import projecto4.grupo1.albertoricardo.ws.AllPlaylists;
-import projecto4.grupo1.albertoricardo.ws.ListPlaylists;
+import pt.uc.dei.aor.paj.proj4.group1.business.ws.model.AllPlaylists;
+import pt.uc.dei.aor.paj.proj4.group1.business.ws.model.ListPlaylists;
 
 @Local
 public interface PlaylistEJBLocal {
 
-	void addPlaylist(String name, Date insertDate, UserEntity userlogged);
+    void addPlaylist(String name, Date insertDate, UserEntity userlogged);
 
-	List<PListDTO> getPlaylistDozer();
+    List<PListDTO> getPlaylistDozer();
 
-	List<PlaylistEntity> getPlaylists();
+    List<PlaylistEntity> getPlaylists();
 
-	List<PlaylistEntity> getOwnPlaylists(int id);
+    int getPlaylistCount();
 
-	boolean findName(String name);
+    List<PlaylistEntity> getOwnPlaylists(int id);
 
-	boolean removePlaylistsOfUser(UserEntity u);
+    boolean findName(String name);
 
-	boolean removePlaylistFromUser(PlaylistEntity p);
+    boolean removePlaylistsOfUser(UserEntity u);
 
-	void updateName(int id, String name);
+    boolean removePlaylistFromUser(PlaylistEntity p);
 
-	void update(PlaylistEntity playlist);
+    void updateName(int id, String name);
 
-	AllPlaylists findToDTO(Object id);
+    void update(PlaylistEntity playlist);
 
-	ListPlaylists getAllPlaylists();
+    AllPlaylists findToDTO(Object id);
 
-	ListPlaylists getPlaylistsFromUser(Object id);
+    ListPlaylists getAllPlaylists();
 
-	boolean updateFromDTO(AllPlaylists ap);
+    ListPlaylists getPlaylistsFromUser(Object id);
 
-	boolean createPlaylistFromDTO(AllPlaylists ap);
+    boolean updateFromDTO(AllPlaylists ap);
+
+    boolean createPlaylistFromDTO(AllPlaylists ap);
 
 }
