@@ -1,22 +1,24 @@
 package projecto4.grupo1.albertoricardo.ws;
 
+import java.util.Collection;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 
 @XmlRootElement
 public class ListUserEntities {
 	
-	private List<UserDetail> listOfUsers;
+	private Collection<UserDetail> listOfUsers;
 	
 	public ListUserEntities() {
 	}
 
-	public List<UserDetail> getListUsers() {
+	public Collection<UserDetail> getListUsers() {
 		return listOfUsers;
 	}
 
-	public void setListUsers(List<UserDetail> listUsers) {
+	public void setListUsers(Collection<UserDetail> listUsers) {
 		this.listOfUsers = listUsers;
 	}
 	

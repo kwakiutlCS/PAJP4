@@ -5,7 +5,8 @@ import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-import projecto4.grupo1.albertoricardo.hit.counter.LoggedInUsers;
+
+import projecto4.grupo1.albertoricardo.logged.LoggedIn;
 import projecto4.grupo1.albertoricardo.ws.UserDetail;
 
 /**
@@ -14,7 +15,8 @@ import projecto4.grupo1.albertoricardo.ws.UserDetail;
  */
 @WebListener
 public class MyListener implements HttpSessionListener {
-
+	@Inject
+	private LoggedIn logged;
     /**
      * Default constructor. 
      */
@@ -34,7 +36,7 @@ public class MyListener implements HttpSessionListener {
      */
     public void sessionDestroyed(HttpSessionEvent se)  { 
     	UserDetail ud = (UserDetail) se.getSession().getAttribute("user");
-    	LoggedInUsers.remove(ud);
+    	logged.remove(ud);
     }
 	
 }

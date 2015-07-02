@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import projecto4.grupo1.albertoricardo.MusicUploadEJBLocal;
+import projecto4.grupo1.albertoricardo.exceptions.UploadException;
 import projecto4.grupo1.albertoricardo.user.UserLogged;
 
 import java.io.File;
@@ -70,6 +71,8 @@ public class MusicUploader implements Serializable {
 				}  
 				outputStream.close();  
 				inputStream.close();
+				FacesMessage msg = new FacesMessage("Música","Upload realizado com sucesso!");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
 				log.info("Novo ficheiro enviado, por "+ulog.getUser().getName());
 			} else {
 				folder.mkdir();
@@ -86,13 +89,15 @@ public class MusicUploader implements Serializable {
 				}  
 				outputStream.close();  
 				inputStream.close();
+				FacesMessage msg = new FacesMessage("Música","Upload realizado com sucesso!");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
 				log.info("Novo ficheiro enviado, por "+ulog.getUser().getName());
 			}
 			String finalPath = folder.getAbsolutePath() + "/" + fileName;
 			mu.uploadMusicDB(title, artist, album, dateReleased, finalPath, ulog.getUser());
 		} catch (Exception e) {
-			log.error("Erro ao fazer upload",e);
-			FacesMessage msg = new FacesMessage("Música","Erro ao fazer upload.");
+			log.error(e.getMessage());
+			FacesMessage msg = new FacesMessage(e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
