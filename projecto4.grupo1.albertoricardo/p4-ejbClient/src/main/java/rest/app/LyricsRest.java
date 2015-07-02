@@ -28,21 +28,24 @@ public class LyricsRest {
 	}
 
 	public String getLyric(String author, String songname) {
-		while(true) {
-			try {
-				ResteasyClient reClient = new ResteasyClientBuilder().build();
-				ResteasyWebTarget tgt = reClient
-						.target(urlTarget + "artist=" + author + "&song=" + songname + "&fmt=xml");
-				Response response = tgt.request(MediaType.APPLICATION_XML)
-						.get();
-				String lyrics = response.readEntity(LyricsResult.class).getLyric();
-				if ("Not found".equals(lyrics)) return null;
-				else return lyrics;
-			} catch (Exception e) {
-				log.error("Error on retrieving Lyrics (LyricRest)");
+		try {
+			ResteasyClient reClient = new ResteasyClientBuilder().build();
+			ResteasyWebTarget tgt = reClient
+					.target(urlTarget + "artist=" + author + "&song=" + songname + "&fmt=xml");
+			Response response = tgt.request(MediaType.APPLICATION_XML)
+					.get();
+			String lyrics = response.readEntity(LyricsResult.class).getLyric();
+			if ("Not found".equals(lyrics)) return null;
+			else return lyrics;
+		} catch (Exception e) {
+			log.error("Error on retrieving Lyrics (LyricRest)");
 
-			}
 		}
+		return null;
 	}
 
+//	public static void main(String[] args) {
+//		LyricsRest l = new LyricsRest();
+//		System.out.println(l.getLyric("The Doors", "Touch me"));
+//	}
 }

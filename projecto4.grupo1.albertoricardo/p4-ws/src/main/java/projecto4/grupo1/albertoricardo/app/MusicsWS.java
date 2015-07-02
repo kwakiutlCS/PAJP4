@@ -2,6 +2,7 @@ package projecto4.grupo1.albertoricardo.app;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -55,13 +56,14 @@ public class MusicsWS {
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN})
 	public Response find(@PathParam("id") int id) {
 		MusicDetail m = mejb.find(id);
+		System.out.println(m);
 		if (m == null)
 			return Response.status(Response.Status.NOT_FOUND).build();
-		return Response.ok(m).build();
+		return Response.status(Response.Status.OK).entity(m).build();
 	}
 	
 	
-	@POST
+	@DELETE
 	@Path("/user/{id: \\d+}")
 	public Response delete(@PathParam("id") int id) {
 		if (mejb.removerUserOwnership(id)) 

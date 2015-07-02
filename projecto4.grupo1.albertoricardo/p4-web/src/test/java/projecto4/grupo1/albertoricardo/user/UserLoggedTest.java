@@ -16,6 +16,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import projecto4.grupo1.albertoricardo.UserEJBLocal;
 import projecto4.grupo1.albertoricardo.UserEntity;
+import projecto4.grupo1.albertoricardo.logged.LoggedEjb;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserLoggedTest {
@@ -24,9 +25,12 @@ public class UserLoggedTest {
 	UserEJBLocal userejb;
 	@Mock
 	UserEntity useret;
-
+	@Mock
+	LoggedEjb loggedEjb;
+	
 	@InjectMocks
 	UserLogged user;
+	
 
 	@Test
 	public void changeSettingsTest() {
