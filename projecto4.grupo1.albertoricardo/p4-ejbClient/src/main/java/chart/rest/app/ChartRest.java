@@ -1,4 +1,4 @@
-package rest.app;
+package chart.rest.app;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -9,6 +9,8 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 
+import com.chartlyrics.api.GetLyricResult;
+
 import rest.entity.LyricsResult;
 
 /**
@@ -16,11 +18,11 @@ import rest.entity.LyricsResult;
  */
 @Stateless
 @LocalBean
-public class LyricsRest {
+public class ChartRest {
 
-	private final static String urlTarget = "http://lyrics.wikia.com/api.php?";
+	private final static String urlTarget = "http://api.chartlyrics.com/apiv1.asmx/SearchLyricDirect?";
 
-	public LyricsRest() {
+	public ChartRest() {
 	}
 
 	public String getLyric(String author, String songname) {
@@ -29,16 +31,21 @@ public class LyricsRest {
 			try {
 				ResteasyClient reClient = new ResteasyClientBuilder().build();
 				ResteasyWebTarget tgt = reClient
-						.target(urlTarget + "artist=" + author + "&song=" + songname + "&fmt=xml");
+						.target(urlTarget + "artist=" + author + "&song=" + songname);
 				Response response = tgt.request(MediaType.APPLICATION_XML)
 						.get();
-				String lyrics = response.readEntity(LyricsResult.class).getLyric();
+				String lyrics = response.readEntity(GetLyricResult.class).getLyric();
 				System.out.println(lyrics);
-				if ("Not found".equals(lyrics)) return null;
+				if ("".equals(lyrics)) return null;
 				else return lyrics;
 			} catch (Exception e) {
+				
 			}
 		}
 	}
 
+//	public static void main(String[] args) {
+//		ChartRest r = new ChartRest();
+//		System.out.println(r.getLyric("The Doors", "Light my fire"));
+//	}
 }
