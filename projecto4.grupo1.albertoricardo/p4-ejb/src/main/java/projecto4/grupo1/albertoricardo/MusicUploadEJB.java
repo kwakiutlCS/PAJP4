@@ -14,6 +14,7 @@ import javax.persistence.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import chart.rest.app.ChartRest;
 import projecto4.grupo1.albertoricardo.MusicEntity;
 import rest.app.LyricsRest;
 import rest.entity.LyricsResult;
@@ -35,6 +36,9 @@ public class MusicUploadEJB implements MusicUploadEJBLocal {
 	LyricSearch soapSearch;
 	@Inject
 	LyricsRest restSearch;
+	@Inject
+	ChartRest chartRest;
+	
 	private static Logger log = LoggerFactory.getLogger(MusicUploadEJB.class);
 
 
@@ -57,19 +61,26 @@ public class MusicUploadEJB implements MusicUploadEJBLocal {
 		le.setMusic(me);
 		
 		try {
-			le.setLyrics(restSearch.getLyric(artist, title));
-		} catch(Exception e) {
-
+			le.setLyrics(chartRest.getLyric(artist, title));
+		}
+		catch(Exception e2) {
 			try {
-				le.setLyrics(soapSearch.getLyric(artist, title));
-			} catch (Exception e1) {
-				log.error("Erro no SOAP");
+				le.setLyrics(restSearch.getLyric(artist, title));
+			} catch(Exception e) {
+				try {
+					le.setLyrics(soapSearch.getLyric(artist, title));
+				} catch (Exception e1) {
+					log.error("Erro no SOAP");
+				}
+
 			}
 		}
 		
 		try {
 			musicejb.create(me);
-			lyricsejb.create(le);
+			if (le.getLyrics() != null)
+				lyricsejb.create(le);
+			
 			FacesMessage msg = new FacesMessage("Música","Upload realizado com sucesso!");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} catch (Exception e) {
