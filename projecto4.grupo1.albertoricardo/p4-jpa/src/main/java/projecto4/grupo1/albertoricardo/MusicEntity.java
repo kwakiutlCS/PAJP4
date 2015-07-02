@@ -38,8 +38,6 @@ public class MusicEntity {
 	List<PlaylistEntity> playlists;
 	@ManyToOne
 	private UserEntity userOwner;
-	@Transient
-	private int plSize;
 	
 	
 //	static Logger logger = LoggerFactory.getLogger(MusicEntity.class);
@@ -113,15 +111,6 @@ public class MusicEntity {
 
 	public void setUserOwner(UserEntity userOwner) {
 		this.userOwner = userOwner;
-	}
-
-	public int getPlSize() {
-		plSize = playlists.size();
-		return plSize;
-	}
-
-	public void setPlSize(int plSize) {
-		this.plSize = plSize;
 	}
 	
 	

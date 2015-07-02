@@ -23,10 +23,6 @@
 			<a>userOwner.id</a>
 			<b>userOwnerID</b>
 		</field>
-		<field>
-			<a>plSize</a>
-			<b>nPlaylists</b>
-		</field>
 	</mapping>
 
 

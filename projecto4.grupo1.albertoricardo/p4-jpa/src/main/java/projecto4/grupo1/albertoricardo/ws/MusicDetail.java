@@ -15,13 +15,12 @@ public class MusicDetail {
 	private String album;
 	private Date dateRecord;
 	private int userOwnerID;
-	private int nPlaylists;
 	
 	public MusicDetail() {
 	}
 
 	public MusicDetail(int id, String title, String artist, String album,
-			Date dateRecord, int userOwnerID, int nPlaylists) {
+			Date dateRecord, int userOwnerID) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -29,7 +28,6 @@ public class MusicDetail {
 		this.album = album;
 		this.dateRecord = dateRecord;
 		this.userOwnerID = userOwnerID;
-		this.nPlaylists = nPlaylists;
 	}
 
 	public int getId() {
@@ -79,19 +77,12 @@ public class MusicDetail {
 	public void setUserOwnerID(int userOwnerID) {
 		this.userOwnerID = userOwnerID;
 	}
-
-	public int getnPlaylists() {
-		return nPlaylists;
-	}
-
-	public void setnPlaylists(int nPlaylists) {
-		this.nPlaylists = nPlaylists;
-	}
 	
 	@Override
 	public String toString() {
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		return "Id: "+id+", Nome: "+title+", Artista: "+artist+", Album: "+album+", Data: "+df.format(dateRecord)+", submetida pelo utilizador com id "+userOwnerID;
+
 	}
 
 }

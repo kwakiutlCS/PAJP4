@@ -86,8 +86,8 @@
 									<p:commandButton icon="ui-icon-comment"
 										oncomplete="PF('lyrics').show()"
 										update="@form :form:ldlg :form:dlg">
-										<f:setPropertyActionListener value="#{m.id}"
-											target="#{lyricsWeb.musicid}" />
+										<f:setPropertyActionListener value="#{m}"
+											target="#{lyricsWeb.musicett}" />
 									</p:commandButton>
 								</p:column>
 							</p:dataTable>
@@ -101,7 +101,7 @@
 								<h:panelGroup layout="block"
 									style="text-align:right;margin-top:20px;">
 									<p:commandButton id="lyricbutton" value="Editar"
-										action="#{lyricsWeb.saveNewLyric()}" update="@form" />
+										action="#{lyricsWeb.saveNewLyric()}" update=":form :form:myPlaylists :form:dlg :form:ldlg" />
 								</h:panelGroup>
 							</p:dialog>
 						</p:scrollPanel>
@@ -110,6 +110,5 @@
 			</h:panelGroup>
 		</ui:define>
 	</ui:composition>
-
 </h:body>
 </html>

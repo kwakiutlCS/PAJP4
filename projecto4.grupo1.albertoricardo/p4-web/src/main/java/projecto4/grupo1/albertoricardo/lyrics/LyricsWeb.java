@@ -1,11 +1,8 @@
 package projecto4.grupo1.albertoricardo.lyrics;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -31,7 +28,7 @@ public class LyricsWeb implements Serializable {
 
 	@EJB
 	LyricsEJBLocal ejb;
-
+	
 	@Inject
 	UserLogged user;
 
@@ -45,12 +42,11 @@ public class LyricsWeb implements Serializable {
 	}
 
 	public String getOriginalLyrics() {
-		if (musicid == 0) {
+		if (musicett == null) {
 			return null;
 		} else {
 			try {
-				musicett = ejb.findOriginal(musicid).getMusic();
-				String result = ejb.findOriginal(musicid).getLyrics();
+				String result = ejb.findOriginal(musicett.getId()).getLyrics();
 				if (result.length() > 0) {
 					return result;
 				}
@@ -65,16 +61,15 @@ public class LyricsWeb implements Serializable {
 
 	public String getCustomLyrics() {
 		String result = "";
-		if (musicid == 0) {
+		if (musicett == null) {
 			return null;
 		} else {
 			try {
-				LyricDTO ltemp = ejb.findCustomed(musicid, user.getUser().getId());
+				LyricDTO ltemp = ejb.findCustomed(musicett.getId(), user.getUser().getId());
 				if (ltemp.getUser() == null || ltemp.getUser().getId() < 1) {
-					musicett = ejb.findOriginal(musicid).getMusic();
-					result = ejb.findOriginal(musicid).getLyrics();
+					result = ejb.findOriginal(musicett.getId()).getLyrics();
 				} else {
-					lyricdto = ejb.findCustomed(musicid, user.getUser().getId());
+					lyricdto = ejb.findCustomed(musicett.getId(), user.getUser().getId());
 					musicett = lyricdto.getMusic();
 					result = lyricdto.getLyrics();
 				}
@@ -118,6 +113,7 @@ public class LyricsWeb implements Serializable {
 
 	public void saveNewLyric() {
 		if (lyricdto == null) lyricdto = new LyricDTO(customedLyrics, user.getUser(), musicett);
+		
 		else lyricdto.setLyrics(customedLyrics);
 		log.trace("saveNewLyric, musicett: "+musicett.getArtist());
 		
@@ -135,6 +131,14 @@ public class LyricsWeb implements Serializable {
 
 	public void saveEditedLyrics() {
 
+	}
+
+	public MusicEntity getMusicett() {
+		return musicett;
+	}
+
+	public void setMusicett(MusicEntity musicett) {
+		this.musicett = musicett;
 	}
 
 
