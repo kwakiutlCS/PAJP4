@@ -17,7 +17,6 @@
 		<module>p4-jpa</module>
 		<module>p4-ws</module>
 		<module>p4-ejbClient</module>
-		<module>p4-hit</module>
 	</modules>
 
 
@@ -103,19 +102,6 @@
 				<version>${junit-version}</version>
 				<scope>test</scope>
 			</dependency>
-
-			<dependency>
-				<groupId>org.mapstruct</groupId>
-				<artifactId>mapstruct-jdk8</artifactId>
-				<version>${org.mapstruct.version}</version>
-			</dependency>
-
-
-
-
-
-
-
 		</dependencies>
 	</dependencyManagement>
 
@@ -194,44 +180,6 @@
 						</webResources>
 					</configuration>
 				</plugin>
-
-				<plugin>
-					<groupId>org.bsc.maven</groupId>
-					<artifactId>maven-processor-plugin</artifactId>
-					<version>2.2.4</version>
-					<configuration>
-						<defaultOutputDirectory>
-							${project.build.directory}/generated-sources
-						</defaultOutputDirectory>
-						<processors>
-							<processor>org.mapstruct.ap.MappingProcessor</processor>
-						</processors>
-						<options>
-						<defaultComponentModel>cdi</defaultComponentModel>
-						
-						</options>
-					</configuration>
-					<executions>
-						<execution>
-							<id>process</id>
-							<phase>generate-sources</phase>
-							<goals>
-								<goal>process</goal>
-							</goals>
-						</execution>
-					</executions>
-					<dependencies>
-						<dependency>
-							<groupId>org.mapstruct</groupId>
-							<artifactId>mapstruct-processor</artifactId>
-							<version>${org.mapstruct.version}</version>
-						</dependency>
-					</dependencies>
-				</plugin>
-
-
-
-
 			</plugins>
 		</pluginManagement>
 	</build>

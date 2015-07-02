@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 
 import projecto4.grupo1.albertoricardo.UserEJBLocal;
 import projecto4.grupo1.albertoricardo.UserEntity;
-import projecto4.grupo1.albertoricardo.hit.counter.LoggedInUsers;
+import projecto4.grupo1.albertoricardo.logged.LoggedIn;
 import projecto4.grupo1.albertoricardo.roles.Role;
 import projecto4.grupo1.albertoricardo.ws.UserDetail;
 @Named
@@ -34,6 +34,8 @@ public class Login implements Serializable {
 	UserLogged user;
 	@EJB
 	UserEJBLocal ejb;
+	@Inject
+	LoggedIn single;
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -67,13 +69,10 @@ public class Login implements Serializable {
 		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
 		HttpSession session = request.getSession();
 		try {
-			log.trace("DADOS: \n"
-					+ "email: "+email+"\n"
-							+ "password: "+password);
 			request.login(email, password);
 			user.setUser(ejb.getUserEntity(email));
 			UserDetail ud = (UserDetail) dozering(user.getUser());
-			LoggedInUsers.add(ud);
+			single.add(ud);
 			session.setAttribute("user", ud);
 			if (user.getUser().getRoles().contains(Role.USER)) {
 				result = "Authorized/entry.xhtml?faces-redirect=true";

@@ -4,6 +4,7 @@ package projecto4.grupo1.albertoricardo.app;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -20,8 +21,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import projecto4.grupo1.albertoricardo.UserEJBLocal;
-import projecto4.grupo1.albertoricardo.hit.counter.LoggedInUsers;
-import projecto4.grupo1.albertoricardo.logged.LoggedEjb;
+
+import projecto4.grupo1.albertoricardo.logged.LoggedIn;
 import projecto4.grupo1.albertoricardo.ws.ListUserEntities;
 import projecto4.grupo1.albertoricardo.ws.UserDetail;
 
@@ -34,8 +35,8 @@ public class Users {
 	
 	@EJB
 	UserEJBLocal userejb;
-	@EJB
-	LoggedEjb loggedEjb;
+	@Inject
+	private LoggedIn single;
 
 	@GET
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN})
@@ -70,7 +71,7 @@ public class Users {
 	@Path("/logged/total")
 	@Produces({MediaType.TEXT_PLAIN, MediaType.TEXT_HTML})
 	public Response nLogged() {
-		int n = LoggedInUsers.getCount();
+		int n = single.getCount();
 		String nUsers = "Número de utilizadores logados: " + n;
 		return Response.ok(nUsers).build();
 	}
@@ -79,7 +80,7 @@ public class Users {
 	@GET
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN})
 	public Response listLogged() {
-		ListUserEntities lue = LoggedInUsers.getUsers();
+		ListUserEntities lue = single.getUsers();
 		return Response.ok(lue).build();
 	}
 	

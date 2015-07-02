@@ -22,28 +22,23 @@ public class LyricSearch {
 	}
 
 	public String getLyric(String author, String songname) throws Exception {
-		try {
-			Apiv1 api = new Apiv1();
-			Apiv1Soap soap = api.getApiv1Soap();
-			int count = 0;
-			while (true) {
-				try {
-					GetLyricResult result = soap.searchLyricDirect(author, songname);
-					String lyrics = result.getLyric();
-					if ("".equals(lyrics)) return null;
+		Apiv1 api = new Apiv1();
+		Apiv1Soap soap = api.getApiv1Soap();
+		int count = 0;
+		while (true) {
+			try {
+				GetLyricResult result = soap.searchLyricDirect(author, songname);
+				String lyrics = result.getLyric();
+				if ("".equals(lyrics)) return null;
 
-					else return lyrics;
-				} catch (WebServiceException wse) {
-					count++;
-					if (count > 50) { 
-						log.warn("After 50 tries, it has failed once again.");
-						throw new Exception();
-					}
+				else return lyrics;
+			} catch (WebServiceException wse) {
+				count++;
+				if (count > 50) { 
+					log.warn("After 50 tries, it has failed once again.");
+					throw new Exception();
 				}
 			}
-		} catch (Exception e) {
-			log.error("Error on SOAP (ChartLyrics");
-			throw new Exception();
 		}
 
 
