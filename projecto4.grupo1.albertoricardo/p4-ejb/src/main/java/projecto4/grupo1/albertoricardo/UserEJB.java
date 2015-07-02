@@ -176,8 +176,7 @@ public class UserEJB implements UserEJBLocal {
 		dozermapping.add("META-INF/playlistmapping.xml");
 		Mapper mapper = new DozerBeanMapper();
 		UserEntity ue = mapper.map(ud, UserEntity.class);
-		System.out.println("User entity "+ue);
-		System.out.println(ue.getRoles());
+
 		try {
 			crud.update(ue);
 			em.flush();

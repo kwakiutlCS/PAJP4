@@ -56,7 +56,6 @@ public class MusicsWS {
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN})
 	public Response find(@PathParam("id") int id) {
 		MusicDetail m = mejb.find(id);
-		System.out.println(m);
 		if (m == null)
 			return Response.status(Response.Status.NOT_FOUND).build();
 		return Response.status(Response.Status.OK).entity(m).build();
