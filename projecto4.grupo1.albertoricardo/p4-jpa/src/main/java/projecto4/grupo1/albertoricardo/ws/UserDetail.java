@@ -1,6 +1,7 @@
 package projecto4.grupo1.albertoricardo.ws;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -17,6 +18,7 @@ public class UserDetail implements Serializable {
 	private String name;
 	@XmlTransient
 	private String password;
+	private List<String> roles;
 	
 	public UserDetail() {
 	}
@@ -86,5 +88,17 @@ public class UserDetail implements Serializable {
 	@Override
 	public int hashCode() {
 		return id;
+	}
+
+
+
+	public List<String> getRoles() {
+		return roles;
+	}
+
+
+
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
 	}
 }

@@ -69,6 +69,7 @@ public class Users {
 	
 	
 	@Path("/logged/total")
+	@GET
 	@Produces({MediaType.TEXT_PLAIN, MediaType.TEXT_HTML})
 	public Response nLogged() {
 		int n = LoggedInUsers.getCount();
