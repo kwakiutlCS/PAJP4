@@ -25,11 +25,9 @@ public class LoggedInUsers {
 	}
 
 	public static void add(UserDetail ud) {
-		System.out.println("ENTROU NO LOGGEDUSERS");
 		if (users.getListUsers() == null) users.setListUsers(new ArrayList<UserDetail>());
 		users.getListUsers().add(ud);
 		count++;
-		System.out.println("CONTADOR: "+count);
 	}
 	
 	public static void remove(UserDetail ud) {

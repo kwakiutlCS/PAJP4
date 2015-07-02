@@ -39,13 +39,13 @@ public class ChartRest {
 				if ("".equals(lyrics)) return null;
 				else return lyrics;
 			} catch (Exception e) {
-				
+				System.out.println("error");
 			}
 		}
 	}
 
-//	public static void main(String[] args) {
-//		ChartRest r = new ChartRest();
-//		System.out.println(r.getLyric("The Doors", "Light my fire"));
-//	}
+	public static void main(String[] args) {
+		ChartRest r = new ChartRest();
+		System.out.println(r.getLyric("U2", "Where the streets have no name"));
+	}
 }

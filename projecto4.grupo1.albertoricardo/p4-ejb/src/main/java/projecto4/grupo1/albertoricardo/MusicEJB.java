@@ -16,8 +16,6 @@ public class MusicEJB implements MusicEJBLocal {
   
 	@Override
 	public MusicEntity create(MusicEntity music) {
-		System.out.println("persist music");
-		//System.out.println(music.getMusicLyrics().get(0).getLyrics());
 		em.persist(music);
 		return music;
 	}

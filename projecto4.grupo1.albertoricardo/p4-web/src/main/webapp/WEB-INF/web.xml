@@ -10,8 +10,8 @@
 		<welcome-file>/Admin/index.xhtml</welcome-file>
 	</welcome-file-list>
 	<session-config>
-        <session-timeout>30</session-timeout>
-</session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
 	<servlet>
 		<servlet-name>facesServlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -21,6 +21,9 @@
 		<servlet-name>facesServlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
+	<listener>
+		<listener-class>projecto4.grupo1.albertoricardo.listener.MyListener</listener-class>
+	</listener>
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
 		<param-value>delta</param-value>
@@ -29,7 +32,6 @@
 		<param-name>primefaces.FONT_AWESOME</param-name>
 		<param-value>true</param-value>
 	</context-param>
-
 	<login-config>
 		<auth-method>FORM</auth-method>
 		<realm-name>secureDomain</realm-name>
@@ -38,7 +40,6 @@
 			<form-error-page>/loginerror.xhtml</form-error-page>
 		</form-login-config>
 	</login-config>
-
 	<security-constraint>
 		<display-name>User Access</display-name>
 		<web-resource-collection>

@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import projecto4.grupo1.albertoricardo.UserEJBLocal;
-import projecto4.grupo1.albertoricardo.hit.counter.LoggedInUsers;
 import projecto4.grupo1.albertoricardo.ws.ListUserEntities;
 import projecto4.grupo1.albertoricardo.ws.UserDetail;
 
@@ -96,20 +95,5 @@ public class Users {
 		}	
 	}
 	
-	@GET
-	@Path("/logged/total")
-	@Produces(MediaType.TEXT_PLAIN)
-	public Response loggedTotal() {
-		int n = LoggedInUsers.getCount();
-		System.out.println("ClassLOADER: "+LoggedInUsers.class.getClassLoader().hashCode());
-			return Response.ok("Users logados: "+n).type(MediaType.TEXT_PLAIN).build();
-	}
 	
-	@GET
-	@Path("/logged/users")
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN})
-	public Response loggedUsers() {
-		ListUserEntities lue = LoggedInUsers.getUsers();
-			return Response.ok(lue).build();
-	}
 }

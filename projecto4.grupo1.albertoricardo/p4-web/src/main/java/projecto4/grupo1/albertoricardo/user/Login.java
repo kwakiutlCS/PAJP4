@@ -65,6 +65,7 @@ public class Login implements Serializable {
 		String result = "";
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+		HttpSession session = request.getSession();
 		try {
 			log.trace("DADOS: \n"
 					+ "email: "+email+"\n"
@@ -72,10 +73,8 @@ public class Login implements Serializable {
 			request.login(email, password);
 			user.setUser(ejb.getUserEntity(email));
 			UserDetail ud = (UserDetail) dozering(user.getUser());
-			System.out.println(ud);
 			LoggedInUsers.add(ud);
-			System.out.println("Linha 76: "+user.getUser().getRoles().get(0));
-			for (Role r:user.getUser().getRoles()) System.out.println("Roles: "+r);
+			session.setAttribute("user", ud);
 			if (user.getUser().getRoles().contains(Role.USER)) {
 				result = "Authorized/entry.xhtml?faces-redirect=true";
 			} else if (user.getUser().getRoles().contains(Role.ADMIN)) {
@@ -86,7 +85,6 @@ public class Login implements Serializable {
 			e.printStackTrace();
 			result = "loginerror";
 		}
-		System.out.println(result);
 		return result;
 	}
 	
@@ -120,8 +118,5 @@ public class Login implements Serializable {
 			return ud;
 		}
 	}
-	
-	
-	
 
 }

@@ -16,8 +16,6 @@ public class UserDetail implements Serializable {
 	private String email;
 	private String name;
 	@XmlTransient
-	private boolean logged;
-	@XmlTransient
 	private String password;
 	
 	public UserDetail() {
@@ -64,7 +62,7 @@ public class UserDetail implements Serializable {
 	}
 
 
-
+	@XmlTransient
 	public String getPassword() {
 		return password;
 	}
@@ -73,18 +71,6 @@ public class UserDetail implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-
-
-	public boolean isLogged() {
-		return logged;
-	}
-
-
-
-	public void setLogged(boolean logged) {
-		this.logged = logged;
 	}
 	
 	

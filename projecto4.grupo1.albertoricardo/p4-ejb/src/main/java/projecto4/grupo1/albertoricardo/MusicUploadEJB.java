@@ -67,18 +67,20 @@ public class MusicUploadEJB implements MusicUploadEJBLocal {
 			try {
 				le.setLyrics(restSearch.getLyric(artist, title));
 			} catch(Exception e) {
-
 				try {
 					le.setLyrics(soapSearch.getLyric(artist, title));
 				} catch (Exception e1) {
-					System.out.println("Falhou");
+					log.error("Erro no SOAP");
 				}
+
 			}
 		}
 		
 		try {
 			musicejb.create(me);
-			lyricsejb.create(le);
+			if (le.getLyrics() != null)
+				lyricsejb.create(le);
+			
 			FacesMessage msg = new FacesMessage("Música","Upload realizado com sucesso!");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} catch (Exception e) {
