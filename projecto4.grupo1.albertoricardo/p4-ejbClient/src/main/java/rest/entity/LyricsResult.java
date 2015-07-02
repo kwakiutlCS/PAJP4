@@ -16,7 +16,4 @@ public class LyricsResult {
 	public void setLyric(String lyric) {
 		this.lrc = lyric;
 	}
-	
-	
-
 }

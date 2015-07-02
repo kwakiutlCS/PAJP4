@@ -73,6 +73,18 @@ public class UserDetail implements Serializable {
 		this.password = password;
 	}
 	
-	
 
+	@Override
+	public boolean equals(Object other) {
+		if (other instanceof UserDetail) {
+			UserDetail u = (UserDetail) other;
+			return u.getId() == id;
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return id;
+	}
 }

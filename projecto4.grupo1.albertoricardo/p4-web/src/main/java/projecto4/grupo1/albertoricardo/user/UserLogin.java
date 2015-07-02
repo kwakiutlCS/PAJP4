@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;	
 import projecto4.grupo1.albertoricardo.UserEJBLocal;
+import projecto4.grupo1.albertoricardo.UserEntity;
+//import projecto4.grupo1.albertoricardo.logged.LoggedEjb;
 
 @Named
 @SessionScoped
@@ -28,6 +30,8 @@ public class UserLogin implements Serializable {
 
 	@EJB
 	private UserEJBLocal userejb;
+	//@EJB
+	//private LoggedEjb loggedEjb;
 	
 	@SuppressWarnings("unused")
 	@Inject
@@ -42,9 +46,9 @@ public class UserLogin implements Serializable {
 	private String result = "";
 
 	public String doLogin() {
-		// userlog.setUser(userejb.getUserEntity(email));
 		setFacesContext();
 		log.info("Utilizador "+email+" iniciou sessão.");
+		//loggedEjb.addUser(userEntity);
 		return "/Authorized/entry.xhtml?faces-redirect=true";
 	}
 

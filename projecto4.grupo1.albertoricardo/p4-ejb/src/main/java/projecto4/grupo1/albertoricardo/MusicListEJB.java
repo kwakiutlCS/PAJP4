@@ -157,7 +157,9 @@ public class MusicListEJB implements MusicListEJBLocal {
 		MusicEntity me = crud.find(id);
 		if (me == null) return null;
 		
-		Mapper mapper = new DozerBeanMapper();
+		List<String> dozermapping = new ArrayList<>();
+		dozermapping.add("META-INF/playlistmapping.xml");
+		Mapper mapper = new DozerBeanMapper(dozermapping);
 		MusicDetail md = new MusicDetail();
 		mapper.map(me, md);
 		return md;
