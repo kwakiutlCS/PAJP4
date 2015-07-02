@@ -34,13 +34,10 @@ public class ListMusicEntities {
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		StringBuilder sb = new StringBuilder();
 		for (MusicDetail md:listOfMusics) {
-			String nP = "";
-			if (md.getnPlaylists() == 0) nP="(ainda não foi adicionada a qualquer playlist)";
-			else nP="(adicionada a "+md.getnPlaylists()+" playlists)";
 			String owner = "";
 			if (md.getUserOwnerID() == 0) owner = "sem proprietário";
 			else owner = "submetida pelo utilizador com id "+md.getUserOwnerID();
-			sb.append("Nome: "+md.getTitle()+", Artista: "+md.getArtist()+", Album: "+md.getAlbum()+", Data: "+df.format(md.getDateRecord())+", "+owner+" "+" "+nP+"\n");
+			sb.append("Nome: "+md.getTitle()+", Artista: "+md.getArtist()+", Album: "+md.getAlbum()+", Data: "+df.format(md.getDateRecord())+", "+owner+"\n");
 		}
 		return sb.toString();
 	}
