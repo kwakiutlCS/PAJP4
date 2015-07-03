@@ -12,4 +12,5 @@ public interface LyricsEJBLocal {
 	LyricDTO findCustomed(int musicid, int ownerid);
 	LyricDTO findOriginal(int musicid);
 	void editedLyrics(LyricDTO lyric);
+	void removeLyricsFromUser(int userId);
 }
