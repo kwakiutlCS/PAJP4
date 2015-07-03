@@ -33,6 +33,8 @@ public class UserEJB implements UserEJBLocal {
 	private UserCRUD crud;
 	@EJB
 	private MusicListEJBLocal mlistejb;
+	@EJB
+	private LyricsEJBLocal lyricsEjb;
 	
 	private static Logger log = LoggerFactory.getLogger(UserEJB.class);
 	
@@ -94,6 +96,7 @@ public class UserEJB implements UserEJBLocal {
 		boolean success = false;
 		try {
 			if (!mlistejb.removerUserOwnership(user)) {
+				lyricsEjb.removeLyricsFromUser(user.getId());
 				crud.remove(user);
 				success = true;
 			}

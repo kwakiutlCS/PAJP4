@@ -88,4 +88,12 @@ public class LyricsEJB implements LyricsEJBLocal {
 		update(le);
 	}
 
+	@Override
+	public void removeLyricsFromUser(int userId) {
+		TypedQuery<LyricsEntity> q = em.createQuery("from LyricsEntity l where l.user.id = :userId", LyricsEntity.class);
+		q.setParameter("userId", userId);
+		List<LyricsEntity> list = q.getResultList();
+		
+		for (LyricsEntity l : list) em.remove(l);
+	}
 }

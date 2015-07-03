@@ -1,9 +1,13 @@
 package projecto4.grupo1.albertoricardo.rest;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -34,6 +38,13 @@ public class ChartLyricsTest {
 	public void notFound() {
 		String result = rest.getLyric("Tony Carreira", "Depois de ti");
 		assertNull(result);
+	}
+
+	@Test
+	public void should_return_null_when_no_lyrics_found() {
+		String result = rest.getLyric("asdf", "assddfgh");
+		Assert.assertThat(result, is(equalTo(null)));
+
 	}
 
 }

@@ -25,6 +25,7 @@ public class LyricSearch {
 		Apiv1 api = new Apiv1();
 		Apiv1Soap soap = api.getApiv1Soap();
 		int count = 0;
+		
 		while (true) {
 			try {
 				GetLyricResult result = soap.searchLyricDirect(author, songname);
@@ -36,6 +37,7 @@ public class LyricSearch {
 				count++;
 				if (count > 50) { 
 					log.warn("After 50 tries, it has failed once again. Skiped!");
+
 					throw new Exception();
 				}
 			}
