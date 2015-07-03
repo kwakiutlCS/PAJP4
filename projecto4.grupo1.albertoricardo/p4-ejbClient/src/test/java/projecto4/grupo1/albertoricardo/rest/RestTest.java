@@ -38,14 +38,6 @@ public class RestTest {
 	LyricsRest lrcRest;
 	
 
-	@Test
-	public void rightSong() {
-		
-		String result = lrcRest.getLyric("U2", "One");
-		String substr = result.substring(0,20);
-		assertEquals("Is it getting better", substr);
-		
-	}
 	
 	@Test
 	public void notNull() {
@@ -69,7 +61,7 @@ public class RestTest {
 
 	@Test
 	public void should_return_string_when_lyrics_found() {
-		String result = lrcRest.getLyric("u2", "one");
+		String result = lrcRest.getLyric("The Doors", "Soul kitchen");
 		Assert.assertThat(result.length(), is(greaterThan(5)));
 	}
 }

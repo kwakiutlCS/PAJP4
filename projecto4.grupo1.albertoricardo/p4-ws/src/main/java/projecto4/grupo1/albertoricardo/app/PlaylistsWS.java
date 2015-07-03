@@ -62,9 +62,7 @@ public class PlaylistsWS {
 	@Path("/{id}/remove")
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response removeAllMusics(@PathParam("id") int id) {
-		System.out.println(id);
 		AllPlaylists ap = plejb.findToDTO(id);
-		System.out.println(ap);
 		ap.getListOfMusics().clear();
 		if (plejb.updateFromDTO(ap)) {
 			return Response.status(Response.Status.OK).entity("Músicas removidas com sucesso da playlist "+ap.getName()).type(MediaType.TEXT_PLAIN).build();
@@ -77,6 +75,7 @@ public class PlaylistsWS {
 	public Response removeSpecificMusic(@PathParam("id") int id, @PathParam("musicid") int musicid) {
 		AllPlaylists ap = plejb.findToDTO(id);
 		List<MusicDetail> mdl = ap.getListOfMusics();
+				
 		MusicDetail music2removeDetail = null;
 		for (MusicDetail md:mdl) {
 			if (md.getId() == musicid) {
