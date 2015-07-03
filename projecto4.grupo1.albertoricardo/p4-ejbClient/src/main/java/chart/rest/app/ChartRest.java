@@ -42,9 +42,4 @@ public class ChartRest {
 			return null;
 		}
 	}
-
-	//	public static void main(String[] args) {
-	//		ChartRest r = new ChartRest();
-	//		System.out.println(r.getLyric("U2", "Where the streets have no name"));
-	//	}
 }

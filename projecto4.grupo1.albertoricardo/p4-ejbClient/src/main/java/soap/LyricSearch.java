@@ -35,7 +35,7 @@ public class LyricSearch {
 			} catch (WebServiceException wse) {
 				count++;
 				if (count > 50) { 
-					log.warn("After 50 tries, it has failed once again.");
+					log.warn("After 50 tries, it has failed once again. Skiped!");
 					throw new Exception();
 				}
 			}

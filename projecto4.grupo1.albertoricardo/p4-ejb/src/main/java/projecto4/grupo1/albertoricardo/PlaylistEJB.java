@@ -119,8 +119,6 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 			int complete = q.executeUpdate();
 			if (complete > 0) success = true;
 		} catch(Exception e) {
-			FacesMessage msg = new FacesMessage("Erro",e.getMessage());
-			FacesContext.getCurrentInstance().addMessage(null, msg);
 			log.warn("catch exception - removePlaylistsOfUser method");
 		}
 
@@ -135,12 +133,9 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 			p.getMusics().clear();
 			pl_crud.remove(p);
 			success = true;
-			FacesMessage msg = new FacesMessage("Playlist","Playlist "+p.getName()+" removida com sucesso.");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+			
 		} catch(Exception e) {
 			log.error("Erro ao tentar remover playlist",e);
-			FacesMessage msg = new FacesMessage("Erro","Playlist "+p.getName()+" não foi eliminada");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 
 		return success;

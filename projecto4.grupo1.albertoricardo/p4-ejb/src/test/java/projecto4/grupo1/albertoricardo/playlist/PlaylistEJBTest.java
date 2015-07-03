@@ -80,19 +80,5 @@ public class PlaylistEJBTest {
 		boolean result = plejb.removePlaylistsOfUser(new UserEntity());
 		assertFalse(result);
 	}
-	
-	@Test
-	public void removeFromUser() {
-		PlaylistEntity p = Mockito.mock(PlaylistEntity.class);
-		PlaylistCRUD plcrud = Mockito.mock(PlaylistCRUD.class);
-		FacesContext ctxt = Mockito.mock(FacesContext.class);
-		try {
-			plejb.removePlaylistFromUser(p);
-			Mockito.verify(plcrud).remove(p);
-			assertTrue(plejb.removePlaylistFromUser(p));
-		} catch (NullPointerException npe) {
-			
-		}
-	}
 
 }

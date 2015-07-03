@@ -110,9 +110,17 @@ public class ListPlaylist implements Serializable {
 	}
 
 	public void deletePlaylist(PlaylistEntity p) {
-		plistejb.removePlaylistFromUser(p);
-		refresh();
-		playlists = getPlaylists();
+		try {
+			plistejb.removePlaylistFromUser(p);
+			refresh();
+			playlists = getPlaylists();
+			FacesMessage msg = new FacesMessage("Playlist","Playlist "+p.getName()+" removida com sucesso.");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		} catch (Exception e) {
+
+			FacesMessage msg = new FacesMessage("Erro","Playlist "+p.getName()+" não foi eliminada");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
 	}
 
 	public void onRowEdit(RowEditEvent event) {

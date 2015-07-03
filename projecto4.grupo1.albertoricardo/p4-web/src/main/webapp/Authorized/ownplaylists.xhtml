@@ -80,7 +80,7 @@
 								</p:column>
 								<p:column headerText="Remover da Playlist">
 									<p:commandButton icon="ui-icon-trash"
-										action="#{listPlaylist.removeMusicFromPlaylist(m)}" />
+										action="#{listPlaylist.removeMusicFromPlaylist(m)}" update=":form"/>
 								</p:column>
 								<p:column headerText="Letra">
 									<p:commandButton icon="ui-icon-comment"
@@ -101,7 +101,7 @@
 								<h:panelGroup layout="block"
 									style="text-align:right;margin-top:20px;">
 									<p:commandButton id="lyricbutton" value="Editar"
-										action="#{lyricsWeb.saveNewLyric()}" update=":form :form:myPlaylists :form:dlg :form:ldlg" />
+										action="#{lyricsWeb.saveNewLyric()}" oncomplete="window.location.replace(window.location.href);"/>
 								</h:panelGroup>
 							</p:dialog>
 						</p:scrollPanel>

@@ -43,9 +43,4 @@ public class LyricsRest {
 		}
 		return null;
 	}
-
-//	public static void main(String[] args) {
-//		LyricsRest l = new LyricsRest();
-//		System.out.println(l.getLyric("The Doors", "Touch me"));
-//	}
 }
