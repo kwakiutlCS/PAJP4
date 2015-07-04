@@ -1,10 +1,11 @@
 package projecto4.grupo1.albertoricardo.logged;
 
 import java.util.HashSet;
+
 import javax.enterprise.context.ApplicationScoped;
 
-import projecto4.grupo1.albertoricardo.ws.ListUserEntities;
-import projecto4.grupo1.albertoricardo.ws.UserDetail;
+import projecto4.grupo1.albertoricardo.business.ws.model.ListUserEntities;
+import projecto4.grupo1.albertoricardo.business.ws.model.UserDetail;
 
 @ApplicationScoped
 public class LoggedIn {

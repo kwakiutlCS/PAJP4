@@ -5,9 +5,8 @@ import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-
+import projecto4.grupo1.albertoricardo.business.ws.model.UserDetail;
 import projecto4.grupo1.albertoricardo.logged.LoggedIn;
-import projecto4.grupo1.albertoricardo.ws.UserDetail;
 
 /**
  * Application Lifecycle Listener implementation class MyListener

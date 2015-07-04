@@ -5,7 +5,7 @@
           
     <mapping>
 		<class-a>projecto4.grupo1.albertoricardo.PlaylistEntity</class-a>
-		<class-b>projecto4.grupo1.albertoricardo.ws.AllPlaylists</class-b>
+		<class-b>projecto4.grupo1.albertoricardo.business.ws.model.AllPlaylists</class-b>
 		<field>
 			<a>id</a>
 			<b>id</b>
@@ -25,7 +25,7 @@
 	</mapping>
 	<mapping>
 		<class-a>projecto4.grupo1.albertoricardo.MusicEntity</class-a>
-		<class-b>projecto4.grupo1.albertoricardo.ws.MusicDetail</class-b>
+		<class-b>projecto4.grupo1.albertoricardo.business.ws.model.MusicDetail</class-b>
 		<field>
 			<a>id</a>
 			<b>id</b>
@@ -49,7 +49,7 @@
 	</mapping>
 	<mapping>
 		<class-a>projecto4.grupo1.albertoricardo.UserEntity</class-a>
-		<class-b>projecto4.grupo1.albertoricardo.ws.UserDetail</class-b>
+		<class-b>projecto4.grupo1.albertoricardo.business.ws.model.UserDetail</class-b>
 		<field>
 			<a>id</a>
 			<b>id</b>

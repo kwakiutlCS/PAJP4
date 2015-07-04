@@ -17,8 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import projecto4.grupo1.albertoricardo.MusicEntity;
-import projecto4.grupo1.albertoricardo.ws.ListMusicEntities;
-import projecto4.grupo1.albertoricardo.ws.MusicDetail;
+import projecto4.grupo1.albertoricardo.business.ws.model.ListMusicEntities;
+import projecto4.grupo1.albertoricardo.business.ws.model.MusicDetail;
 
 
 

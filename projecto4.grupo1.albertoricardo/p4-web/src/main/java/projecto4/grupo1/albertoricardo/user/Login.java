@@ -20,9 +20,9 @@ import org.slf4j.LoggerFactory;
 
 import projecto4.grupo1.albertoricardo.UserEJBLocal;
 import projecto4.grupo1.albertoricardo.UserEntity;
+import projecto4.grupo1.albertoricardo.business.ws.model.UserDetail;
 import projecto4.grupo1.albertoricardo.logged.LoggedIn;
 import projecto4.grupo1.albertoricardo.roles.Role;
-import projecto4.grupo1.albertoricardo.ws.UserDetail;
 @Named
 @SessionScoped
 public class Login implements Serializable {

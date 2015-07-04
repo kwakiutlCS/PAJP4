@@ -16,7 +16,7 @@ import org.hamcrest.Matchers;
 import org.hamcrest.generator.HamcrestFactoryWriter;
 import org.hamcrest.MatcherAssert;
 
-import projecto4.grupo1.albertoricardo.ws.UserDetail;
+import projecto4.grupo1.albertoricardo.business.ws.model.UserDetail;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LoggedInTest extends TestCase {

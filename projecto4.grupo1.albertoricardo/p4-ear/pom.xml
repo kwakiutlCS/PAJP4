@@ -9,6 +9,10 @@
 
 	<artifactId>p4-ear</artifactId>
 	<packaging>ear</packaging>
+	
+	<properties>
+		<app.filename>Projecto6</app.filename>
+	</properties>
 
 	<!-- Adicionar os modulos que criámos -->
 	<dependencies>
@@ -43,25 +47,17 @@
 			<version>${project.version}</version>
 			<type>ejb</type>
 		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-		</dependency>
 	</dependencies>
 
 	<build>
-		<finalName>Projecto4</finalName>
+		<finalName>${app.filename}</finalName>
 		<plugins>
 			<!--Ear plugin -creating the ear - watch out skinny WARS! -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-ear-plugin</artifactId>
 				<configuration>
-					<finalName>Projecto4</finalName>
+					<finalName>${app.filename}</finalName>
 					<defaultJavaBundleDir>lib/</defaultJavaBundleDir>
 					<skinnyWars>true</skinnyWars>
 					<modules>
@@ -89,7 +85,7 @@
 				<artifactId>wildfly-maven-plugin</artifactId>
 				<configuration>
 					<skip>false</skip>
-					<filename>Projecto4.ear</filename>
+					<filename>${app.filename}.ear</filename>
 				</configuration>
 			</plugin>
 		</plugins>

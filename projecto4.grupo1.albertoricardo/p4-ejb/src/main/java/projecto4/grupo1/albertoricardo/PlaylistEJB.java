@@ -20,13 +20,13 @@ import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import projecto4.grupo1.albertoricardo.business.ws.model.AllPlaylists;
+import projecto4.grupo1.albertoricardo.business.ws.model.ListPlaylists;
+import projecto4.grupo1.albertoricardo.business.ws.model.MusicDetail;
 import projecto4.grupo1.albertoricardo.dto.DozerHelper;
 import projecto4.grupo1.albertoricardo.dto.MusicDTO;
 import projecto4.grupo1.albertoricardo.dto.PListDTO;
 import projecto4.grupo1.albertoricardo.dto.PlaylistDTO;
-import projecto4.grupo1.albertoricardo.ws.AllPlaylists;
-import projecto4.grupo1.albertoricardo.ws.ListPlaylists;
-import projecto4.grupo1.albertoricardo.ws.MusicDetail;
 
 
 

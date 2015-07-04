@@ -29,6 +29,18 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>pt.uc.dei.paj</groupId>
+			<artifactId>p4-jpa</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>pt.uc.dei.paj</groupId>
+			<artifactId>p4-ejbClient</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 		</dependency>
@@ -74,29 +86,6 @@
 			<groupId>net.sf.dozer</groupId>
 			<artifactId>dozer</artifactId>
 			<version>5.5.1</version>
-		</dependency>
-		<dependency>
-			<groupId>pt.uc.dei.paj</groupId>
-			<artifactId>p4-jpa</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<type>ejb</type>
-		</dependency>
-		<dependency>
-			<groupId>pt.uc.dei.paj</groupId>
-			<artifactId>p4-ejbClient</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<type>ejb</type>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>2.0.2-beta</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>

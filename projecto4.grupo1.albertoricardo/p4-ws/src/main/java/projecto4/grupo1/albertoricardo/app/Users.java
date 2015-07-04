@@ -21,10 +21,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import projecto4.grupo1.albertoricardo.UserEJBLocal;
-
+import projecto4.grupo1.albertoricardo.business.ws.model.ListUserEntities;
+import projecto4.grupo1.albertoricardo.business.ws.model.UserDetail;
 import projecto4.grupo1.albertoricardo.logged.LoggedIn;
-import projecto4.grupo1.albertoricardo.ws.ListUserEntities;
-import projecto4.grupo1.albertoricardo.ws.UserDetail;
 
 
 @Stateless

@@ -5,10 +5,10 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import projecto4.grupo1.albertoricardo.business.ws.model.AllPlaylists;
+import projecto4.grupo1.albertoricardo.business.ws.model.ListPlaylists;
 import projecto4.grupo1.albertoricardo.dto.PListDTO;
 import projecto4.grupo1.albertoricardo.dto.PlaylistDTO;
-import projecto4.grupo1.albertoricardo.ws.AllPlaylists;
-import projecto4.grupo1.albertoricardo.ws.ListPlaylists;
 
 @Local
 public interface PlaylistEJBLocal {

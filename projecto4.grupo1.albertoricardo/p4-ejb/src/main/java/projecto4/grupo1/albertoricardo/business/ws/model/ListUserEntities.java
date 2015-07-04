@@ -1,4 +1,4 @@
-package projecto4.grupo1.albertoricardo.ws;
+package projecto4.grupo1.albertoricardo.business.ws.model;
 
 import java.util.Collection;
 import java.util.List;

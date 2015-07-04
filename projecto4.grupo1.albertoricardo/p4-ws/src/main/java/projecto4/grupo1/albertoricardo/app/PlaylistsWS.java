@@ -14,10 +14,10 @@ import javax.ws.rs.core.Response;
 
 import projecto4.grupo1.albertoricardo.MusicListEJBLocal;
 import projecto4.grupo1.albertoricardo.PlaylistEJBLocal;
-import projecto4.grupo1.albertoricardo.ws.AllPlaylists;
-import projecto4.grupo1.albertoricardo.ws.ListMusicEntities;
-import projecto4.grupo1.albertoricardo.ws.ListPlaylists;
-import projecto4.grupo1.albertoricardo.ws.MusicDetail;
+import projecto4.grupo1.albertoricardo.business.ws.model.AllPlaylists;
+import projecto4.grupo1.albertoricardo.business.ws.model.ListMusicEntities;
+import projecto4.grupo1.albertoricardo.business.ws.model.ListPlaylists;
+import projecto4.grupo1.albertoricardo.business.ws.model.MusicDetail;
 
 
 @Stateless

@@ -17,9 +17,10 @@ import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import projecto4.grupo1.albertoricardo.business.ws.model.UserDetail;
 import projecto4.grupo1.albertoricardo.roles.Role;
 import projecto4.grupo1.albertoricardo.security.PasswordEncryptor;
-import projecto4.grupo1.albertoricardo.ws.UserDetail;
 
 /**
  * Session Bean implementation class UserEJB

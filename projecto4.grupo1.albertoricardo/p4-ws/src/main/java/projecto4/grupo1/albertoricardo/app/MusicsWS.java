@@ -12,8 +12,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import projecto4.grupo1.albertoricardo.MusicListEJBLocal;
-import projecto4.grupo1.albertoricardo.ws.ListMusicEntities;
-import projecto4.grupo1.albertoricardo.ws.MusicDetail;
+import projecto4.grupo1.albertoricardo.business.ws.model.ListMusicEntities;
+import projecto4.grupo1.albertoricardo.business.ws.model.MusicDetail;
 
 @Stateless
 @Path("/musics")
